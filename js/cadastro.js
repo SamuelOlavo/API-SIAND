@@ -47,9 +47,7 @@ onload = () => {
        if (nome.value != '' && senha.value != '' && email.value != '' && rep_senha.value != '') enviar.disabled = false;
         else enviar.disabled = true;
     };  
-    
-    // const Users = require("../models/users");
-    // const mongoose = require("mongoose");
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -58,12 +56,11 @@ onload = () => {
         const email = document.getElementById('email').value;  
         const senha = document.getElementById('senha').value;  
 
-        //Observado que a declaração da variavel deve estar dentro da função e sobre a consulta no DOM pode usar o ID normalmente
-        // const userExists = await Users.findOne({email: email})
-        // if (userExists) {
-        //     alert("Por Favor, utilize outro email");
-        // };
+        const response = await fetch(`http://localhost:3000/users/email/${email}`);
 
+        if(response.status === 200){
+            alert('O email já existe. Por favor, escolha outro.');
+        }else{
         fetch('http://localhost:3000/users/', {
             method: 'post',
             headers: {
@@ -76,14 +73,13 @@ onload = () => {
     .then(data => console.log(data))
     .catch((error) => {
     console.error('Error:', error);
-    });
-
-    document.querySelector('.loader').style.display = 'block';
-    let timeout = window.setTimeout(function() {            
+    })}
+    
+    if(response.status != 200){              
         document.querySelector("form").style.display = 'none';
-        document.querySelector("form").reset();            
-      }, 5000);
-
+        document.querySelector("form").reset();
+        document.getElementById("sucesso").innerHTML = "Obrigado por se Inscrever";       
+    }
       document.getElementById('enviar').disabled = true;    
    }
     document.getElementById('cadastro').addEventListener('submit', handleSubmit);
