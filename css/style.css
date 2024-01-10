@@ -1,0 +1,196 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+@media screen and (min-width: 800px) {
+    /* .icone {
+        display: none;
+    } */
+  }
+
+img[ src="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png" ]{display:none;}
+/* Import de fontes do google */
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Noto+Sans+Display&family=Roboto:wght@100&display=swap');
+/* 
+font-family: 'Major Mono Display', monospace;
+font-family: 'Noto Sans Display', sans-serif;
+font-family: 'Roboto', sans-serif; */
+
+/* Color Theme RGBA  SIAND*/
+:root{ 
+    --cinza: #a5a6a4;
+    --verde:  #050505;
+    --rose:  #d9d9db; 
+    --rose1:  #e9e1c9; 
+    --branco:  #e9e9e9ce; 
+}
+
+body {
+    background-color: var(--branco);
+    
+}
+
+.conteudo {
+    font-family: 'Noto Sans Display', sans-serif; 
+    padding: 0;
+    margin: 0;     
+    background-image: url('Img/Símbolo/Marca\ D_água.png');
+    background-repeat:no-repeat;
+    background-size: 50%;
+    background-position: center; 
+    background-color: var(--branco);      
+}
+.menu {       
+    font-family: 'Major Mono Display', monospace;     
+    width: 100%;
+    background-color: var(--rose);
+    border-radius: 0px 0px 0px 0px;
+    -moz-border-radius: 0px 0px 0px 0px;
+    -webkit-border-radius: 0px 0px 0px 0px;
+    border-bottom: 2px solid #43412e;
+    font-size: 18px;
+}
+.men:hover{ 
+    text-decoration: underline;   
+}
+.active { 
+    text-decoration: underline;   
+}
+
+.logo {   
+    height: 120px;
+}
+.topo {
+    background-color: var(--rose);
+    height: 100%;
+    width: 100%;
+    font-family: 'Major Mono Display', monospace;
+    background-image: url(Img/coração.png);
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+
+.rodape {
+    background-color: var(--rose);
+    bottom: 0;
+}
+.rodape a {
+    text-decoration: none;  
+    font-family: 'Major Mono Display', monospace;
+    font-size: 90%; 
+    color: #000000e1;
+}
+.redes a:hover {
+    color: rgb(0, 0, 0); 
+    font-size: 16px;
+    transition: all;   
+}
+.redes a {
+    color:#292928f1; 
+}
+.but {  
+    font-family: 'Major Mono Display', monospace;
+    transition-timing-function: ease;
+    background-color: #43412e;
+    border-radius: 200px 200px 200px 200px;    
+    border: 4px solid #000000; 
+    color: #ffb29d;
+    margin-top: 1%;
+}
+.but:hover{
+    font-size: 99%;
+    transition-timing-function: ease;
+    background-color: #ffb29d;
+    color: #43412e;
+    border: 4px solid #000000; 
+    font-weight: bold;
+}
+
+.botao {
+    background-color: #ff4e4efb;
+}
+.botao:hover {
+    background-color: #b62424;    
+}
+.msg {          
+    font-size: 110%; 
+    margin-left: auto;
+    margin-right: auto;  
+    text-align: center;    
+    border-style: none;    
+    max-width: 50rem;   
+    background-color: rgb(252, 157, 157);  
+}
+
+.loader {
+    border: 16px solid #ece6e6;
+    border-radius: 50%;
+    border-top: 16px solid var(--verde);
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;    
+  }
+  
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+.titulo {
+    background-color: #43412e;
+    border-radius: 200px 200px 200px 200px;    
+    border: 4px solid #000000;
+    width: 100%;
+    vertical-align: center;
+    color: #ffb29d;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    font-weight: bold;
+    font-family: 'Noto Sans Display', sans-serif;
+}
+.img {
+    box-shadow: 0px 0px 28px 5px rgba(0,0,0,0.75);
+}
+.img-circle {
+    border-radius: 200px 200px 200px 200px;
+    -moz-border-radius: 200px 200px 200px 200px;
+    -webkit-border-radius: 200px 200px 200px 200px;
+    border: 3px solid #43412e;
+    -webkit-box-shadow: 4px 2px 48px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 4px 2px 48px 0px rgba(0,0,0,0.75);
+    box-shadow: 4px 2px 48px 0px rgba(0,0,0,0.75);
+}
+
+.active {
+    font-size: 115%;
+}
+
+.icone {
+    position: absolute;
+    left: 80%;
+    top: 5px;
+}
