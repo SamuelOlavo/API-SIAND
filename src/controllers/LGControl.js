@@ -1,27 +1,27 @@
+const loginService = require("../service/loginService");
 
-
-exports.get = (req, res) => {
-    const id = req.params.id;
-    console.log("Get");
-    res.send(`OK GET id=${id}`);
-}
 
 exports.getAll = (req, res) => {
     console.log("Get All");
     res.send("OK GET ALL");
 }
 
-exports.add = (req, res) => {
-    console.log("Add");
-    res.send("OK ADD");
-}
-
-exports.update = (req, res) => {
-    console.log("Update");
-    res.send("OK UPDATE");
-}
-
-exports.delete = (req, res) => {
-    console.log("Delete");
-    res.send("OK DELETE");
-}
+exports.ByEmail = async (req, res) => {
+    const email = req.params.email;
+    const user = await loginService.emailUsers(email);
+    if (user) {
+        res.json(user);        
+    } else {
+        res.status(404).send('Usuário não encontrado');
+    }
+  };
+  
+  exports.BySenha = async (req, res) => {
+    const senha = req.params.senha;
+    const user = await loginService.senhaUsers(senha);
+    if (user) {
+        res.json(user);        
+    } else {
+        res.status(404).send('Senha não encontrado');
+    }
+  };
