@@ -30,7 +30,7 @@ onload = () => {
         //Observado que a declaração da variavel deve estar dentro da função e sobre a consulta no DOM pode usar o ID normalmente
 
         fetch('http://localhost:3000/login/', {
-            method: 'post',
+            method: 'get',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
