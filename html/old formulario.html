@@ -25,37 +25,13 @@
       <meta name="twitter:title" content="Siand Beleza & Estética">
     <!-- CSS bootstrap -->    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link href="./style.css" rel="stylesheet">
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WNEYD6LJQD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-WNEYD6LJQD');
-</script>
-        <!-- Meta Pixel Code -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '947694809209333');
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=947694809209333&ev=PageView&noscript=1"  /></noscript>
-  <!-- End Meta Pixel Code -->
+    <link href="/css/style.css" rel="stylesheet">
+    
 </head>
 <body>
   <header class="topo container-fluid"> 
     <div id="logo" class="logo position-relative ">
-    <img class="position-absolute mt-2 top-50 start-50 translate-middle" src="Img/Logotipo/Marca D_água3.png" height="100%">    
+    <img class="position-absolute mt-2 top-50 start-50 translate-middle" src="../Img/Logotipo/Marca D_água3.png" height="100%">    
   </div>
   <div class="frase mt-3 container-fluid text-center fst-italic text-muted fs-7">Somos especialistas em cuidar da sua essencia mais linda</div>
   </header>
@@ -86,29 +62,7 @@
   </nav>
 <main class="conteudo container-fluid ">
     <div class="container-lg ps-2 pt-2 border-bottom rounded-3">        
-      <h2 class="h2 titulo text-center">Agendamento</h2>  
-            
-         <div class="card mb-3 img" style="max-width: 100%;">
-          <div class="row g-0">
-            <!-- <div class="col-md-4">
-              <img src="Im g/capa.jpg " class="img-fluid rounded-start" alt="...">
-            </div> -->
-            <div class="col-md-8">
-              <!-- <div class="card-body ">
-            <p class="card-text fst-italic"> O Seu bem-estar em primeiro lugar: aproveite os benefícios da nossa clínica de estética! 
-              <li class="list-group-item mt-1 fst-italic">⚜️ Depilação a Laser                    </li>              
-              <li class="list-group-item fst-italic">⚜️ Remoção de tatuagem                  </li>
-              <li class="list-group-item fst-italic">⚜️ Striort                              </li>
-              <li class="list-group-item fst-italic">⚜️ Remoção de Micro de sobrancelha   </li>                
-              <p class="card-text mt-3 ">👸🏻 Realçando o que há de mais lindo em você!  Tratamento de Estrias, Manchas, Acne e outros serviços que vão elevar sua autoestima.   Estética para todos, serviços de qualidade! </p>
-              <p class="fw-bolder card-text fw-lighter mt-4">
-                Preecha o formulário abaixo que entraremos em contato! Sera um prazer lhe atender!
-              </p>      
-          </div> -->
-        </div>
-      </div>
-    </div>
-         
+      <h2 class="h2 titulo text-center">Agendamento</h2>           
     <form id="agendamento">
       <div class="row mb-2 mt-4">        
         <label for="nome" class="col-sm-2 col-form-label-lg"> Nome: </label>
@@ -127,18 +81,15 @@
         <div class="col-sm-10">
         <input type="tel" id="tel"  class="form-control" name="tel" />
         </div>
-        </div>   
-        <div class="row ">
-          <label for="tel" class="col-sm-2 col-form-label-lg"> Profissonal: </label>
-          <div class="col-sm-10">
-          <input type="tel" id="tel"  class="form-control" name="tel" />
-          </div>
-          </div>   
+        </div>      
         <div class="bg-info pe-2 ps-2 pb-2 bg-opacity-10 border border-info border-start-1 ">
+          <label for="prof" class="form-label pt-2"> Esteticista: </label>
+          <div class="col-sm-15">  
+            <input type="text" id="prof"  class="form-control" name="Esteticista" />  
             <label for="servicos" class="form-label pt-2"> Escolha um de nossos Serviços: </label>
           <div class="col-sm-15">
-            <select id="serv" class="form-select form-control" name="serv" > 
-              <option value="">⇕</option>               
+            <input id="serv" class="form-select form-control" name="serv" > 
+              <!-- <option value="">⇕</option>               
               <option value="Avaliação Corporal">Avaliação Corporal </option>
               <option value="Avaliação Facil">Avaliação Facil </option>
               <option value="Depilação a Laser">Depilação a Laser </option>
@@ -150,8 +101,8 @@
               <option value="Spa Day">Spa Day </option>
               <option value="Spa Mãos e Pés">Spa Mãos e Pés</option>
               <option value="Ventosaterapia">Ventosaterapia</option>
-              <option value="Massagem Relaxante">Massagem Relaxante</option>
-            </select>
+              <option value="Massagem Relaxante">Massagem Relaxante</option> -->
+            
           </div>
              <label for="data" class="col-sm-2 col-form-label"> Data: </label>
             <div class="col-sm-15">
@@ -164,13 +115,14 @@
 
             
       </div>
+    </div>
+    
     <div class="d-grid gap-1">        
          <button id="btnEnviar" type="submit" class="botao btn btn-danger btn-lg mt-2 mb-3 rounded-2"> Enviar </button>
     </div> 
     </form> 
     <div  class="loader fixed-top top-50 container-fluid" style="display:none;" ></div>
-    <!-- <div id="mensagem" class="msg card fw-bolder text-white span mb-2 mt-2"></div> -->
-    </div>
+        <!-- <div id="mensagem" class="msg card fw-bolder text-white span mb-2 mt-2"></div> -->  
 </main>
 
 <footer class="rodape card text-center rounded-0 ">
@@ -186,7 +138,7 @@
 </footer>
 
     <!-- Comentario Script -->
-    <script src="./script.js"></script>
+    <script src="../js/agendamento.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/2d0aa41fa2.js" crossorigin="anonymous"></script>
 
