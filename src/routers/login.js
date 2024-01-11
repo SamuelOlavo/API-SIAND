@@ -5,9 +5,11 @@ const controller = require("../controllers/LGControl");
 //get
 router.get("/", controller.getAll);
 
-router.get("/email/:email", controller.ByEmail);
+router.post("/", controller.Auth);
 
-router.get("/senha/:senha", controller.BySenha);
+// router.get("/email/:email", controller.ByEmail);
+
+// router.get("/senha/:senha", controller.BySenha);
 
 
 module.exports = router;

@@ -23,31 +23,32 @@ onload = () => {
         else entrar.disabled = true;
     }; 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const nome = document.getElementById('email').value;
+        const email = document.getElementById('email').value;
         const senha = document.getElementById('senha').value;  
-        //Observado que a declaração da variavel deve estar dentro da função e sobre a consulta no DOM pode usar o ID normalmente
-
-        fetch('http://localhost:3000/login/', {
-            method: 'get',
+          
+        const response = await fetch('http://localhost:3000/login/', {
+            method: 'post',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ nome , senha, }),
-        })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch((error) => {
-    console.error('Error:', error);
-    });
-    document.querySelector('.loader').style.display = 'block';
-    let timeout = window.setTimeout(function() {            
-        document.querySelector('.loader').style.display = 'none';
-        document.querySelector("form").reset();            
-      }, 5000);
-      document.getElementById('entrar').disabled = true;    
-   }
+            },
+            body: JSON.stringify({ email , senha }),
+            
+        });                       
+
+        if(response.status === 200){            
+            const data = await response.json();                        
+            console.log(data)
+            localStorage.setItem('data', data);  
+            alert("Bem VINDO " + data.nome);          
+
+        } else {
+            alert('Usuario nao cadastrado');
+            document.querySelector("form").reset();
+        }    
+        document.getElementById('entrar').disabled = true;    
+    }
     document.getElementById('login').addEventListener('submit', handleSubmit);
 };
