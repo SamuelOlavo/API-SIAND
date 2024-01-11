@@ -11,10 +11,12 @@ app.use(cors());
 const indexRoute = require("./routers/index");      // chamada da rota
 const cadasRoute = require("./routers/users");
 const loginRoute = require("./routers/login");
+const agendaRoute = require("./routers/agenda");
 
 
 app.use("/", indexRoute);
 app.use("/users", cadasRoute);
 app.use("/login", loginRoute);
+app.use("/agenda", agendaRoute);
 
 module.exports = app;

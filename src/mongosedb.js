@@ -3,7 +3,7 @@ const { use } = require('./routers');
 
 const user = "samuelobt";
 const pass = "b7PQAu02ygvNEc9C";
-const database = "users";
+const database = "API-AGENDA";
 const serverName = "agenda-api.2vl3jg7.mongodb.net"
 
 module.exports = {
