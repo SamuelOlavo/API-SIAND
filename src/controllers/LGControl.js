@@ -1,4 +1,4 @@
-const Users = require("../models/agenda");
+const Users = require("../models/users");
 
 
 exports.getAll = (req, res) => {

@@ -1,16 +1,18 @@
 // const userService = require("../service/usersService");
 const Agendas = require("../models/agenda");
 
-// exports.get = async (req, res) => {
-//     let id = req.params.id;
-  
-//     try {
-//       const user = await userService.getUsersbyId(id);
-//       res.json(user);
-//     } catch (error) {
-//       res.status(500).json({ error: error });
-//     }
-//   };
+
+exports.ByProf = async (req, res) => {
+  let nome_prof = req.params.Esteticista;
+
+  try {
+    const agenda = await Agendas.find({Esteticista: nome_prof}).select("-_id  Servicos");
+    res.json(agenda);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
 
 exports.getAll = async (req, res) => {
       try {
