@@ -48,6 +48,22 @@ exports.add = async (req, res) => {
   }
 };
 
+
+exports.getAllEsteticistas = async (req, res) => {
+  try {
+    // Utilize o método distinct para obter apenas os nomes únicos de esteticistas
+    const esteticistas = await Agendas.distinct('Esteticista');
+    
+    if (!esteticistas || esteticistas.length === 0) {
+      return res.status(404).json("Nenhuma esteticista encontrada.");  
+    }
+
+    res.json(esteticistas.map(nome => ({ nome })));
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
 // exports.update = async (req, res) => {
 //     let id = req.params.id;
   
