@@ -1,27 +1,35 @@
 onload = () => {   
     
     fetch(`http://localhost:3000/agenda/`)
+    // A resposta da requisição é passada para o próximo .then() quando a promessa é resolvida
     .then(response => {
+        // Se o status da resposta for 200 (OK), a resposta é convertida para JSON
         if(response.status === 200){            
             return response.json();                        
         } else {
+            // Se o status da resposta não for 200, um erro é lançado
             throw new Error('Erro de busca');
         }
     })
+    // Os dados JSON são passados para o próximo .then() quando a promessa é resolvida
     .then(data => {
-        const list = data.map((prof, index, array) =>{
-            return prof.Esteticista;            
-        })
+        // Um novo Set é criado a partir dos nomes dos esteticistas nos dados
+        // Isso remove quaisquer duplicatas, pois um Set só permite valores únicos
+        const list = [...new Set(data.map(prof => prof.Esteticista))];        
         console.log(list);
-
+        // O elemento select é obtido pelo seu id
         const select = document.getElementById("prof");
+        // Para cada esteticista na lista, uma nova opção é criada e adicionada ao select
         list.forEach(esteticista => {
             const option = document.createElement('option');
             option.text = esteticista;
             select.appendChild(option);
         });
     })
+    // Se ocorrer algum erro durante o processo, ele é registrado no console
     .catch(error => console.log(error));
+
+
     
     
 
@@ -88,17 +96,17 @@ onload = () => {
         else btnEnviar.disabled = true;
     }; 
     
-    // serv.onblur = () => {
-    //     const prof = document.getElementById('prof').value;
-    //     fetch(`http://localhost:3000/agenda/`)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         document.getElementById("serv").innerHTML = (data.Servicos);
-    //     })
-    //     .catch((erro) => {
-    //         console.erro('Erro:', erro);
-    //     })
-    // };
+    serv.onblur = () => {
+        const prof = document.getElementById('prof').value;
+        fetch(`http://localhost:3000/agenda/`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("serv").innerHTML = (data.Servicos);
+        })
+        .catch((erro) => {
+            console.erro('Erro:', erro);
+        })
+    };
 
     // Data e Hora do Agendamento
     var today = new Date().toISOString().split('T')[0];                    

@@ -2,31 +2,76 @@
 const Agendas = require("../models/agenda");
 
 
-exports.ByProf = async (req, res) => {
-  let nome_prof = req.params.Esteticista;
-
+exports.getAll = async (req, res) => {
   try {
-    const agenda = await Agendas.find({Esteticista: nome_prof}).select("-_id  Servicos");
-    res.json(agenda);
-  } catch (error) {
-    res.status(500).json({ error: error });
+       const agenda = await Agendas.find();
+
+  if (!agenda) {
+    return res.status(404).json("Ola TEste !");  
+    
+  }  
+  res.json(agenda);
+} catch (err) {
+  return res.status(500).json({ error: err });
+}
+};
+
+
+
+exports.AllProf = async (req, res) => {
+  try {
+    // Utilize o método distinct para obter apenas os nomes únicos de esteticistas
+    const esteticistas = await Agendas.distinct('Esteticista');
+    
+    if (!esteticistas || esteticistas.length === 0) {
+      return res.status(404).json("Nenhuma esteticista encontrada.");  
+    }
+
+    res.json(esteticistas.map(nome => ({ nome })));
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+exports.AllServ = async (req, res) => {
+  try {
+    // Utilize o método find para obter todos os documentos de Agendas
+    const response = await Agendas.find({}, '-_id Esteticista Servicos');
+
+    if (!response || response.length === 0) {
+      return res.status(404).json("Nenhuma esteticista/serviço encontrado.");
+    }
+
+    res.json(response);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
   }
 };
 
 
-exports.getAll = async (req, res) => {
-      try {
-           const agenda = await Agendas.find();
+// exports.ByServ = async (req, res) => {
+//   let serv = req.params.Servicos;
 
-      if (!agenda) {
-        return res.status(404).json("Ola TEste !");  
-        
-      }  
-      res.json(agenda);
-    } catch (err) {
-      return res.status(500).json({ error: err });
-    }
-};
+//   try {
+//     const agenda = await Agendas.find({Servicos: serv}).select("-_id  Esteticista");
+//     res.json(agenda);
+//   } catch (error) {
+//     res.status(500).json({ error: error });
+//   }
+// };
+
+// exports.ByProf = async (req, res) => {
+//   let nome_prof = req.params.Esteticista;
+
+//   try {
+//     const agenda = await Agendas.find({Esteticista: nome_prof}).select("-_id  Servicos");
+//     res.json(agenda);
+//   } catch (error) {
+//     res.status(500).json({ error: error });
+//   }
+// };
+
+
 
 exports.add = async (req, res) => {
   try {
@@ -49,20 +94,6 @@ exports.add = async (req, res) => {
 };
 
 
-exports.Prof = async (req, res) => {
-  try {
-    // Utilize o método distinct para obter apenas os nomes únicos de esteticistas
-    const esteticistas = await Agendas.distinct('Esteticista');
-    
-    if (!esteticistas || esteticistas.length === 0) {
-      return res.status(404).json("Nenhuma esteticista encontrada.");  
-    }
-
-    res.json(esteticistas.map(nome => ({ nome })));
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
-  }
-};
 
 // exports.update = async (req, res) => {
 //     let id = req.params.id;

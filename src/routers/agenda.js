@@ -2,16 +2,22 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/agendaControl");
 
-//get
+//get traz todas informações do banco 
 router.get("/", controller.getAll);
 
-//get para buscar lista de esteticistas
-router.get('/prof', controller.Prof);
+//get para buscar lista de todos esteticistas
+router.get('/prof', controller.AllProf);
 
-router.get("/:Esteticista", controller.ByProf);
+//get para buscar lista de todos esteticistas
+router.get('/servicos', controller.AllServ);
 
-// router.get("/nome/:nome", controller.ByNome);
+// //get busca lista de servicos dessa esteticista
+// router.get("/:Esteticista", controller.ByServ);
 
+// //get busca lista de Profissionais para aquele Serviço
+// router.get("/:Servicos", controller.ByProf);
+
+//post para adicionar dados na tabela Agenda
 router.post("/", controller.add);
 
 // router.put("/:id", controller.update);
