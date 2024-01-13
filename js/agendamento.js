@@ -9,8 +9,17 @@ onload = () => {
         }
     })
     .then(data => {
-        console.log(data[0].Esteticista);
-        localStorage.setItem('data', JSON.stringify(data[0].Esteticista));
+        const list = data.map((prof, index, array) =>{
+            return prof.Esteticista;            
+        })
+        console.log(list);
+
+        const select = document.getElementById("prof");
+        list.forEach(esteticista => {
+            const option = document.createElement('option');
+            option.text = esteticista;
+            select.appendChild(option);
+        });
     })
     .catch(error => console.log(error));
     
