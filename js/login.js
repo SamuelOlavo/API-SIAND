@@ -40,9 +40,9 @@ onload = () => {
 
         if(response.status === 200){            
             const data = await response.json();                        
-            console.log(data)
-            localStorage.setItem('data', data);  
+            console.log(data)   
             alert("Bem VINDO " + data.nome);          
+            localStorage.setItem('data', data);
 
         } else {
             alert('Usuario nao cadastrado');
