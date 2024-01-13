@@ -1,15 +1,21 @@
 onload = () => {   
     
     fetch(`http://localhost:3000/agenda/`)
-    .then(response => response.json())
-    .then(data => {            
-        console.log(data);
-        document.getElementById("serv").innerHTML = (data);
+    .then(response => {
+        if(response.status === 200){            
+            return response.json();                        
+        } else {
+            throw new Error('Erro de busca');
+        }
     })
-    .catch((erro) => {
-        console.erro('Erro:', erro);
+    .then(data => {
+        console.log(data[0].Esteticista);
+        localStorage.setItem('data', JSON.stringify(data[0].Esteticista));
     })
+    .catch(error => console.log(error));
     
+    
+
     document.getElementById('btnEnviar').disabled = true;
 
     nome.onblur = () => {
@@ -40,6 +46,7 @@ onload = () => {
         } if (nome.value != '' && tel.value != '' && dateNas.value != '' && date.value != '' && hora.value != '' && date.value > today && serv.value != '') btnEnviar.disabled = false;
         else btnEnviar.disabled = true;
     }; 
+
     prof.onblur = () => {
         if (prof.value == '') {
             prof.style.backgroundColor = '#F88';
@@ -72,17 +79,17 @@ onload = () => {
         else btnEnviar.disabled = true;
     }; 
     
-    serv.onblur = () => {
-        const prof = document.getElementById('prof').value;
-        fetch(`http://localhost:3000/agenda/`)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById("serv").innerHTML = (data.Servicos);
-        })
-        .catch((erro) => {
-            console.erro('Erro:', erro);
-        })
-    };
+    // serv.onblur = () => {
+    //     const prof = document.getElementById('prof').value;
+    //     fetch(`http://localhost:3000/agenda/`)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         document.getElementById("serv").innerHTML = (data.Servicos);
+    //     })
+    //     .catch((erro) => {
+    //         console.erro('Erro:', erro);
+    //     })
+    // };
 
     // Data e Hora do Agendamento
     var today = new Date().toISOString().split('T')[0];                    
