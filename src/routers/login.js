@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/LGControl");
+const controller = require("../controllers/loginControl");
 
 //get
 router.get("/", controller.getAll);

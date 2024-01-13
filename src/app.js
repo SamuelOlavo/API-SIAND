@@ -12,11 +12,14 @@ const indexRoute = require("./routers/index");      // chamada da rota
 const cadasRoute = require("./routers/users");
 const loginRoute = require("./routers/login");
 const agendaRoute = require("./routers/agenda");
+const servicosRoute = require("./routers/servicos");
 
 
 app.use("/", indexRoute);
 app.use("/users", cadasRoute);
 app.use("/login", loginRoute);
 app.use("/agenda", agendaRoute);
+app.use("/servicos", servicosRoute);
+
 
 module.exports = app;
