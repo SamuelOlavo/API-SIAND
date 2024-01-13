@@ -1,6 +1,6 @@
 onload = () => {   
     
-    fetch(`http://localhost:3000/agenda/`)
+    fetch(`http://localhost:3000/servicos/servicos`)
     // A resposta da requisição é passada para o próximo .then() quando a promessa é resolvida
     .then(response => {
         // Se o status da resposta for 200 (OK), a resposta é convertida para JSON
@@ -15,14 +15,14 @@ onload = () => {
     .then(data => {
         // Um novo Set é criado a partir dos nomes dos esteticistas nos dados
         // Isso remove quaisquer duplicatas, pois um Set só permite valores únicos
-        const list = [...new Set(data.map(prof => prof.Esteticista))];        
+        const list = [...new Set(data.map(serv => serv.Servicos))];        
         console.log(list);
         // O elemento select é obtido pelo seu id
-        const select = document.getElementById("prof");
+        const select = document.getElementById("serv");
         // Para cada esteticista na lista, uma nova opção é criada e adicionada ao select
-        list.forEach(esteticista => {
+        list.forEach(servicos => {
             const option = document.createElement('option');
-            option.text = esteticista;
+            option.text = servicos;
             select.appendChild(option);
         });
     })
