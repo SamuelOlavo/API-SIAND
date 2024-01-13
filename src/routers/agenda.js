@@ -5,11 +5,9 @@ const controller = require("../controllers/agendaControl");
 //get
 router.get("/", controller.getAll);
 
-router.get('/esteticistas', controller.getAllEsteticistas);
+router.get('/prof', controller.Prof);
 
 router.get("/:Esteticista", controller.ByProf);
-
-
 
 // router.get("/nome/:nome", controller.ByNome);
 

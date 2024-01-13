@@ -49,7 +49,7 @@ exports.add = async (req, res) => {
 };
 
 
-exports.getAllEsteticistas = async (req, res) => {
+exports.Prof = async (req, res) => {
   try {
     // Utilize o método distinct para obter apenas os nomes únicos de esteticistas
     const esteticistas = await Agendas.distinct('Esteticista');
