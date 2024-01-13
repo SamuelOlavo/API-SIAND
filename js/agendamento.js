@@ -101,7 +101,7 @@ onload = () => {
         fetch(`http://localhost:3000/agenda/`)
         .then(response => response.json())
         .then(data => {
-            document.getElementById("serv").innerHTML = (data.Servicos);
+            document.getElementById("prof").innerHTML = (data.Servicos);
         })
         .catch((erro) => {
             console.erro('Erro:', erro);
