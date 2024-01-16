@@ -15,12 +15,13 @@ onload = () => {
     .then(data => {
         // Um novo Set é criado a partir dos nomes dos esteticistas nos dados
         // Isso remove quaisquer duplicatas, pois um Set só permite valores únicos
-        const list = [...new Set(data.map(serv => serv.Servicos))];        
-        console.log(list);
+        console.log(data);
+        const list_serv = [...new Set(data.map(serv => serv.Servicos))];            
+        
         // O elemento select é obtido pelo seu id
         const select = document.getElementById("serv");
         // Para cada esteticista na lista, uma nova opção é criada e adicionada ao select
-        list.forEach(servicos => {
+        list_serv.forEach(servicos => {
             const option = document.createElement('option');
             option.text = servicos;
             select.appendChild(option);
@@ -97,20 +98,32 @@ onload = () => {
     }; 
     
     serv.onblur = () => {
-        const prof = document.getElementById('prof').value;
-        fetch(`http://localhost:3000/agenda/`)
+        const serv = document.getElementById('serv').value;
+        fetch(`http://localhost:3000/servicos/${serv}`)
         .then(response => response.json())
         .then(data => {
-            document.getElementById("prof").innerHTML = (data.Servicos);
+            const list_prof = [...new Set(data.map(prof => prof.Esteticista))];            
+            console.log(list_prof);
+            // O elemento select é obtido pelo seu id
+            const select = document.getElementById("prof");
+            // Limpa as opções existentes       
+            select.innerHTML = '';
+            // Para cada esteticista na lista, uma nova opção é criada e adicionada ao select
+            list_prof.forEach(esteticista => {
+                const option = document.createElement('option');
+                option.text = esteticista;
+                select.appendChild(option);
+            });
         })
         .catch((erro) => {
-            console.erro('Erro:', erro);
-        })
+            console.error('Erro:', erro);
+        });
     };
 
     // Data e Hora do Agendamento
     var today = new Date().toISOString().split('T')[0];                    
     console.log (today);
+    
     date.onblur = () => {
         if(date.value == '' || date.value < today) {
             date.style.backgroundColor = '#F88';

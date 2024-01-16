@@ -14,8 +14,8 @@ router.get('/servicos', controller.AllServ);
 // //get busca lista de servicos dessa esteticista
 // router.get("/:Esteticista", controller.ByServ);
 
-// //get busca lista de Profissionais para aquele Serviço
-// router.get("/:Servicos", controller.ByProf);
+//get busca lista de Profissionais para aquele Serviço
+router.get("/:Servicos", controller.ByServ);
 
 //post para adicionar dados na tabela Agenda
 router.post("/", controller.add);

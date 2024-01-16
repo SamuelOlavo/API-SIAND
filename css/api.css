@@ -1,0 +1,105 @@
+/* reset */
+*{
+  margin: 0 ;
+  padding: 0
+}
+
+#wrapper {
+  position: absolute ;
+  width: 100% ;
+  height: 100% ;
+  overflow: hidden ;
+}
+
+label {
+  cursor: pointer  }
+
+&:focus {
+    outline: none }
+
+    
+.menu {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: #fff;
+		width: 100px;
+		height: 100%;
+		transform: translate3d(-100px, 0, 0);
+		transition: transform 0.35s;
+		
+	  }
+	  
+	  /* Mantém o menu aberto para telas grandes (por exemplo, desktop) */
+	  @media (min-width: 768px) {
+		.menu {
+		  transform: translate3d(0, 0, 0);
+		}
+	  }
+      
+	  @media (max-width: 768px) {
+		label.menu-toggle {
+			background: #fff url(https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png) 50% 50% / 25px 25px no-repeat;
+			position: absolute;
+			right: -60px;
+			width: 60px;
+			height: 60px;
+			line-height: 0px ;
+			display: block;
+			padding: 0;
+			text-indent: -9999px;	
+		}
+	  }
+
+
+/* hide inputs */          
+.menu-checkbox {
+  display: none }
+
+/* hide navigation icon for sublabels */    
+.menu .menu label.menu-toggle {
+  background: none }
+    
+/* fade in checked menu */    
+.menu-checkbox:checked + .menu {
+  transform: translate3d(0, 0, 0) }    
+    
+/* for show */
+body {
+  background: url() 50% 50% / cover
+}
+
+p {
+  margin-bottom: 15px }
+
+#info {
+  display: table;
+  background: rgba(0,0,0,0.4);
+  height: 100%;
+  width: 100% 
+} 
+  #info-content {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 12px 
+} */
+    h1      {
+      color: #fff;
+      border: 3px solid #fff;
+      text-align: center;
+      background: rgba(0,0,0,0.1);
+      font-size: 22px;
+      font-weight: normal;
+      padding: 20px;
+      margin: 10px;
+      display: inline-block;
+      strong {
+        display: block;
+        font-size: 26px
+	  }
+	}
+
+  
