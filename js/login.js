@@ -42,9 +42,10 @@ onload = () => {
             const data = await response.json();                        
             console.log(data)   
             alert("Bem VINDO " + data.nome);          
-            localStorage.setItem('data', data);
-
-        } else {
+            localStorage.setItem('data', JSON.stringify(data));
+            window.location = "../html/home.html";
+        }
+         else {
             alert('Usuario nao cadastrado');
             document.querySelector("form").reset();
         }    
