@@ -4,88 +4,43 @@
   padding: 0
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&family=Major+Mono+Display&family=Roboto:wght@300&family=Schoolbell&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&family=Major+Mono+Display&family=Moo+Lah+Lah&family=Roboto:wght@300&family=Schoolbell&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Noto+Sans+Display&family=Roboto:wght@100&display=swap');
+/* 
+font-family: 'Major Mono Display', monospace;
+font-family: 'Noto Sans Display', sans-serif;
+font-family: 'Roboto', sans-serif; */
+
+
+:root{ 
+  --verd:  #81A68A;
+  --amar:  #F2E96B;
+  --marr:  #A67458; 
+  --rosa:  #F2D1B3; 
+  --verl:  #D96055; 
+  --azul:  #1F0DDE;
+  --cler:  #BFA380;
+  --cler1:  #F2C063;
+  --cler2:  #f3eedd;
+}
+/* Color Theme Swatches in Hex */
+.English-subject-by-Triolet-1-hex { color: #81A68A; }
+.English-subject-by-Triolet-2-hex { color: #F2E96B; }
+.English-subject-by-Triolet-3-hex { color: #F2D1B3; }
+.English-subject-by-Triolet-4-hex { color: #A67458; }
+.English-subject-by-Triolet-5-hex { color: #D96055; }
+
+
 #wrapper {
   position: absolute ;
   width: 100% ;
   height: 100% ;
   overflow: hidden ;
 }
-
-label {
-  cursor: pointer  
-}
-
-&:focus {
-    outline: none 
-  }
-
-.menu {
-		position: absolute;
-		top: 0;
-		left: 0;
-		background: #fff;
-		width: 100px;
-		height: 100%;
-		transform: translate3d(-100px, 0, 0);
-		transition: transform 0.35s;		
- }
-
- label.menu-toggle {			
-  position: absolute;
-  right: -60px;
-  width: 60px;
-  height: 60px;
-  line-height: 0px ;
-  display: block;
-  padding: 0;
-  text-indent: -9999px;	
-}
-	  
-	  /* Mantém o menu aberto para telas grandes (por exemplo, desktop) */
-@media (min-width: 768px) {
-	.menu {
-		  transform: translate3d(0, 0, 0);
-	}
-}
-
-@media (max-width: 768px) {
-  label.menu-toggle {
-			background: #fff url(https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png) 50% 50% / 25px 25px no-repeat;
-			position: absolute;
-			right: -60px;
-			width: 60px;
-			height: 40px;
-			line-height: 0px ;
-			display: block;
-			padding: 0;
-			text-indent: -9999px;	
-}
-  .menu {
-  transform: translate3d(-100px, 0, 0);
-}
-}
-
-/* hide inputs */          
-.menu-checkbox {
-  display: none 
-}
-
-/* hide navigation icon for sublabels */    
-.menu .menu label.menu-toggle {
-  background: none }
-    
-/* fade in checked menu */    
-.menu-checkbox:checked + .menu {
-  transform: translate3d(0, 0, 0) }    
-    
-/* for show */
-body {
-  background: url() 50% 50% / cover
-}
-
 #info {
   display: table;
-  background: rgba(0,0,0,0.4);
+  background: var(--cler2);
   height: 100%;
   width: 100% 
 } 
@@ -95,8 +50,87 @@ body {
     vertical-align: middle;
     text-align: center;
     text-transform: uppercase;
-    color: #fff;
-    font-size: 12px 
+    color: #0f0570;
+    font-size: 12px ;
 } 
 
-  
+.textovertical{
+  width: 1px;
+  word-wrap: break-word;    
+}
+.topo {
+ background-color: black;
+ border-bottom: 10px dotted white;
+ height: 40px;
+ 
+}
+
+.aba_home {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  height: 100px;
+  padding-left: 15px;
+  background: var(--verl);
+  width: 40px;
+  border-radius: 0px 18px 17px 0px;
+  -webkit-border-radius: 0px 18px 17px 0px;
+  -moz-border-radius: 0px 18px 17px 0px;	
+  transition: all 0.5s ease;		
+}
+.aba_home:hover {
+  background: #e8f1b3;
+  width: 5%; /* Muda a cor de fundo ao passar o mouse */
+}
+
+.aba_agenda {
+  position: absolute;
+  top: 140px;
+  left: 0;
+  height: 145px;
+  padding-left: 15px;
+  background: #4495ff;
+  width: 40px;
+  border-radius: 0px 18px 17px 0px;
+  -webkit-border-radius: 0px 18px 17px 0px;
+  -moz-border-radius: 0px 18px 17px 0px;
+  transition: all 0.5s ease;		
+}
+.aba_agenda:hover {
+  background: #e8f1b3;
+  width: 5%; /* Muda a cor de fundo ao passar o mouse */
+}
+.aba_serv {
+  position: absolute;
+  top: 285px;
+  left: 0;
+  height: 195px;
+  padding-left: 15px;
+  background: var(--verd);
+  width: 40px;
+  border-radius: 0px 18px 17px 0px;
+  -webkit-border-radius: 0px 18px 17px 0px;
+  -moz-border-radius: 0px 18px 17px 0px;
+  transition: all 0.5s ease;			
+}
+.aba_serv:hover {
+  background: #e8f1b3;
+  width: 5%; /* Muda a cor de fundo ao passar o mouse */
+}
+.aba_perfil {
+  position: absolute;
+  top: 480px;
+  left: 0;
+  height: 145px;
+  padding-left: 15px;
+  background: var(--cler1);
+  width: 40px;
+  border-radius: 0px 18px 17px 0px;
+  -webkit-border-radius: 0px 18px 17px 0px;
+  -moz-border-radius: 0px 18px 17px 0px;
+  transition: all 0.5s ease;			
+}
+.aba_perfil:hover {
+  background: #e8f1b3;
+  width: 5%; /* Muda a cor de fundo ao passar o mouse */
+}
