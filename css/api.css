@@ -36,22 +36,23 @@ font-family: 'Roboto', sans-serif; */
   position: absolute ;
   width: 100% ;
   height: 100% ;
-  overflow: hidden ;
+
 }
 #info {
-  display: table;
   background: var(--cler2);
+  background-image: url('../Img/bg1.png'); 
+  background-size: 100%;
   height: 100%;
   width: 100% 
+
 } 
 
 #info-content {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    text-transform: uppercase;
+    padding: 1%;
+    left: 40px;
     color: #0f0570;
     font-size: 12px ;
+    position: absolute;
 } 
 
 .textovertical{
@@ -62,6 +63,7 @@ font-family: 'Roboto', sans-serif; */
  background-color: black;
  border-bottom: 10px dotted white;
  height: 40px;
+ overflow: hidden ;
  
 }
 
