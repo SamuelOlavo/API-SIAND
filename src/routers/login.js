@@ -1,15 +1,9 @@
-const express = require("express");
+// routes/login.js
+const express = require('express');
 const router = express.Router();
-const controller = require("../controllers/loginControl");
+const authController = require('../controllers/authController');
 
-//get
-router.get("/", controller.getAll);
-
-router.post("/", controller.Auth);
-
-// router.get("/email/:email", controller.ByEmail);
-
-// router.get("/senha/:senha", controller.BySenha);
-
+// Rota para fazer login e obter token JWT
+router.post('/', authController.login);
 
 module.exports = router;
