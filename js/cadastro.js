@@ -4,7 +4,9 @@ function exibirToast(mensagem, cor) {
         text: mensagem,
         duration: 3000, // Tempo de exibição do toast em milissegundos (opcional)
         close: true,
-        backgroundColor: cor // Adiciona a cor de fundo ao toast
+        style: {
+            background: cor,
+        }
     }).showToast();
 }
 
@@ -65,12 +67,16 @@ const handleSubmit = async (event) => {
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
 
-    const response = await fetch(`http://localhost:3000/users/byEmail/${email.value}`);
-
-    if (response.status === 200) {
-        exibirToast('O email já existe. Por favor, escolha outro.', '#ff0000');
-    } else {
-        try {
+    try {
+        const response = await fetch(`http://localhost:3000/users/byEmail/${email}`);
+        const responseData = await response.json();
+        
+        console.log('dados formulario', nome, email, senha);
+        console.log('responseData:', responseData);
+        
+        if (response.status === 200 && responseData) {
+            exibirToast('O e-mail já existe. Por favor, escolha outro.', '#ff0000');
+        } else {
             const registerResponse = await fetch('http://localhost:3000/users/', {
                 method: 'post',
                 headers: {
@@ -80,22 +86,18 @@ const handleSubmit = async (event) => {
                 body: JSON.stringify({ nome, email, senha }),
             });
 
-            if (registerResponse.status === 200) {
-                document.querySelector("form").style.display = 'none';
-                document.querySelector("form").reset();
-                exibirToast('Cadastro realizado com sucesso.', '#00ff00');
+            if (registerResponse.status === 201) {
+                exibirToast('Cadastro realizado com sucesso.', '#269934');
                 document.getElementById("sucesso").innerHTML = "Obrigado por se Inscrever";
-            } else {
-                exibirToast('Erro no cadastro. Por favor, tente novamente.', '#ff0000');
             }
-        } catch (error) {
-            console.error('Error:', error);
-            exibirToast('Erro no cadastro. Por favor, tente novamente.', '#ff0000');
         }
+    } catch (error) {
+        console.error('Error:', error);
+        exibirToast('Erro no cadastro. Por favor, tente novamente.', '#ff0000');
     }
-
-    document.getElementById('enviar').disabled = true;
 };
+
+
 
 
 // Adicionar evento de submit ao formulário
