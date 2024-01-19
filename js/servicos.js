@@ -4,19 +4,30 @@ onload = () => {
 
     let user = JSON.parse(localStorage.getItem('data'));
 
-    let nome = user.nome;
-    console.log(nome);
+    let Esteticista = user.nome;
+    // console.log(nome);
 
-    document.getElementById('nome').textContent = nome;
+    document.getElementById('nome').textContent = Esteticista;
     
-    serv.onblur = () => {
-        if(serv.value == '') {
-            serv.style.backgroundColor = '#F88';   
-        }
-        else {
-            serv.style.backgroundColor = '#FFF';  
-                                
-        } 
-    };  
+    // serv.onblur = () => {
+       
+    // };
+    
+    bt_serv.onclick = async () => {
+        const Servicos = document.getElementById('serv').value;  
+        const response = await fetch('http://localhost:3000/servicos/', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ Esteticista , Servicos }),
+            
+        });
+        console.log(response);
+        console.log(Servicos);
+        console.log(Esteticista);
+        // document.getElementById("rep").innerHTML = "<b>As senhas não conferem</b>";
+    }
 
 }
