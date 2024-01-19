@@ -79,6 +79,12 @@ exports.add = async (req, res) => {
     servico.Esteticista = req.body.Esteticista;
     servico.Servicos = req.body.Servicos;
     
+    // Verifique se o serviço já existe para a esteticista
+    const existingService = await Servicos.findOne({ 'Esteticista': servico.Esteticista, 'Servicos': servico.Servicos });
+    if (existingService) {
+      return res.status(400).json({ error: 'Serviço já existe para esta esteticista' });
+    }
+    
     const creatservicos = new Servicos(servico);
     await creatservicos.save();
 
@@ -87,7 +93,6 @@ exports.add = async (req, res) => {
     res.status(500).json({ error: error });
   }
 };
-
 
 
 // exports.update = async (req, res) => {

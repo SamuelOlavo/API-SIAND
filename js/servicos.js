@@ -9,14 +9,19 @@ onload = () => {
 
     document.getElementById('nome').textContent = nome;
     
-    serv.onblur = () => {
+    // serv.onblur = () => {
+       
+    // };
+    
+    bt_serv.onclik = () => {
         if(serv.value == '') {
-            serv.style.backgroundColor = '#F88';   
+            serv.style.backgroundColor = '#F88'; 
+              
         }
         else {
-            serv.style.backgroundColor = '#FFF';  
-                                
+            serv.style.backgroundColor = '#FFF';                                 
         } 
-    };  
+    }
+
 
 }
