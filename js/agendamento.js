@@ -1,5 +1,18 @@
 onload = () => {   
+    function exibirToast(mensagem, cor) {
+        Toastify({
+            text: mensagem,
+            duration: 3000, // Tempo de exibição do toast em milissegundos (opcional)
+            close: true,
+            style: {
+                background: cor,
+            }
+        }).showToast();
+    }
     
+    // document.getElementById('btnEnviar').disabled = true;
+
+//As informações de serviços e esteticista estão sendo carregadas na interação do tel e ser por que nao estava dando certo no carregamento da pagina.
 
     tel.onclick = async () => {
         fetch(`http://localhost:3000/servicos/servicos`)
@@ -26,99 +39,9 @@ onload = () => {
             });
         })
         .catch(error => console.log(error));
-}
+    };
 
-prof.onclick = async () => {
-    const serv = document.getElementById('serv').value;
-    fetch(`http://localhost:3000/servicos/servico/${serv}`)
-    .then(response => response.json())
-    .then(data => {
-        const list_prof = [...new Set(data.map(prof => prof.Esteticista))];            
-        console.log(list_prof);
-        // O elemento select é obtido pelo seu id
-        const select = document.getElementById("prof");
-        // Limpa as opções existentes       
-        select.innerHTML = '';
-        // Para cada esteticista na lista, uma nova opção é criada e adicionada ao select
-        list_prof.forEach(esteticista => {
-            const option = document.createElement('option');
-            option.text = esteticista;
-            select.appendChild(option);
-        });
-    })
-    .catch((erro) => {
-        console.error('Erro:', erro);
-    });
-};
-
-
-    
-    
-
-    document.getElementById('btnEnviar').disabled = true;
-
-    nome.onblur = () => {
-        if(nome.value == '') {
-            nome.style.backgroundColor = '#F88';   
-        }
-        else {
-            nome.style.backgroundColor = '#FFF';  
-                                
-        } if (nome.value != '' && tel.value != '' && dateNas.value != '' && date.value != '' && hora.value != '' && date.value > today && serv.value != '') btnEnviar.disabled = false;
-        else btnEnviar.disabled = true;
-    };  
-    dateNas.onblur = () => {
-        if(dateNas.value == '') {
-            dateNas.style.backgroundColor = '#F88';                   
-        }
-        else {
-            dateNas.style.backgroundColor = '#FFF';
-        } if (nome.value != '' && tel.value != '' && dateNas.value != '' && date.value != '' && hora.value != '' && date.value > today && serv.value != '') btnEnviar.disabled = false;
-        else btnEnviar.disabled = true;
-    };  
-    tel.onblur = () => {
-        if(tel.value == '') {
-            tel.style.backgroundColor = '#F88';                   
-        }
-        else {
-            tel.style.backgroundColor = '#FFF';
-        } if (nome.value != '' && tel.value != '' && dateNas.value != '' && date.value != '' && hora.value != '' && date.value > today && serv.value != '') btnEnviar.disabled = false;
-        else btnEnviar.disabled = true;
-    }; 
-
-    prof.onblur = () => {
-        if (prof.value == '') {
-            prof.style.backgroundColor = '#F88';
-         }
-        else {
-            prof.style.backgroundColor = '#FFF';
-        } if (nome.value != '' && tel.value != '' && dateNas.value != '' && date.value != '' && hora.value != '' && date.value > today && serv.value != '') btnEnviar.disabled = false;
-        else btnEnviar.disabled = true;
-    };  
-
-    // nome.onblur = () => {        
-    //     fetch(`http://localhost:3000/agenda/`)
-    //     .then(response => response.json())
-    //     .then(data => {            
-    //         console.log(data);
-    //         document.getElementById("serv").innerHTML = (data);
-    //     })
-    //     .catch((erro) => {
-    //         console.erro('Erro:', erro);
-    //     })
-    // };
-
-    // serv.onblur = () => {
-    //     if (serv.value == '') {
-    //         serv.style.backgroundColor = '#F88';
-    //      }
-    //     else {
-    //         serv.style.backgroundColor = '#FFF';
-    //     } if (nome.value != '' && tel.value != '' && dateNas.value != '' && date.value != '' && hora.value != '' && date.value > today && serv.value != '') btnEnviar.disabled = false;
-    //     else btnEnviar.disabled = true;
-    // }; 
-    
-    serv.onblur = () => {
+    serv.onclick = async () => {
         const serv = document.getElementById('serv').value;
         fetch(`http://localhost:3000/servicos/servico/${serv}`)
         .then(response => response.json())
@@ -141,19 +64,60 @@ prof.onclick = async () => {
         });
     };
 
+    nome.onblur = () => {
+        if(nome.value == '') {
+            nome.style.backgroundColor = '#F88';   
+        }
+        else {
+            nome.style.backgroundColor = '#FFF';  
+                                
+        } 
+    };  
+    dateNas.onblur = () => {
+        if(dateNas.value == '') {
+            dateNas.style.backgroundColor = '#F88';                   
+        }
+        else {
+            dateNas.style.backgroundColor = '#FFF';
+        } 
+    };  
+    tel.onblur = () => {
+        if(tel.value == '') {
+            tel.style.backgroundColor = '#F88';                   
+        }
+        else {
+            tel.style.backgroundColor = '#FFF';
+        } 
+    }; 
+
+    prof.onblur = () => {
+        if (prof.value == '') {
+            prof.style.backgroundColor = '#F88';
+         }
+        else {
+            prof.style.backgroundColor = '#FFF';
+        } 
+    };  
+    // serv.onblur = () => {
+    //     if (serv.value == '') {
+    //         serv.style.backgroundColor = '#F88';
+    //      }
+    //     else {
+    //         serv.style.backgroundColor = '#FFF';
+    //     } 
+    // }; 
+
     // Data e Hora do Agendamento
     var today = new Date().toISOString().split('T')[0];                    
     console.log (today);
     
     date.onblur = () => {
         if(date.value == '' || date.value < today) {
-            date.style.backgroundColor = '#F88';
-            btnEnviar.disabled = true;                                       
+            date.style.backgroundColor = '#F88';          
         }
         else {
             date.style.backgroundColor = '#FFF';            
-        } if (nome.value != '' && tel.value != '' && dateNas.value != '' && date.value != '' && hora.value != '' && date.value > today && serv.value != '') btnEnviar.disabled = false;
-        else btnEnviar.disabled = true;
+        }
     };  
     
     hora.onblur = () => {
@@ -161,43 +125,44 @@ prof.onclick = async () => {
             hora.style.backgroundColor = '#F88';
         } else {
             hora.style.backgroundColor = '#FFF';
-        } if (nome.value != '' && tel.value != '' && dateNas.value != '' && date.value != '' && hora.value != '' && date.value > today && serv.value != '') btnEnviar.disabled = false;
-        else btnEnviar.disabled = true;
+        }
     };  
 
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
+        event.preventDefault();                
 
-        const nome = document.getElementById('nome').value;
-        const email = document.getElementById('email').value;  
-        const senha = document.getElementById('senha').value;  
+        const NomeCliente = document.querySelector('input[name=nome]').value;
+        const DataNascimento = document.getElementById('dateNas').value;
+        const Telefone = document.querySelector('input[name=tel]').value;        
+        const Esteticista = document.getElementById('prof').value;  
+        const Servicos = document.getElementById('serv').value;
+        const Data = document.getElementById('date').value;
+        const Horario = document.getElementById('hora').value;
 
-        const response = await fetch(`http://localhost:3000/users/email/${email}`);
-
-        if(response.status === 200){
-            alert('O email já existe. Por favor, escolha outro.');
-        }else{
-        fetch('http://localhost:3000/users/', {
-            method: 'post',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ nome , email, senha }),
-        })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch((error) => {
-    console.error('Error:', error);
-    })}
+        try {
+            const response = await fetch('http://localhost:3000/agenda/', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ NomeCliente , DataNascimento, Telefone , Esteticista , Servicos , Data ,  Horario }),
+            }); 
+            if (response.status === 201) {
+                exibirToast('Agendamento realizado com sucesso.', '#269934');
+                console.log(response);
+                document.querySelector("form").reset();  
+            } else {
+                exibirToast('Favor preencher todos os campos do formulario.', '#ff0000');
+                console.log(response);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            exibirToast('Erro no cadastro. Por favor, tente novamente.', '#ff0000');
+        }        
+   
+    };
+document.getElementById('agendamento').addEventListener('submit', handleSubmit);    
     
-    if(response.status != 200){              
-        document.querySelector("form").style.display = 'none';
-        document.querySelector("form").reset();
-        document.getElementById("sucesso").innerHTML = "Obrigado por se Inscrever";       
-    }
-      document.getElementById('enviar').disabled = true;    
-   }
-    document.getElementById('cadastro').addEventListener('submit', handleSubmit);
-};
+}
