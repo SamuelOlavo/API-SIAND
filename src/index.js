@@ -1,7 +1,10 @@
 const app = require("./app")
 const db = require("./mongosedb");
 
+
+
 db.init();
+
 
 const port = 3000;
 

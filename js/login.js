@@ -1,53 +1,98 @@
-onload = () => {   
-
-    // Funcoes de tratamento do formulario
-    email.onblur = () => {
-        if(email.value == '') {
-            email.style.backgroundColor = '#F88';   
+// Função para exibir um toast usando Toastify
+function exibirToast(mensagem, cor) {
+    Toastify({
+        text: mensagem,
+        duration: 3000,
+        close: true,
+        style: {
+            background: cor,
         }
-        else {
-            email.style.backgroundColor = '#FFF';  
-                                
-        } if (email.value != '' && senha.value != '') entrar.disabled = false;
-        else entrar.disabled = true;
-    };  
-    senha.onblur = () => {
-        if(senha.value == '') {
-            senha.style.backgroundColor = '#F88';                   
-        }
-        else {
-            senha.style.backgroundColor = '#FFF';
-        } if (email.value != '' && senha.value != '') entrar.disabled = false;
-        else entrar.disabled = true;
-    }; 
+    }).showToast();
+}
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const email = document.getElementById('email').value;
-        const senha = document.getElementById('senha').value;  
-          
-        const response = await fetch('http://localhost:3000/login/', {
-            method: 'post',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email , senha }),
-            
-        });                       
+// Função para desabilitar o botão de entrar
+function desabilitarBotaoEntrar() {
+    document.getElementById('entrar').disabled = true;
+}
 
-        if(response.status === 200){            
-            const data = await response.json();                        
-            console.log(data)   
-            alert("Bem VINDO " + data.nome);          
-            localStorage.setItem('data', JSON.stringify(data));
-            window.location = "../html/home.html";
-        }
-         else {
-            alert('Usuario nao cadastrado');
-            document.querySelector("form").reset();
-        }    
-        document.getElementById('entrar').disabled = true;    
+// Função para verificar se o formulário está válido
+function verificarFormulario() {
+    const emailValue = email.value.trim();
+    const senhaValue = senha.value.trim();
+
+    const emailValido = emailValue !== '';
+    const senhaValida = senhaValue !== '';
+
+    if (emailValido && senhaValida) {
+        entrar.disabled = false;
+    } else {
+        entrar.disabled = true;
     }
+
+    email.style.backgroundColor = emailValido ? '#FFF' : '#F88';
+    senha.style.backgroundColor = senhaValida ? '#FFF' : '#F88';
+}
+
+// Função para manipular o envio do formulário
+async function handleSubmit(event) {
+    event.preventDefault();
+
+    const emailValue = document.getElementById('email').value;
+    const senhaValue = document.getElementById('senha').value;
+
+    const response = await fetch('http://localhost:3000/login/', {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: emailValue, senha: senhaValue }),
+    });
+
+    if (response.status === 200) {
+        const data = await response.json();
+        console.log(data);
+        window.location = "../html/home.html";
+    } else {
+        exibirToast('Usuário não cadastrado', '#ff0000');
+        document.querySelector("form").reset();
+    }
+
+    desabilitarBotaoEntrar();
+}
+
+// Função para inicializar a autenticação do Google
+function inicializarAutenticacaoGoogle() {
+    google.accounts.id.initialize({
+        client_id: "281080595680-440v113hj75a2so3viqltfd4kjcbia5s.apps.googleusercontent.com",
+        callback: handleCredentialResponse,
+    });
+
+    google.accounts.id.renderButton(
+        document.getElementById("buttonDiv"),
+        { theme: "outline", size: "large" }
+    );
+
+    google.accounts.id.prompt();
+}
+
+// Manipulador de resposta de credenciais do Google
+function handleCredentialResponse(response) {
+    
+}
+    
+
+// Evento desbilita botao Entrar
+window.onload = () => {
+    desabilitarBotaoEntrar();
+
+    // Eventos de blur para os campos de email e senha
+    email.onblur = verificarFormulario;
+    senha.onblur = verificarFormulario;
+
+    // Adiciona o manipulador de envio do formulário
     document.getElementById('login').addEventListener('submit', handleSubmit);
-};
+
+    // Inicializa a autenticação do Google
+    inicializarAutenticacaoGoogle();
+}
