@@ -1,6 +1,4 @@
 onload = () => {   
-    
-    document.getElementById('entrar').disabled = true;
 
     // Funcoes de tratamento do formulario
     email.onblur = () => {
