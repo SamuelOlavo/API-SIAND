@@ -11,19 +11,34 @@ onload = () => {
         }).showToast();
     }
 
+
+    const serv = document.getElementById('serv').value;
+    fetch(`http://localhost:3000/servicos/${serv}`)
+    .then(response => response.json())
+    .then(data => {
+        const list_prof = [...new Set(data.map(prof => prof.Esteticista))];            
+        console.log(list_prof);
+        // O elemento select é obtido pelo seu id
+        const select = document.getElementById("prof");
+        // Limpa as opções existentes       
+        select.innerHTML = '';
+        // Para cada esteticista na lista, uma nova opção é criada e adicionada ao select
+        list_prof.forEach(esteticista => {
+            const option = document.createElement('option');
+            option.text = esteticista;
+            select.appendChild(option);
+        });
+    })
+    .catch((erro) => {
+        console.error('Erro:', erro);
+    });
+
+
     document.getElementById('bt_serv').disabled = true;
-
     let user = JSON.parse(localStorage.getItem('data'));
-
-    let Esteticista = user.nome;
-    // console.log(nome);
-
+    let Esteticista = user.nome;   
     document.getElementById('nome').textContent = Esteticista;
-    
-    // serv.onblur = () => {
-       
-    // };
-    
+
     bt_serv.onclick = async () => {
         const Servicos = document.getElementById('serv').value;  
         const response = await fetch('http://localhost:3000/servicos/', {
@@ -45,8 +60,5 @@ onload = () => {
             exibirToast('Serviço ja cadastrado para essa Esteticista', '#ff0000');      
         }        
     }
-    // serv.onclick = () => {
-    //     document.getElementById("msg").innerHTML = '';
-    // }
 
 }

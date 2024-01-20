@@ -60,17 +60,16 @@ exports.ByServ = async (req, res) => {
   }
 };
 
-// exports.ByProf = async (req, res) => {
-//   let nome_prof = req.params.Esteticista;
 
-//   try {
-//     const agenda = await Agendas.find({Esteticista: nome_prof}).select("-_id  Servicos");
-//     res.json(agenda);
-//   } catch (error) {
-//     res.status(500).json({ error: error });
-//   }
-// };
-
+exports.ByProf = async (req, res) => {
+  let prof = req.params.Esteticista;
+  try {
+    const response = await Servicos.find({Esteticista: prof}).select("-_id  Servicos");
+    res.json(response);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
 
 
 exports.add = async (req, res) => {

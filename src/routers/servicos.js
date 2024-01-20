@@ -11,11 +11,11 @@ router.get('/profissional', controller.AllProf);
 //get para buscar lista de todos Servicos com Esteticistas
 router.get('/servicos', controller.AllServ);
 
-// //get busca lista de servicos dessa esteticista
-// router.get("/:Esteticista", controller.ByServ);
-
 //get busca lista de Profissionais para aquele Serviço
-router.get("/:Servicos", controller.ByServ);
+router.get("/servico/:Servicos", controller.ByServ);
+
+//get busca lista de Serviços para aquele esteticista
+router.get("/esteticista/:Esteticista", controller.ByProf);
 
 //post para adicionar dados na tabela Agenda
 router.post("/", controller.add);

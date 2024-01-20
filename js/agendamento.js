@@ -1,34 +1,55 @@
 onload = () => {   
     
-    fetch(`http://localhost:3000/servicos/servicos`)
-    // A resposta da requisição é passada para o próximo .then() quando a promessa é resolvida
-    .then(response => {
-        // Se o status da resposta for 200 (OK), a resposta é convertida para JSON
-        if(response.status === 200){            
-            return response.json();                        
-        } else {
-            // Se o status da resposta não for 200, um erro é lançado
-            throw new Error('Erro de busca');
-        }
-    })
-    // Os dados JSON são passados para o próximo .then() quando a promessa é resolvida
+
+    tel.onclick = async () => {
+        fetch(`http://localhost:3000/servicos/servicos`)
+        .then(response => {
+            if(response.status === 200){            
+                return response.json();                        
+            } else {
+                throw new Error('Erro de busca');
+            }
+        })
+        .then(data => {
+            console.log(data);
+            const list_serv = [...new Set(data.map(serv => serv.Servicos))];            
+            
+            const select = document.getElementById("serv");
+            
+            // Limpa as opções existentes
+            select.innerHTML = '';
+            
+            list_serv.forEach(servicos => {
+                const option = document.createElement('option');
+                option.text = servicos;
+                select.appendChild(option);
+            });
+        })
+        .catch(error => console.log(error));
+}
+
+prof.onclick = async () => {
+    const serv = document.getElementById('serv').value;
+    fetch(`http://localhost:3000/servicos/servico/${serv}`)
+    .then(response => response.json())
     .then(data => {
-        // Um novo Set é criado a partir dos nomes dos esteticistas nos dados
-        // Isso remove quaisquer duplicatas, pois um Set só permite valores únicos
-        console.log(data);
-        const list_serv = [...new Set(data.map(serv => serv.Servicos))];            
-        
+        const list_prof = [...new Set(data.map(prof => prof.Esteticista))];            
+        console.log(list_prof);
         // O elemento select é obtido pelo seu id
-        const select = document.getElementById("serv");
+        const select = document.getElementById("prof");
+        // Limpa as opções existentes       
+        select.innerHTML = '';
         // Para cada esteticista na lista, uma nova opção é criada e adicionada ao select
-        list_serv.forEach(servicos => {
+        list_prof.forEach(esteticista => {
             const option = document.createElement('option');
-            option.text = servicos;
+            option.text = esteticista;
             select.appendChild(option);
         });
     })
-    // Se ocorrer algum erro durante o processo, ele é registrado no console
-    .catch(error => console.log(error));
+    .catch((erro) => {
+        console.error('Erro:', erro);
+    });
+};
 
 
     
@@ -87,19 +108,19 @@ onload = () => {
     //     })
     // };
 
-    serv.onblur = () => {
-        if (serv.value == '') {
-            serv.style.backgroundColor = '#F88';
-         }
-        else {
-            serv.style.backgroundColor = '#FFF';
-        } if (nome.value != '' && tel.value != '' && dateNas.value != '' && date.value != '' && hora.value != '' && date.value > today && serv.value != '') btnEnviar.disabled = false;
-        else btnEnviar.disabled = true;
-    }; 
+    // serv.onblur = () => {
+    //     if (serv.value == '') {
+    //         serv.style.backgroundColor = '#F88';
+    //      }
+    //     else {
+    //         serv.style.backgroundColor = '#FFF';
+    //     } if (nome.value != '' && tel.value != '' && dateNas.value != '' && date.value != '' && hora.value != '' && date.value > today && serv.value != '') btnEnviar.disabled = false;
+    //     else btnEnviar.disabled = true;
+    // }; 
     
     serv.onblur = () => {
         const serv = document.getElementById('serv').value;
-        fetch(`http://localhost:3000/servicos/${serv}`)
+        fetch(`http://localhost:3000/servicos/servico/${serv}`)
         .then(response => response.json())
         .then(data => {
             const list_prof = [...new Set(data.map(prof => prof.Esteticista))];            
