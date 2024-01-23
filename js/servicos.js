@@ -61,4 +61,38 @@ onload = () => {
         }        
     }
 
+    bt_atl.onclick = async () => {
+        const response = await fetch(`http://localhost:3000/servicos/esteticista/${Esteticista}`);
+    
+        if (response.status === 200) {
+            const data = await response.json();
+            console.log(data);
+    
+            // Acessar o tbody pelo id
+            let tbody = document.getElementById('tbody');    
+            // Limpar o conteúdo atual do tbody
+            tbody.innerHTML = '';
+    
+            // Iterar sobre os dados e adicionar novas linhas ao tbody
+            data.forEach((item, index) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <th scope="row">${index + 1}</th>
+                        <td id="tb_nome">${item.Esteticista}</td>
+                        <td id="tb_serv">${item.Servicos}</td>
+                    </tr>
+                `;
+            });
+    
+            exibirToast('Atualizado planilha.', '#269934');
+        } else if (response.status === 500) {
+            exibirToast('Favor preecher o campo de Serviço', '#ff0000');
+        } else if (response.status === 400) {
+            exibirToast('Serviço ja cadastrado para essa Esteticista', '#ff0000');
+        }
+    }
+    // lista_tabela() {
+    //     let tbody = document.getElementById('tbody')
+    // }
+
 }

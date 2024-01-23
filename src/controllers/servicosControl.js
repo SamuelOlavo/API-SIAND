@@ -64,7 +64,7 @@ exports.ByServ = async (req, res) => {
 exports.ByProf = async (req, res) => {
   let prof = req.params.Esteticista;
   try {
-    const response = await Servicos.find({Esteticista: prof}).select("-_id  Servicos");
+    const response = await Servicos.find({Esteticista: prof});
     res.json(response);
   } catch (error) {
     res.status(500).json({ error: error });
