@@ -144,3 +144,8 @@ font-family: 'Roboto', sans-serif; */
   width: 5%; /* Muda a cor de fundo ao passar o mouse */
 }
 
+.tabela {
+  font-size:100%;
+  background-color: #e8f1b3;
+}
+

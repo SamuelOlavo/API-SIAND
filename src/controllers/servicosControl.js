@@ -115,17 +115,25 @@ exports.add = async (req, res) => {
 //     }
 // };
 
-// exports.delete = async (req, res) => {
-//     let id = req.params.id;
-  
-//     try {
-//       const deleteResponse = await userService.deleteUsers(id);
-//       res.json(deleteResponse);
-//     } catch (error) {
-//       res.status(500).json({ error: error });
-//     }
-//   };
+exports.delete = async (req, res) => {
+  let id = req.params.id;  
+  try {
+    const deleteResponse = await Servicos.deleteOne({ _id: id });
+    res.json(deleteResponse);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
 
+exports.deleteMany = async (req, res) => {
+  let serv = req.body.servicos; // assumindo que 'servicos' é um array de IDs
+  try {
+    const deleteResponse = await Servicos.deleteMany({ _id: { $in: serv } });
+    res.json(deleteResponse);
+  } catch (error) {
+    res.status(500).json({ error: error.toString() });
+  }
+};
 // exports.ByEmail = async (req, res) => {
 //     const email = req.params.email;
 //     const user = await userService.emailUsers(email);

@@ -1,4 +1,4 @@
-onload = () => { 
+onload = () => {  
 
     function exibirToast(mensagem, cor) {
         Toastify({
@@ -10,6 +10,7 @@ onload = () => {
             }
         }).showToast();
     }
+   
 
 
     const serv = document.getElementById('serv').value;
@@ -52,7 +53,8 @@ onload = () => {
         });
         if (response.status === 201) {
             exibirToast('Cadastro realizado com sucesso.', '#269934');
-            document.getElementById("serv").value ='';                
+            document.getElementById("serv").value ='';  
+            preencherTabela(Esteticista);      
                            
         }  if (response.status === 500) {
             exibirToast('Favor preecher o campo de Serviço', '#ff0000');      
@@ -61,7 +63,7 @@ onload = () => {
         }        
     }
 
-    bt_atl.onclick = async () => {
+    async function preencherTabela(Esteticista) {
         const response = await fetch(`http://localhost:3000/servicos/esteticista/${Esteticista}`);
     
         if (response.status === 200) {
@@ -77,9 +79,10 @@ onload = () => {
             data.forEach((item, index) => {
                 tbody.innerHTML += `
                     <tr>
-                        <th scope="row">${index + 1}</th>
+                        <th scope="row">${index + 1}</th>               
                         <td id="tb_nome">${item.Esteticista}</td>
                         <td id="tb_serv">${item.Servicos}</td>
+                        <td id="tb_serv"><input id="exc" type="checkbox"></td>                        
                     </tr>
                 `;
             });
@@ -91,8 +94,33 @@ onload = () => {
             exibirToast('Serviço ja cadastrado para essa Esteticista', '#ff0000');
         }
     }
-    // lista_tabela() {
-    //     let tbody = document.getElementById('tbody')
-    // }
+    
+    bt_atl.onclick = () => preencherTabela(Esteticista);
 
+    bt_exc.onclick = async () => {
+        const excluir = document.getElementById('exc').value;  
+        const response = await fetch('http://localhost:3000/servicos/', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ Esteticista , Servicos }),
+            
+        });
+        if (response.status === 201) {
+            exibirToast('Cadastro realizado com sucesso.', '#269934');
+            document.getElementById("serv").value ='';  
+            preencherTabela(Esteticista);      
+                           
+        }  if (response.status === 500) {
+            exibirToast('Favor preecher o campo de Serviço', '#ff0000');      
+        } if (response.status === 400) {
+            exibirToast('Serviço ja cadastrado para essa Esteticista', '#ff0000');      
+        }        
+    }
+    
+
+ 
+    
 }
