@@ -63,30 +63,54 @@ onload = () => {
         }        
     }
 
+    bt_atl.onclick = () => {
+        preencherTabela(Esteticista);
+        servicosSelecionados = [];
+    }
+
+
+
     async function preencherTabela(Esteticista) {
-        const response = await fetch(`http://localhost:3000/servicos/esteticista/${Esteticista}`);
-    
+        const response = await fetch(`http://localhost:3000/servicos/esteticista/${Esteticista}`);    
         if (response.status === 200) {
             const data = await response.json();
-            console.log(data);
-    
+            console.log(data);    
             // Acessar o tbody pelo id
-            let tbody = document.getElementById('tbody');    
+            let tbody = document.getElementById('tbody');
             // Limpar o conteúdo atual do tbody
             tbody.innerHTML = '';
-    
+            
+            let servicosSelecionados = [];
+                
             // Iterar sobre os dados e adicionar novas linhas ao tbody
             data.forEach((item, index) => {
+                // Adicione um id único para cada checkbox
+                let checkboxId = 'exc' + index;
                 tbody.innerHTML += `
                     <tr>
-                        <th scope="row">${index + 1}</th>               
-                        <td id="tb_nome">${item.Esteticista}</td>
-                        <td id="tb_serv">${item.Servicos}</td>
-                        <td id="tb_serv"><input id="exc" type="checkbox"></td>                        
+                        <th scope="row">${index + 1}</th>
+                        <td>${item.Esteticista}</td>
+                        <td>${item.Servicos}</td>
+                        <td><input id="${checkboxId}" type="checkbox"></td>
                     </tr>
                 `;
             });
-    
+                // Adicione um ouvinte de eventos para o checkbox
+                data.forEach((item, index) => {
+                    let checkboxId = 'exc' + index;
+                    let checkbox = document.getElementById(checkboxId);
+                    checkbox.addEventListener('change', function() {
+                        if(this.checked) {
+                            // Adicione o serviço à lista de serviços selecionados
+                            servicosSelecionados.push(item.Servicos);
+                        } else {
+                            // Remova o serviço da lista se o checkbox for desmarcado
+                            servicosSelecionados = servicosSelecionados.filter(servico => servico !== item.Servicos);
+                        }
+                        console.log('Serv:' + servicosSelecionados);  // Log para verificar os serviços selecionados
+                    });
+                });     
+                
             exibirToast('Atualizado planilha.', '#269934');
         } else if (response.status === 500) {
             exibirToast('Favor preecher o campo de Serviço', '#ff0000');
@@ -95,7 +119,8 @@ onload = () => {
         }
     }
     
-    bt_atl.onclick = () => preencherTabela(Esteticista);
+    
+    
 
     bt_exc.onclick = async () => {
         const excluir = document.getElementById('exc').value;  
@@ -120,7 +145,17 @@ onload = () => {
         }        
     }
     
+    var servico = document.getElementById('tb_serv');
+    var checkbox = document.getElementById('exc');
 
+// Em seguida, adicione um ouvinte de eventos para o checkbox
+    checkbox.addEventListener('change', function() {
+    if(this.checked) {
+        // O checkbox está marcado, obtenha o valor do item Serviço
+        var valorServico = servico.textContent;
+        console.log(valorServico);
+    }
+});
  
     
 }
