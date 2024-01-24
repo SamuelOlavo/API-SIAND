@@ -35,12 +35,12 @@ onload = () => {
     });
 
 
-    document.getElementById('bt_serv').disabled = true;
+    document.getElementById('bt_add').disabled = true;
     let user = JSON.parse(localStorage.getItem('data'));
     let Esteticista = user.nome;   
     document.getElementById('nome').textContent = Esteticista;
 
-    bt_serv.onclick = async () => {
+    bt_add.onclick = async () => {
         const Servicos = document.getElementById('serv').value;  
         const response = await fetch('http://localhost:3000/servicos/', {
             method: 'post',
@@ -73,13 +73,12 @@ onload = () => {
     async function preencherTabela(Esteticista) {
         const response = await fetch(`http://localhost:3000/servicos/esteticista/${Esteticista}`);    
         if (response.status === 200) {
-            const data = await response.json();
-            console.log(data);    
+            const data = await response.json();                
             // Acessar o tbody pelo id
             let tbody = document.getElementById('tbody');
             // Limpar o conteúdo atual do tbody
             tbody.innerHTML = '';
-            
+
             let servicosSelecionados = [];
                 
             // Iterar sobre os dados e adicionar novas linhas ao tbody
@@ -107,9 +106,26 @@ onload = () => {
                             // Remova o serviço da lista se o checkbox for desmarcado
                             servicosSelecionados = servicosSelecionados.filter(servico => servico !== item.Servicos);
                         }
-                        console.log('Serv:' + servicosSelecionados);  // Log para verificar os serviços selecionados
+                        // console.log(servicosSelecionados);  // Log para verificar os serviços selecionados
                     });
-                });     
+                });   
+
+                bt_excl.onclick = async () => {        
+                    const response = await fetch('http://localhost:3000/servicos/excluir', {
+                        method: 'delete',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ Servicos: servicosSelecionados }),            
+                    });
+                    console.log(response);
+                    console.log('teste', servicosSelecionados);
+                    if (response.status === 200) {
+                        exibirToast('Serviço excluido com sucesso.', '#269934');                         
+                        preencherTabela(Esteticista);      
+                                       
+                    } }  
                 
             exibirToast('Atualizado planilha.', '#269934');
         } else if (response.status === 500) {
@@ -122,40 +138,40 @@ onload = () => {
     
     
 
-    bt_exc.onclick = async () => {
-        const excluir = document.getElementById('exc').value;  
-        const response = await fetch('http://localhost:3000/servicos/', {
-            method: 'post',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ Esteticista , Servicos }),
-            
-        });
-        if (response.status === 201) {
-            exibirToast('Cadastro realizado com sucesso.', '#269934');
-            document.getElementById("serv").value ='';  
-            preencherTabela(Esteticista);      
+    // bt_excl.onclick = async () => {        
+    //     const response = await fetch('http://localhost:3000/servicos/excluir', {
+    //         method: 'delete',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ Servicos: servicosSelecionados }),            
+    //     });
+    //     console.log(response);
+    //     console.log('teste', servicosSelecionados);
+    //     if (response.status === 200) {
+    //         exibirToast('Serviço escluido com sucesso.', '#269934');
+    //         document.getElementById("serv").value ='';  
+    //         preencherTabela(Esteticista);      
                            
-        }  if (response.status === 500) {
-            exibirToast('Favor preecher o campo de Serviço', '#ff0000');      
-        } if (response.status === 400) {
-            exibirToast('Serviço ja cadastrado para essa Esteticista', '#ff0000');      
-        }        
-    }
+    //     }  if (response.status === 500) {
+    //         exibirToast('Favor preecher o campo de Serviço', '#ff0000');      
+    //     } if (response.status === 400) {
+    //         exibirToast('Serviço ja cadastrado para essa Esteticista', '#ff0000');      
+    //     }        
+    // }
     
-    var servico = document.getElementById('tb_serv');
-    var checkbox = document.getElementById('exc');
+//     var servico = document.getElementById('tb_serv');
+//     var checkbox = document.getElementById('exc');
 
-// Em seguida, adicione um ouvinte de eventos para o checkbox
-    checkbox.addEventListener('change', function() {
-    if(this.checked) {
-        // O checkbox está marcado, obtenha o valor do item Serviço
-        var valorServico = servico.textContent;
-        console.log(valorServico);
-    }
-});
+// // Em seguida, adicione um ouvinte de eventos para o checkbox
+//     checkbox.addEventListener('change', function() {
+//     if(this.checked) {
+//         // O checkbox está marcado, obtenha o valor do item Serviço
+//         var valorServico = servico.textContent;
+//         console.log(valorServico);
+//     }
+// });
  
     
 }

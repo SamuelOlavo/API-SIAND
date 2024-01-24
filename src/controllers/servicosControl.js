@@ -126,14 +126,15 @@ exports.delete = async (req, res) => {
 };
 
 exports.deleteMany = async (req, res) => {
-  let serv = req.body.servicos; // assumindo que 'servicos' é um array de IDs
+  let serv = req.body.Servicos; // assumindo que 'servicos' é um array de IDs
   try {
-    const deleteResponse = await Servicos.deleteMany({ _id: { $in: serv } });
+    const deleteResponse = await Servicos.deleteMany({ Servicos: { $in: serv } });
     res.json(deleteResponse);
   } catch (error) {
     res.status(500).json({ error: error.toString() });
   }
 };
+
 // exports.ByEmail = async (req, res) => {
 //     const email = req.params.email;
 //     const user = await userService.emailUsers(email);
