@@ -40,6 +40,13 @@ font-family: 'Roboto', sans-serif; */
   }
 }
 
+@media screen and (min-width: 800px) {
+  #wrapper {
+    transform: scale(1.2);
+    transform-origin: 0 0;
+  }
+}
+
 #wrapper {
   position: absolute ;
   width: 100% ;
