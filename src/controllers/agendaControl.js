@@ -49,16 +49,17 @@ exports.AllServ = async (req, res) => {
 };
 
 
-// exports.ByServ = async (req, res) => {
-//   let serv = req.params.Servicos;
+exports.ByServ = async (req, res) => {
+  let nome_prof = req.params.Esteticista;
 
-//   try {
-//     const agenda = await Agendas.find({Servicos: serv}).select("-_id  Esteticista");
-//     res.json(agenda);
-//   } catch (error) {
-//     res.status(500).json({ error: error });
-//   }
-// };
+  try {
+    const agenda = await Agendas.find({Esteticista: nome_prof});
+    res.json(agenda);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
 
 // exports.ByProf = async (req, res) => {
 //   let nome_prof = req.params.Esteticista;

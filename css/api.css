@@ -168,11 +168,11 @@ font-family: 'Roboto', sans-serif; */
   background-color: #4495ff;  
 }
 
-.full-screen-div {  
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #f0f0f0; /* Altere para a cor desejada */
+.col {
+  background-color: var(--cler2);
+  border-radius: 0px 18px 17px 0px;
+  -webkit-border-radius: 0px 18px 17px 0px;
+  -moz-border-radius: 0px 18px 17px 0px;
+  transition: all 0.5s ease;		
 }
 

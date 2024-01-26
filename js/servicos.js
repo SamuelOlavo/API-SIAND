@@ -13,26 +13,7 @@ onload = () => {
    
 
 
-    const serv = document.getElementById('serv').value;
-    fetch(`http://localhost:3000/servicos/${serv}`)
-    .then(response => response.json())
-    .then(data => {
-        const list_prof = [...new Set(data.map(prof => prof.Esteticista))];            
-        console.log(list_prof);
-        // O elemento select é obtido pelo seu id
-        const select = document.getElementById("prof");
-        // Limpa as opções existentes       
-        select.innerHTML = '';
-        // Para cada esteticista na lista, uma nova opção é criada e adicionada ao select
-        list_prof.forEach(esteticista => {
-            const option = document.createElement('option');
-            option.text = esteticista;
-            select.appendChild(option);
-        });
-    })
-    .catch((erro) => {
-        console.error('Erro:', erro);
-    });
+
 
 
     document.getElementById('bt_add').disabled = true;
