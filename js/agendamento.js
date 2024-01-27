@@ -81,6 +81,9 @@ onload = () => {
             dateNas.style.backgroundColor = '#FFF';
         } 
     };  
+    $(document).ready(function(){
+        $('#tel').mask('(00) 00000-0000');
+      });
     tel.onblur = () => {
         if(tel.value == '') {
             tel.style.backgroundColor = '#F88';                   
@@ -130,14 +133,22 @@ onload = () => {
 
 
     const handleSubmit = async (event) => {
-        event.preventDefault();                
+        event.preventDefault();  
+        const data = document.getElementById('date').value;
+        let partes = data.split('-');
+        let dataFormatada = partes[2] + '/' + partes[1] + '/' + partes[0];
+
+        const dataNas = document.getElementById('dateNas').value;
+        let traco = dataNas.split('-');
+        let dataNasFormatada = traco[2] + '/' + traco[1] + '/' + traco[0];
+                      
 
         const NomeCliente = document.querySelector('input[name=nome]').value;
-        const DataNascimento = document.getElementById('dateNas').value;
+        const DataNascimento = dataNasFormatada;
         const Telefone = document.querySelector('input[name=tel]').value;        
         const Esteticista = document.getElementById('prof').value;  
         const Servicos = document.getElementById('serv').value;
-        const Data = document.getElementById('date').value;
+        const Data = dataFormatada;
         const Horario = document.getElementById('hora').value;
 
         try {

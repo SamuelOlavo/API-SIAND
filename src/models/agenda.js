@@ -12,7 +12,7 @@ const Schema = mongoose.Schema;
         required: true,
       },
       Telefone: {
-        type: Number,
+        type: String,
         required: true,
       },
       Esteticista: {

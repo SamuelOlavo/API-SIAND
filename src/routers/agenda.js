@@ -12,7 +12,7 @@ router.get('/prof', controller.AllProf);
 router.get('/servicos', controller.AllServ);
 
 //get busca lista de servicos dessa esteticista
-router.get("/servicos/:Esteticista", controller.ByServ);
+router.post("/servicos/:Esteticista", controller.ByServ);
 
 // //get busca lista de Profissionais para aquele Serviço
 // router.get("/:Servicos", controller.ByProf);

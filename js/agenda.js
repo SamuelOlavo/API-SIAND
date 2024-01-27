@@ -12,10 +12,15 @@ onload = () => {
     }
 
     let user = JSON.parse(localStorage.getItem('data'));
-    let Esteticista = 'Samuel';   
+    let Esteticista = user.nome;   
     document.getElementById('nome').value = Esteticista;
     console.log(Esteticista)
- 
+    
+    var today = new Date().toISOString().split('T')[0];  
+    let partes = today.split('-');
+    let hoje = partes[2] + '/' + partes[1] + '/' + partes[0];                  
+    console.log (today);
+    document.getElementById('data').value = today;
 
     bt_busca.onclick = () => {
         preenchergrid(Esteticista);
@@ -29,13 +34,14 @@ onload = () => {
         let partes = data.split('-');
         let dataFormatada = partes[2] + '/' + partes[1] + '/' + partes[0];
         console.log(dataFormatada);
-        const response = await fetch(`http://localhost:3000/agenda/servicos/${Esteticista}?Data=${dataFormatada}`
+        const response = await fetch(`http://localhost:3000/agenda/servicos/${Esteticista}`
         , {
-            method: 'get',
+            method: 'post',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
+            body: JSON.stringify({ Data: dataFormatada})
         });
        
         if (response.status === 200) {
