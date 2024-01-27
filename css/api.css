@@ -168,11 +168,8 @@ font-family: 'Roboto', sans-serif; */
   background-color: #4495ff;  
 }
 
-.col {
-  background-color: var(--cler2);
-  border-radius: 0px 18px 17px 0px;
-  -webkit-border-radius: 0px 18px 17px 0px;
-  -moz-border-radius: 0px 18px 17px 0px;
-  transition: all 0.5s ease;		
+.grid {
+  max-width: 1050px;
+  overflow-x: hidden;
 }
 

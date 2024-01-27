@@ -13,7 +13,7 @@ onload = () => {
 
     let user = JSON.parse(localStorage.getItem('data'));
     let Esteticista = 'Samuel';   
-    // document.getElementById('nome').value = Esteticista;
+    document.getElementById('nome').value = Esteticista;
     console.log(Esteticista)
  
 
@@ -25,7 +25,19 @@ onload = () => {
     const grid = document.getElementById('grid_list');
 
     async function preenchergrid(Esteticista) {
-        const response = await fetch(`http://localhost:3000/agenda/servicos/${Esteticista}`);    
+        const data = document.getElementById('data').value;
+        let partes = data.split('-');
+        let dataFormatada = partes[2] + '/' + partes[1] + '/' + partes[0];
+        console.log(dataFormatada);
+        const response = await fetch(`http://localhost:3000/agenda/servicos/${Esteticista}?Data=${dataFormatada}`
+        , {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        });
+       
         if (response.status === 200) {
             const data = await response.json(); 
             console.log(data);               
@@ -41,11 +53,12 @@ onload = () => {
                 // Adicione um id único para cada checkbox
                 let checkboxId = 'exc' + index;
                 grid_list.innerHTML += `
-                <div class="card text-bg-light m-2" style="max-width: 15rem;">
-                <div class="card-header">${index + 1} ${item.Data} | ${item.Horario} </div>
-                <div class="card-body mb-2"><h6 class="card-title"> ${item.Servicos} </h6>
-                <p class="card-text">Cliente:${item.NomeCliente} | Data de nascimento:${item.DataNascimento} cel:${item.Telefone} </p>
-                </div></div>
+                <div class="card mb-1" >
+                <div class="card-body">
+                <h6 class="card-title">${index + 1} - ${item.Data} | ${item.Horario} - ${item.Servicos} </h6>
+                <p class="card-text"><b>Cliente:</b> ${item.NomeCliente} | <b>Data de nascimento:</b> ${item.DataNascimento} | <b>Tel:</b> ${item.Telefone} </p>
+                </div>
+                </div>
                 `;
             });
                 // Adicione um ouvinte de eventos para o checkbox
