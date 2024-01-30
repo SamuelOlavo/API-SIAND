@@ -10,6 +10,46 @@ function exibirToast(mensagem, cor) {
     }).showToast();
 
 }
-onload = () => {
-    exibirToast('Bem vindo','#269934')
+
+window.onload = function() {
+    exibirToast('Bem vindo','#269934');
+    preenchergrid(Esteticista);
 }
+
+    let user = JSON.parse(localStorage.getItem("data"));
+    let Esteticista = user.nome;
+   
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString().split('T')[0];
+    let partes = today.split("-");
+    let hoje = partes[2] + "/" + partes[1] + "/" + partes[0];    
+    console.log(hoje);
+
+    const msg_agenda = document.getElementById("msg_agenda");
+    const status = document.getElementById("status");
+
+    async function preenchergrid(Esteticista) {
+        const response = await fetch(`http://localhost:3000/agenda/servicos/${Esteticista}`
+        , {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ Data: hoje})
+        });
+    
+        if (response.status === 500) {
+            exibirToast('Erro servidor', '#ff0000');
+            return;
+        } 
+        const dados = await response.json(); 
+    
+        if (!dados || dados.length === 0) {
+            exibirToast('Você não possui agendamentos para hoje.', '#ff0000');
+        } else {  
+            msg_agenda.innerHTML += `  Você possui ${dados.length} agendamento(s) para o dia de hoje.`; 
+            status.innerHTML += `${dados.length}`
+        }
+    }
+    

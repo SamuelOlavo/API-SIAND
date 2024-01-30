@@ -20,7 +20,7 @@ router.post("/servicos/:Esteticista", controller.ByServ);
 //post para adicionar dados na tabela Agenda
 router.post("/", controller.add);
 
-// router.put("/:id", controller.update);
+router.put("/:id", controller.update);
 
 // router.delete("/:id", controller.delete);
 

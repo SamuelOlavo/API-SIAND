@@ -110,9 +110,9 @@ onload = () => {
     //     } 
     // }; 
 
-    // Data e Hora do Agendamento
-    var today = new Date().toISOString().split('T')[0];                    
-    console.log (today);
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString().split('T')[0];
+    console.log(today);
     
     date.onblur = () => {
         if(date.value == '' || date.value < today) {

@@ -31,6 +31,14 @@ const Schema = mongoose.Schema;
         type: String,
         required: true,
       },
+      Remarcar: {
+        type: Boolean,
+        required: false,
+      },
+      Anotacoes: {
+        type: String,
+        required: false,
+      }
     });
 
 module.exports = Agendas = mongoose.model("agenda", agendaSchema);

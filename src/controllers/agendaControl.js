@@ -114,26 +114,32 @@ exports.add = async (req, res) => {
 
 
 
-// exports.update = async (req, res) => {
-//     let id = req.params.id;
-  
-//     try {
-//       const user = {};
-//       user.nome = req.body.nome;
-//       user.email = req.body.email;
-//       user.senha = req.body.senha;
-  
-//       const updateduser = await userService.updateUsers(id, user);
-  
-//       if (updateduser.nModified === 0) {
-//         return res.status(404).json({});
-//       }
-  
-//       res.json(updateduser);
-//     } catch (error) {
-//       res.status(500).json({ error: error });
-//     }
-// };
+exports.update = async (req, res) => {
+  try {
+    let agendamento = await Agendas.findById(req.params.id);
+
+    if (!agendamento) {
+      return res.status(404).json({ message: 'Agendamento não encontrado' });
+    }
+
+    if (req.body.NomeCliente) agendamento.NomeCliente = req.body.NomeCliente;
+    if (req.body.DataNascimento) agendamento.DataNascimento = req.body.DataNascimento;
+    if (req.body.Telefone) agendamento.Telefone = req.body.Telefone;
+    if (req.body.Esteticista) agendamento.Esteticista = req.body.Esteticista;
+    if (req.body.Servicos) agendamento.Servicos = req.body.Servicos;
+    if (req.body.Data) agendamento.Data = req.body.Data;
+    if (req.body.Horario) agendamento.Horario = req.body.Horario;
+    if (req.body.Remarcar) agendamento.Remarcar = req.body.Remarcar;
+    if (req.body.Anotacoes) agendamento.Anotacoes = req.body.Anotacoes;
+
+    await agendamento.save();
+
+    res.status(200).json(agendamento);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
 
 // exports.delete = async (req, res) => {
 //     let id = req.params.id;

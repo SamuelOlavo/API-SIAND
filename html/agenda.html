@@ -26,26 +26,52 @@
                 </ul>
                 <div id="info-content" class="">
                     <h1 class="fw-bold mb-0 fs-0 mb-3">Gestão da Agenda<strong></strong></h1>
-                    <p class="fw mb-0 fs-4">Busque os agendamentos pelos filtros disponiveis................................</p>
-                     <div class="grid card mt-2">
+                    <p class="fw mb-0 fs-4">Busque os agendamentos pelos filtros
+                        disponiveis................................</p>
+                    <div class="grid card mt-2">
                         <div class="card-body">
                             <div class="input-group mb-1">
                                 <input type="date" class="form-control" placeholder="Data" id="data"
-                                    aria-label="Recipient's username" aria-describedby="button-addon2"  pattern="\d{1,2}/\d{1,2}/\d{4}">
+                                    aria-label="Recipient's username" aria-describedby="button-addon2"
+                                    pattern="\d{1,2}/\d{1,2}/\d{4}">
 
                                 <input type="text" class="form-control" placeholder="Nome" id="nome"
                                     aria-describedby="button-addon2" disabled>
                                 <button class="btn btn-outline-info" type="button" id="bt_busca">Buscar</button>
                             </div>
                         </div>
-                                        
-                   
-                    <div class="grid container center" id="grid_list">
-      
 
-                                          
+
+                        <div class="grid container center" id="grid_list">
+
+
+
+                        </div>
+                        <div id="formulario_de_edicao" style="display: none;">
+                            <h2>Editar Agendamento</h2>
+                            <form>
+                                <label for="NomeCliente">Nome do Cliente:</label><br>
+                                <input type="text" id="NomeCliente" name="NomeCliente"><br>
+                                <label for="DataNascimento">Data de Nascimento:</label><br>
+                                <input type="date" id="DataNascimento" name="DataNascimento"><br>
+                                <label for="Telefone">Telefone:</label><br>
+                                <input type="text" id="Telefone" name="Telefone"><br>
+                                <label for="servicos" class="form-label pt-2"> Escolha um de nossos Serviços: </label><br>
+                                <input type="text" id="serv" class="form-label pt-2" name="servicos">    <br>                          
+                                <label for="prof" class="form-label pt-2"> Esteticista: </label><br>
+                                <input type="text" id="prof" class="form-label pt-2" name="Esteticista"><br>                                
+                                <label for="data" class="col-sm-2 col-form-label"> Data: </label><br>
+                                <input type="date" id="date" class="form-control" name="Data" min="${today}" /><br>
+                                <label class="form-label mt-3 " for="Horario"> Escolha o horário de atendimento (aberto
+                                    das 09:00 às 18:00)</label><br>
+                                <input id="hora" type="time" class="form-control" name="hora" min="09:00" max="18:00">
+                                <button type="button" id="botao_salvar">Salvar</button>
+                            </form>
+                        </div>
+
+
                     </div>
-                </div>
+
 
                 </div>
                 <div class="menu">
