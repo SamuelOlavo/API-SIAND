@@ -92,9 +92,17 @@ function abrirFormularioDeEdicao(item) {
   // Limpe o corpo do modal
   modalBody.innerHTML = '';  
   // Crie campos de entrada para cada propriedade do item
+  let camposEditados = {};
+  let ID; // Armazena os campos editados
   for (let key in item) {
+  
       // Ignore os campos _id e __v
-      if (key === '_id' || key === '__v') continue;
+      if (key === '_id' || key === '__v') {
+        if (key === '_id') {
+          ID = item[key]; // Armazene o valor do ID
+        }
+        continue;
+      }
       
       let div = document.createElement('div');
       div.className = 'form-group';      
@@ -108,7 +116,12 @@ function abrirFormularioDeEdicao(item) {
       input.className = 'form-control';
       if (key === 'Esteticista') {
         input.readOnly = true;        
-    }      
+      }      
+      // Adicione um evento de escuta ao campo de entrada
+      input.addEventListener('change', function() {
+        camposEditados[this.id] = this.value; // Adicione o campo editado ao objeto camposEditados
+      });
+      
       div.appendChild(label);
       div.appendChild(input);
       modalBody.appendChild(div);
@@ -136,25 +149,36 @@ function abrirFormularioDeEdicao(item) {
           input.id = campo;
           input.className = 'form-control';
           
+          // Adicione um evento de escuta ao campo de entrada
+          input.addEventListener('change', function() {
+            camposEditados[this.id] = this.value; // Adicione o campo editado ao objeto camposEditados
+          });
+          
           div.appendChild(label);
           div.appendChild(input);
           modalBody.appendChild(div);
       }
   }
+  // Agora, o objeto camposEditados contém os campos que foram editados
   
+
+
+ 
   
   // Adicione um manipulador de eventos ao botão de salvar
-  document.getElementById('saveButton').addEventListener('click', () => {
-      for (let key in item) {
-          // Não atualize os campos _id e __v
-          if (key !== '_id' && key !== '__v') {
-              item[key] = document.getElementById(key).value;
-          }
-      }
-      // Atualize a interface do usuário aqui
-      // Feche o modal após a edição
-      $('#editModal').modal('hide');
+  bt_save.onclick = async () => {
+    console.log(ID, camposEditados);
+
+    const response = await fetch('http://localhost:3000/agenda/${ID}', {
+      method: 'put',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ camposEditados }),            
   });
+   console.log(response);
+  };
   
   // Mostre o modal
   $('#editModal').modal('show');
