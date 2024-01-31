@@ -65,11 +65,15 @@ onload = () => {
          // Iterar sobre os dados e adicionar novas linhas ao tbody
          dados.forEach((item, index) => {
           let card = document.createElement('div');
-          card.className = 'card mb-1';
+          card.className = 'card mb-2';
+          let anotacoes = item.Anotacoes !== undefined ? item.Anotacoes : '';
+          let remarcar = item.Remarcar ? 'sim' : '';
+
           card.innerHTML = `
-              <div class="card-body">
-                  <h6 class="card-title">${index + 1} - ${item.Data} | ${item.Horario} - ${item.Servicos} </h6>
-                  <p class="card-text"><b>Cliente:</b> ${item.NomeCliente} | <b>Data de nascimento:</b> ${item.DataNascimento} | <b>Tel:</b> ${item.Telefone} </p>
+              <div class="list card-body" id="list">
+                  <h6 class="card-title">${index + 1} - ${item.Data} | ${item.Horario} - ${item.Servicos} | Remarcar - ${remarcar}</h6>
+                  <p class="card-text"><b>Cliente:</b> ${item.NomeCliente} | <b>Data de nascimento:</b> ${item.DataNascimento} | <b>Tel:</b> ${item.Telefone} <br>
+                  <b>Anotaçoes:</b> ${anotacoes} </p>                 
               </div>
           `;
           card.addEventListener('click', () => {
@@ -78,61 +82,87 @@ onload = () => {
           grid_list.appendChild(card);
       });
       
-         exibirToast('lista de agendamentos atualizada.', '#269934');
-
-        
+         exibirToast('lista de agendamentos atualizada.', '#269934');        
     }
 }
 
-
 function abrirFormularioDeEdicao(item) {
-  // Abra o formulário de edição
-  let formulario = document.getElementById('formulario_de_edicao');
-  formulario.style.display = 'block';
-
-  // Preencha os campos do formulário com os dados do item
-  document.getElementById('NomeCliente').value = item.NomeCliente;  
-  document.getElementById('tel').value = item.Telefone;
-  document.getElementById('serv').value = item.Servicos;
-  document.getElementById('prof').value = item.Esteticista;
-  document.getElementById('date').value = item.Data;
-  document.getElementById('hora').value = item.Horario
-  // ... preencha os outros campos ...
-
-  // Adicione um evento de clique ao botão de salvar
-  document.getElementById('botao_salvar').addEventListener('click', () => {
-      salvarEdicoes(item._id);
-  });
-}
-
-async function salvarEdicoes(id) {
-  // Pegue os dados editados do formulário
-  let NomeCliente = document.getElementById('NomeCliente').value;
-  let DataNascimento = document.getElementById('DataNascimento').value;
-  let Telefone = document.getElementById('Telefone').value;
-  // ... pegue os outros campos ...
-
-  // Faça uma requisição PUT para atualizar o item no servidor
-  const response = await fetch(`http://localhost:3000/agenda/servicos/${id}`, {
-      method: 'PUT',
-      headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-          NomeCliente: NomeCliente,
-          DataNascimento: DataNascimento,
-          Telefone: Telefone,
-          // ... outros campos ...
-      })
-  });
-
-  if (response.ok) {
-      exibirToast('Agendamento atualizado com sucesso.', '#269934');
-  } else {
-      exibirToast('Erro ao atualizar agendamento.', '#ff0000');
+  // Obtenha o corpo do modal
+  let modalBody = document.querySelector('#editModal .modal-body');  
+  // Limpe o corpo do modal
+  modalBody.innerHTML = '';  
+  // Crie campos de entrada para cada propriedade do item
+  for (let key in item) {
+      // Ignore os campos _id e __v
+      if (key === '_id' || key === '__v') continue;
+      
+      let div = document.createElement('div');
+      div.className = 'form-group';      
+      let label = document.createElement('label');
+      label.for = key;
+      label.innerText = key;
+      
+      let input = document.createElement('input');
+      input.id = key;
+      input.value = item[key];
+      input.className = 'form-control';
+      if (key === 'Esteticista') {
+        input.readOnly = true;        
+    }      
+      div.appendChild(label);
+      div.appendChild(input);
+      modalBody.appendChild(div);
   }
+  // Adicione os novos campos "REMARCAR" e "ANOTAÇÕES" se eles não existirem
+  let camposExtras = ['Anotacoes', 'Remarcar'];
+  for (let campo of camposExtras) {
+      if (!item.hasOwnProperty(campo)) {
+          let div = document.createElement('div');
+          div.className = 'form-group';
+          
+          let label = document.createElement('label');
+          label.for = campo;
+          label.innerText = campo;
+          
+          let input;
+          if (campo === 'Remarcar') {
+              input = document.createElement('input');
+              input.type = 'checkbox';
+              input.checked = item.Remarcar; // Define o estado do checkbox com base no valor de Remarcar
+          } else {
+              input = document.createElement('input');
+              input.type = 'text';
+          }
+          input.id = campo;
+          input.className = 'form-control';
+          
+          div.appendChild(label);
+          div.appendChild(input);
+          modalBody.appendChild(div);
+      }
+  }
+  
+  
+  // Adicione um manipulador de eventos ao botão de salvar
+  document.getElementById('saveButton').addEventListener('click', () => {
+      for (let key in item) {
+          // Não atualize os campos _id e __v
+          if (key !== '_id' && key !== '__v') {
+              item[key] = document.getElementById(key).value;
+          }
+      }
+      // Atualize a interface do usuário aqui
+      // Feche o modal após a edição
+      $('#editModal').modal('hide');
+  });
+  
+  // Mostre o modal
+  $('#editModal').modal('show');
 }
+
+
+
+
 
 
 
@@ -154,5 +184,11 @@ async function salvarEdicoes(id) {
   // })
   // .catch((erro) => {
   //     console.error('Erro:', erro);
+        // Bloqueie a edição do campo ID
+      //   if (key === '_id' || key === '__v' || key === 'Esteticista') {
+      //     input.readOnly = true;
+      //     label.readOnly = true;
+          
+      // }
   // });
 };

@@ -173,3 +173,7 @@ font-family: 'Roboto', sans-serif; */
   overflow-x: hidden;
 }
 
+.list :active {
+  background-color: #A67458;
+  /* display: none; */
+}

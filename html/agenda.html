@@ -10,14 +10,34 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link href="/css/api.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 
 <body>
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editModalLabel">Editar Item</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-primary" id="saveButton">Salvar alterações</button>
+            </div>
+          </div>
+        </div>
+      </div>
     <nav class="sidebar-navigation">
         <div id="wrapper">
 
             <div id="info">
+               
                 <ul class="topo nav">
                     <a class="icone navbar-brand ms-2"> <img src="../Img/chec.png" width="40"></a>
                     <li class="nav-item">
@@ -43,11 +63,14 @@
 
 
                         <div class="grid container center" id="grid_list">
-
+                            teste
 
 
                         </div>
-                        <div id="formulario_de_edicao" style="display: none;">
+
+                        
+                          
+                        <!-- <div id="formulario_de_edicao" style="display: none;">
                             <h2>Editar Agendamento</h2>
                             <form>
                                 <label for="NomeCliente">Nome do Cliente:</label><br>
@@ -67,7 +90,7 @@
                                 <input id="hora" type="time" class="form-control" name="hora" min="09:00" max="18:00">
                                 <button type="button" id="botao_salvar">Salvar</button>
                             </form>
-                        </div>
+                        </div> -->
 
 
                     </div>
@@ -97,6 +120,8 @@
             </div>
     </nav>
     <script src="../js/agenda.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>
