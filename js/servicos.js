@@ -114,45 +114,6 @@ onload = () => {
         } else if (response.status === 400) {
             exibirToast('Serviço ja cadastrado para essa Esteticista', '#ff0000');
         }
-    }
-    
-    
-    
-
-    // bt_excl.onclick = async () => {        
-    //     const response = await fetch('http://localhost:3000/servicos/excluir', {
-    //         method: 'delete',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({ Servicos: servicosSelecionados }),            
-    //     });
-    //     console.log(response);
-    //     console.log('teste', servicosSelecionados);
-    //     if (response.status === 200) {
-    //         exibirToast('Serviço escluido com sucesso.', '#269934');
-    //         document.getElementById("serv").value ='';  
-    //         preencherTabela(Esteticista);      
-                           
-    //     }  if (response.status === 500) {
-    //         exibirToast('Favor preecher o campo de Serviço', '#ff0000');      
-    //     } if (response.status === 400) {
-    //         exibirToast('Serviço ja cadastrado para essa Esteticista', '#ff0000');      
-    //     }        
-    // }
-    
-//     var servico = document.getElementById('tb_serv');
-//     var checkbox = document.getElementById('exc');
-
-// // Em seguida, adicione um ouvinte de eventos para o checkbox
-//     checkbox.addEventListener('change', function() {
-//     if(this.checked) {
-//         // O checkbox está marcado, obtenha o valor do item Serviço
-//         var valorServico = servico.textContent;
-//         console.log(valorServico);
-//     }
-// });
- 
-    
+    }    
+  
 }

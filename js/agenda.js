@@ -61,6 +61,7 @@ onload = () => {
          let grid = document.getElementById('grid_list');
          // Limpar o conteúdo atual do tbody
          grid_list.innerHTML = ''; 
+         
                          
          // Iterar sobre os dados e adicionar novas linhas ao tbody
          dados.forEach((item, index) => {
@@ -93,7 +94,8 @@ function abrirFormularioDeEdicao(item) {
   modalBody.innerHTML = '';  
   // Crie campos de entrada para cada propriedade do item
   let camposEditados = {};
-  let ID; // Armazena os campos editados
+  let camposEditadosJson = {}; // Declare camposEditadosJson aqui
+  let ID;
   for (let key in item) {
   
       // Ignore os campos _id e __v
@@ -119,8 +121,10 @@ function abrirFormularioDeEdicao(item) {
       }      
       // Adicione um evento de escuta ao campo de entrada
       input.addEventListener('change', function() {
-        camposEditados[this.id] = this.value; // Adicione o campo editado ao objeto camposEditados
+        camposEditados[this.id] = this.value;
+        camposEditadosJson = JSON.stringify(camposEditados); // Atualize camposEditadosJson aqui
       });
+      
       
       div.appendChild(label);
       div.appendChild(input);
@@ -151,33 +155,38 @@ function abrirFormularioDeEdicao(item) {
           
           // Adicione um evento de escuta ao campo de entrada
           input.addEventListener('change', function() {
-            camposEditados[this.id] = this.value; // Adicione o campo editado ao objeto camposEditados
+            camposEditados[this.id] = this.value;
+            camposEditadosJson = JSON.stringify(camposEditados); // Atualize camposEditadosJson aqui
           });
+          
           
           div.appendChild(label);
           div.appendChild(input);
           modalBody.appendChild(div);
       }
   }
-  // Agora, o objeto camposEditados contém os campos que foram editados
-  
 
+  bt_save.onclick = async () => {    
+    console.log(ID,camposEditadosJson);
 
- 
-  
-  // Adicione um manipulador de eventos ao botão de salvar
-  bt_save.onclick = async () => {
-    console.log(ID, camposEditados);
-
-    const response = await fetch('http://localhost:3000/agenda/${ID}', {
+    const response = await fetch(`http://localhost:3000/agenda/${ID}`, {
       method: 'put',
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ camposEditados }),            
+      body:  camposEditadosJson,         
   });
    console.log(response);
+   if (response.status === 200) {
+    exibirToast('sucesso.', '#269934'); 
+    $('#editModal').modal('hide'); 
+    let grid = document.getElementById('grid_list');
+    // Limpar o conteúdo atual do tbody
+    grid_list.innerHTML = ''; 
+    preenchergrid(Esteticista);  
+                   
+   }  
   };
   
   // Mostre o modal
