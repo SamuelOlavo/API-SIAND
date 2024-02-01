@@ -118,7 +118,15 @@ function abrirFormularioDeEdicao(item) {
       input.className = 'form-control';
       if (key === 'Esteticista') {
         input.readOnly = true;        
-      }      
+      }   
+      if (key === 'Data') {        
+        item.Data.onclick = async () => {
+          input.type = 'date';
+        }
+        // input.value = item.Data;
+        // 
+         // Define o estado do checkbox com base no valor de Remarcar
+    }    
       // Adicione um evento de escuta ao campo de entrada
       input.addEventListener('change', function() {
         camposEditados[this.id] = this.value;
