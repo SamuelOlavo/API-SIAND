@@ -14,14 +14,13 @@ router.get('/servicos', controller.AllServ);
 //get busca lista de servicos dessa esteticista
 router.post("/servicos/:Esteticista", controller.ByServ);
 
-// //get busca lista de Profissionais para aquele Serviço
-// router.get("/:Servicos", controller.ByProf);
-
 //post para adicionar dados na tabela Agenda
 router.post("/", controller.add);
 
+//update atualiza os campos da Agenda
 router.put("/:id", controller.update);
 
-// router.delete("/:id", controller.delete);
+//deleta o agendamento escolhido 
+router.delete("/:id", controller.delete);
 
 module.exports = router;

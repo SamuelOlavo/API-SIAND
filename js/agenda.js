@@ -9,32 +9,30 @@ onload = () => {
       },
     }).showToast();
   }
-
+//Pegando os dados de login do Usuario
   let user = JSON.parse(localStorage.getItem("data"));
   let Esteticista = user.nome;
   document.getElementById("nome").value = Esteticista;
 
-
+//Setando a data de hoje no campo de busca
   var now = new Date();
-
-
- var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString().split('T')[0];
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString().split('T')[0];
   let partes = today.split("-");
   let hoje = partes[2] + "/" + partes[1] + "/" + partes[0];
   document.getElementById("data").value = today;
-   
-  console.log(today);
 
+//Botao de busca chama a função para preencher com os agendamentos.
   bt_busca.onclick = () => {
     preenchergrid(Esteticista);    
   };
 
-  const grid = document.getElementById("grid_list");
-
+//Função que passa o nome da esteticista e a data escolhida no input
   async function preenchergrid(Esteticista) {
+//paramentro para formatar a data antes da consulta
     const data = document.getElementById('data').value;
     let partes = data.split('-');
-    let dataFormatada = partes[2] + '/' + partes[1] + '/' + partes[0];       
+    let dataFormatada = partes[2] + '/' + partes[1] + '/' + partes[0];     
+
     const response = await fetch(`http://localhost:3000/agenda/servicos/${Esteticista}`
     , {
         method: 'post',
@@ -52,8 +50,8 @@ onload = () => {
         exibirToast('Verifique os campos e refaça a busca', '#ff0000');
         return;
     }
+//armazeno os dados de retornor para construir a lista de agendamentos
     const dados = await response.json(); 
-
     if (!dados || dados.length === 0) {
         exibirToast('Não há agendamentos para este dia.', '#ff0000');
     } else {
@@ -66,17 +64,44 @@ onload = () => {
          // Iterar sobre os dados e adicionar novas linhas ao tbody
          dados.forEach((item, index) => {
           let card = document.createElement('div');
-          card.className = 'card mb-2';
+          card.className = 'card mb-2 mt-2';
           let anotacoes = item.Anotacoes !== undefined ? item.Anotacoes : '';
           let remarcar = item.Remarcar ? 'sim' : '';
+          let _id = item._id;
 
-          card.innerHTML = `
-              <div class="list card-body" id="list">
-                  <h6 class="card-title">${index + 1} - ${item.Data} | ${item.Horario} - ${item.Servicos} | Remarcar - ${remarcar}</h6>
+          let deleteButton = document.createElement('button');
+          deleteButton.textContent = '';
+          deleteButton.className = 'btn-close';
+          deleteButton.addEventListener('click', (event) => {
+              event.stopPropagation(); // Para evitar a abertura do formulário de edição
+              $('#deleteModal').modal('show'); 
+              document.getElementById('confirmDelete').addEventListener('click', () => {
+                const response = fetch(`http://localhost:3000/agenda/${_id}`, {
+                  method: 'delete',
+                  headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json',
+                  },                          
+              });              
+              console.log(response);             
+              if (response.deletedCount = 1) {                 
+                  preenchergrid(Esteticista);
+                  console.log(_id, 'Card excluído');
+                  $('#deleteModal').modal('hide'); // Fecha o modal                               
+              }               
+
+              });
+              
+          });
+
+          card.innerHTML = `          
+              <div class="list card-body" id="list"> 
+                  <h6 class="card-title">${index + 1} | ${item.Data} - ${item.Horario} | ${item.Servicos} | Remarcar - ${remarcar}</h6>
                   <p class="card-text"><b>Cliente:</b> ${item.NomeCliente} | <b>Data de nascimento:</b> ${item.DataNascimento} | <b>Tel:</b> ${item.Telefone} <br>
                   <b>Anotaçoes:</b> ${anotacoes} </p>                 
               </div>
           `;
+          card.appendChild(deleteButton);
           card.addEventListener('click', () => {
               abrirFormularioDeEdicao(item);
           });
@@ -86,6 +111,9 @@ onload = () => {
          exibirToast('lista de agendamentos atualizada.', '#269934');        
     }
 }
+
+// Adiciona um evento de clique ao botão de confirmação de exclusão no modal
+
 
 function abrirFormularioDeEdicao(item) {
   // Obtenha o corpo do modal

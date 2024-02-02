@@ -68,7 +68,7 @@ exports.ByServ = async (req, res) => {
     const agenda = await Agendas.find({
       Esteticista: nome_prof,
       Data: dataFiltro // Filtrando pela data exata
-    }).sort({Data: -1}); // Ordenando pela data de forma decrescente
+    }).sort({Horario: 1}); // Ordenando pela data de forma decrescente
 
     res.json(agenda); // Retornando todos os agendamentos da data especificada
   } catch (error) {
@@ -141,16 +141,15 @@ exports.update = async (req, res) => {
 };
 
 
-// exports.delete = async (req, res) => {
-//     let id = req.params.id;
-  
-//     try {
-//       const deleteResponse = await userService.deleteUsers(id);
-//       res.json(deleteResponse);
-//     } catch (error) {
-//       res.status(500).json({ error: error });
-//     }
-//   };
+exports.delete = async (req, res) => {
+    let id = req.params.id;  
+    try {
+      const deleteResponse = await Agendas.deleteOne({_id: id});
+      res.json(deleteResponse);
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  };
 
 // exports.ByEmail = async (req, res) => {
 //     const email = req.params.email;
