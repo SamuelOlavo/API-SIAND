@@ -32,7 +32,7 @@ const Schema = mongoose.Schema;
         required: true,
       },
       Remarcar: {
-        type: Boolean,
+        type: String,
         required: false,
       },
       Anotacoes: {

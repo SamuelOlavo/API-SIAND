@@ -26,8 +26,11 @@ onload = () => {
   bt_busca.onclick = () => {
     let grid = document.getElementById("grid_list");
     grid.innerHTML = "";
-    preenchergrid(Esteticista);
+    preenchergrid(Esteticista);   
+
   };
+
+
 
   //Função que passa o nome da esteticista e a data escolhida no input
   async function preenchergrid(Esteticista) {
@@ -35,23 +38,20 @@ onload = () => {
     const data = document.getElementById("data").value;
     let partes = data.split("-");
     let dataFormatada = partes[2] + "/" + partes[1] + "/" + partes[0];
+    
 
-    // const response = await fetch(`http://localhost:3000/agenda/servicos/${Esteticista}`
-    // , {
-    //     method: 'post',
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ Data: dataFormatada})
-    // });
 
-    const response = await fetch(`http://localhost:3000/agenda/`, {
-      method: "get",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+
+   
+
+    const response = await fetch(`http://localhost:3000/agenda/servicos/${Esteticista}`
+    , {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ Data: dataFormatada})
     });
     if (response.status === 500) {
       exibirToast("Erro servidor", "#ff0000");
@@ -72,17 +72,11 @@ onload = () => {
         let card = document.createElement("div");
         card.className = "card mb-2 mt-2";
         let anotacoes = item.Anotacoes !== undefined ? item.Anotacoes : "";
-        let remarcar = item.Remarcar ? "sim" : "";        
+        let remarcar = item.Remarcar !== undefined ? item.Remarcar : "";
         card.innerHTML = `          
               <div class="list card-body" id="list"> 
-                  <h6 class="card-title">${index + 1} | ${item.Data} - ${
-          item.Horario
-        } | ${item.Servicos} | Remarcar - ${remarcar}</h6>
-                  <p class="card-text"><b>Cliente:</b> ${
-                    item.NomeCliente
-                  } | <b>Data de nascimento:</b> ${
-          item.DataNascimento
-        } | <b>Tel:</b> ${item.Telefone} <br>
+                  <h6 class="card-title">${index + 1} | ${item.Data} - ${item.Horario} | ${item.Servicos} | Remarcar: ${remarcar}</h6>
+                  <p class="card-text"><b>Cliente:</b> ${item.NomeCliente} | <b>Data de nascimento:</b> ${item.DataNascimento} | <b>Tel:</b> ${item.Telefone} <br>
                   <b>Anotaçoes:</b> ${anotacoes} </p>                 
               </div>
           `;
@@ -127,8 +121,7 @@ onload = () => {
     let camposEditados = {};
     let camposEditadosJson = {}; // Declare camposEditadosJson aqui
     let ID;
-    for (let key in item) {
-    
+    for (let key in item) {    
         // Ignore os campos _id e __v
         if (key === '_id' || key === '__v') {
           if (key === '_id') {
@@ -149,21 +142,23 @@ onload = () => {
         input.className = 'form-control';
         if (key === 'Esteticista') {
           input.readOnly = true;        
-        }   
-        if (key === 'Data') {        
-          item.Data.onclick = async () => {
-            input.type = 'date';
-          }
-          // input.value = item.Data;
-          // 
-           // Define o estado do checkbox com base no valor de Remarcar
-      }    
+        } 
+        if (key === 'Data') { 
+          let partes = item[key].split("/");
+          let dataFormatada = `${partes[2]}-${partes[1]}-${partes[0]}`;
+          input.type = 'date';
+          input.value = dataFormatada;
+      }           
         // Adicione um evento de escuta ao campo de entrada
         input.addEventListener('change', function() {
-          camposEditados[this.id] = this.value;
-          camposEditadosJson = JSON.stringify(camposEditados); // Atualize camposEditadosJson aqui
-        });
-        
+          if (this.id === 'Data') {
+              let partes = this.value.split("-");
+              camposEditados[this.id] = `${partes[2]}/${partes[1]}/${partes[0]}`;
+          } else {
+              camposEditados[this.id] = this.value;
+          }
+          camposEditadosJson = JSON.stringify(camposEditados);
+      });
         
         div.appendChild(label);
         div.appendChild(input);
@@ -182,6 +177,7 @@ onload = () => {
         input.type = "text";
         input.id = campo;
         input.className = "form-control";
+        
         // Adicione um evento de escuta ao campo de entrada
         input.addEventListener("change", function () {
           camposEditados[this.id] = this.value;

@@ -1,22 +1,27 @@
 // const userService = require("../service/usersService");
 const Agendas = require("../models/agenda");
 
-
 exports.getAll = async (req, res) => {
   try {
-       const agenda = await Agendas.find().sort({Data: 1});;
+    // Suponha que 'nomeEsteticista' seja o nome do parâmetro que você está passando
+    const Esteticista = req.query.Esteticista;
 
-  if (!agenda) {
-    return res.status(404).json("Ola TEste !");  
-    
-  }  
-  res.json(agenda);
-} catch (err) {
-  return res.status(500).json({ error: err });
-}
+    let query = {};
+    // Se 'nomeEsteticista' for fornecido, adicione-o ao objeto de consulta
+    if (Esteticista) {
+      query.Esteticista = Esteticista;
+    }
+    const agenda = await Agendas.find(query).sort({Data: 1});
+
+    if (!agenda) {
+      return res.status(404).json("Ola TEste !");
+    }
+
+    res.json(agenda);
+  } catch (err) {
+    return res.status(500).json({ error: err });
+  }
 };
-
-
 
 exports.AllProf = async (req, res) => {
   try {
