@@ -14,6 +14,7 @@ onload = () => {
   let Esteticista = user.nome;
   document.getElementById("nome").value = Esteticista;
 
+
   //Setando a data de hoje no campo de busca
   var now = new Date();
   var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString()
@@ -21,6 +22,19 @@ onload = () => {
   let partes = today.split("-");
   let hoje = partes[2] + "/" + partes[1] + "/" + partes[0];
   document.getElementById("data").value = today;
+
+  const checkbox = document.getElementById("todos");
+  const campodata = document.getElementById("data");
+  
+  checkbox.onclick = () => {
+    if (checkbox.checked) { 
+      campodata.value = 'yyyy-MM-dd';
+      campodata.disabled = true;
+    } else {
+      campodata.disabled = false;
+      document.getElementById("data").value = today;
+    }
+  }
 
   //Botao de busca chama a função para preencher com os agendamentos.
   bt_busca.onclick = () => {
@@ -39,12 +53,18 @@ onload = () => {
     let partes = data.split("-");
     let dataFormatada = partes[2] + "/" + partes[1] + "/" + partes[0];
     
-
-
-
-   
-
-    const response = await fetch(`http://localhost:3000/agenda/servicos/${Esteticista}`
+    const checkbox = document.getElementById("todos");
+    if (checkbox.checked) {
+      var response = await fetch(`http://localhost:3000/agenda?Esteticista=${Esteticista}`
+    , {
+        method: 'get',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+    });
+    } else {
+    var response = await fetch(`http://localhost:3000/agenda/servicos/${Esteticista}`
     , {
         method: 'post',
         headers: {
@@ -52,7 +72,7 @@ onload = () => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ Data: dataFormatada})
-    });
+    }); }
     if (response.status === 500) {
       exibirToast("Erro servidor", "#ff0000");
       return;
