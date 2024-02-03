@@ -26,7 +26,7 @@ window.onload = function() {
     console.log(hoje);
 
     const msg_agenda = document.getElementById("msg_agenda");
-    const status = document.getElementById("status");
+    const numer = document.getElementById("numer");
 
     async function preenchergrid(Esteticista) {
         const response = await fetch(`http://localhost:3000/agenda/servicos/${Esteticista}`
@@ -46,10 +46,10 @@ window.onload = function() {
         const dados = await response.json(); 
     
         if (!dados || dados.length === 0) {
-            exibirToast('Você não possui agendamentos para hoje.', '#ff0000');
+            // exibirToast('Você não possui agendamentos para hoje.', '#ff0000');
         } else {  
             msg_agenda.innerHTML += `  Você possui ${dados.length} agendamento(s) para o dia de hoje.`; 
-            status.innerHTML += `${dados.length}`
+            numer.innerHTML += `${dados.length}`;
         }
     }
     

@@ -4,7 +4,7 @@ const Agendas = require("../models/agenda");
 
 exports.getAll = async (req, res) => {
   try {
-       const agenda = await Agendas.find();
+       const agenda = await Agendas.find().sort({Data: 1});;
 
   if (!agenda) {
     return res.status(404).json("Ola TEste !");  
