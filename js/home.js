@@ -18,8 +18,8 @@ window.onload = function() {
     
 }
 
-    let user = JSON.parse(localStorage.getItem("data.user"));
-    let Esteticista = user.nome;
+    let user = JSON.parse(localStorage.getItem("data"));
+    let Esteticista = user;
     console.log(user.nome);
    
     var now = new Date();
