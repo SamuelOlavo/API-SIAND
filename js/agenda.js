@@ -108,24 +108,26 @@ onload = () => {
         let _id = item._id;
         let deleteButton = document.createElement("button");        
         deleteButton.className = "btn-close";
-        deleteButton.addEventListener("click", (event) => {
+        deleteButton.addEventListener("click", async (event) => {
           event.stopPropagation(); // Para evitar a abertura do formulário de edição no click do usuario
           $("#deleteModal").modal("show");
-          document.getElementById("confirmDelete").addEventListener("click", () => {
-              const response = fetch(`http://localhost:3000/agenda/${_id}`, {
+          document.getElementById("confirmDelete").addEventListener("click", async () => {
+              const response = await fetch(`http://localhost:3000/agenda/${_id}`, {
                 method: "delete",
                 headers: {
                   Accept: "application/json",
                   "Content-Type": "application/json",
                 },
               });              
-              if ((response.deletedCount = 1)) {
-                preenchergrid(Esteticista);
+              if ((await response.json()).deletedCount === 1) {
+                let grid = document.getElementById("grid_list");
+                grid.innerHTML = "";
+                await preenchergrid(Esteticista);   
                 console.log(_id, "Card excluído");
                 $("#deleteModal").modal("hide"); // Fecha o modal
               }
             });
-        });  
+        });
         card.appendChild(deleteButton);
         card.addEventListener("click", () => {
           abrirFormularioDeEdicao(item);
