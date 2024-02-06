@@ -18,8 +18,9 @@ onload = () => {
 
     document.getElementById('bt_add').disabled = true;
     let user = JSON.parse(localStorage.getItem('data'));
-    let Esteticista = user.nome;   
+    let Esteticista = user;   
     document.getElementById('nome').textContent = Esteticista;
+
 
     bt_add.onclick = async () => {
         const Servicos = document.getElementById('serv').value;  

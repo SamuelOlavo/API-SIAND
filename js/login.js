@@ -51,8 +51,8 @@ async function handleSubmit(event) {
 
     if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
-        localStorage.setItem('user', JSON.stringify(data));
+        console.log(data.user.nome);
+        localStorage.setItem('data', JSON.stringify(data.user.nome));
         window.location = "../html/home.html";
     } else {
         exibirToast('Usuário não cadastrado', '#ff0000');

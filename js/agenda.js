@@ -11,7 +11,10 @@ onload = () => {
   }
   //Pegando os dados de login do Usuario
   let user = JSON.parse(localStorage.getItem("data"));
-  let Esteticista = user.nome;
+  let Esteticista = user;
+
+  
+
   document.getElementById("nome").value = Esteticista;
 
 

@@ -14,10 +14,13 @@ function exibirToast(mensagem, cor) {
 window.onload = function() {
     exibirToast('Bem vindo','#269934');
     preenchergrid(Esteticista);
+    console.log(user);
+    
 }
 
-    let user = JSON.parse(localStorage.getItem("data"));
+    let user = JSON.parse(localStorage.getItem("data.user"));
     let Esteticista = user.nome;
+    console.log(user.nome);
    
     var now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString().split('T')[0];
