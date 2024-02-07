@@ -17,7 +17,7 @@ onload = () => {
 
 
     document.getElementById('bt_add').disabled = true;
-    let user = JSON.parse(localStorage.getItem('data'));
+    let user = JSON.parse(localStorage.getItem('user_nome'));
     let Esteticista = user;   
     document.getElementById('nome').textContent = Esteticista;
 

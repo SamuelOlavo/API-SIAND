@@ -50,9 +50,11 @@ async function handleSubmit(event) {
     });
 
     if (response.status === 200) {
-        const data = await response.json();
-        console.log(data.user.nome);
-        localStorage.setItem('data', JSON.stringify(data.user.nome));
+        const data = await response.json();  
+        console.log(data);
+        localStorage.setItem('user_email', JSON.stringify(data.user.email));    
+        localStorage.setItem('user_nome', JSON.stringify(data.user.nome));
+        localStorage.setItem('user_token', JSON.stringify(data.token));
         window.location = "../html/home.html";
     } else {
         exibirToast('Usuário não cadastrado', '#ff0000');
