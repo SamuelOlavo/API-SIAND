@@ -1,135 +1,103 @@
-onload = () => {   
-    function exibirToast(mensagem, cor) {
-        Toastify({
-            text: mensagem,
-            duration: 3000, // Tempo de exibição do toast em milissegundos (opcional)
-            close: true,
-            style: {
-                background: cor,
-            }
-        }).showToast();
-    }
-    
-    // document.getElementById('btnEnviar').disabled = true;
+// Função para executar as ações ao carregar a página
+window.onload = () => {
+    exibirToast("Bem vindo! Faça seu agendamento", "green");
+    carregarServicos();
+    configurarEventListeners();
+};
 
-//As informações de serviços e esteticista estão sendo carregadas na interação do tel e ser por que nao estava dando certo no carregamento da pagina.
+// Função para exibir o toast
+function exibirToast(mensagem, cor) {
+    Toastify({
+        text: mensagem,
+        duration: 3000,
+        close: true,
+        style: { background: cor }
+    }).showToast();
+}
 
-    tel.onclick = async () => {
-        fetch(`http://localhost:3000/servicos/servicos`)
-        .then(response => {
-            if(response.status === 200){            
-                return response.json();                        
-            } else {
-                throw new Error('Erro de busca');
-            }
-        })
-        .then(data => {
-            console.log(data);
-            const list_serv = [...new Set(data.map(serv => serv.Servicos))];            
-            
-            const select = document.getElementById("serv");
-            
-            // Limpa as opções existentes
-            select.innerHTML = '';
-            
-            list_serv.forEach(servicos => {
-                const option = document.createElement('option');
-                option.text = servicos;
-                select.appendChild(option);
-            });
-        })
-        .catch(error => console.log(error));
-    };
-
-    serv.onclick = async () => {
-        const serv = document.getElementById('serv').value;
-        fetch(`http://localhost:3000/servicos/servico/${serv}`)
-        .then(response => response.json())
-        .then(data => {
-            const list_prof = [...new Set(data.map(prof => prof.Esteticista))];            
-            console.log(list_prof);
-            // O elemento select é obtido pelo seu id
-            const select = document.getElementById("prof");
-            // Limpa as opções existentes       
-            select.innerHTML = '';
-            // Para cada esteticista na lista, uma nova opção é criada e adicionada ao select
-            list_prof.forEach(esteticista => {
-                const option = document.createElement('option');
-                option.text = esteticista;
-                select.appendChild(option);
-            });
-        })
-        .catch((erro) => {
-            console.error('Erro:', erro);
-        });
-    };
-
-    nome.onblur = () => {
-        if(nome.value == '') {
-            nome.style.backgroundColor = '#F88';   
-        }
-        else {
-            nome.style.backgroundColor = '#FFF';  
-                                
-        } 
-    };  
-    dateNas.onblur = () => {
-        if(dateNas.value == '') {
-            dateNas.style.backgroundColor = '#F88';                   
-        }
-        else {
-            dateNas.style.backgroundColor = '#FFF';
-        } 
-    };  
-    $(document).ready(function(){
-        $('#tel').mask('(00) 00000-0000');
-      });
-    tel.onblur = () => {
-        if(tel.value == '') {
-            tel.style.backgroundColor = '#F88';                   
-        }
-        else {
-            tel.style.backgroundColor = '#FFF';
-        } 
-    }; 
-
-    prof.onblur = () => {
-        if (prof.value == '') {
-            prof.style.backgroundColor = '#F88';
-         }
-        else {
-            prof.style.backgroundColor = '#FFF';
-        } 
-    };  
-    // serv.onblur = () => {
-    //     if (serv.value == '') {
-    //         serv.style.backgroundColor = '#F88';
-    //      }
-    //     else {
-    //         serv.style.backgroundColor = '#FFF';
-    //     } 
-    // }; 
-
-    var now = new Date();
-    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString().split('T')[0];
-    console.log(today);
-    
-    date.onblur = () => {
-        if(date.value == '' || date.value < today) {
-            date.style.backgroundColor = '#F88';          
-        }
-        else {
-            date.style.backgroundColor = '#FFF';            
-        }
-    };  
-    
-    hora.onblur = () => {
-        if( hora.value < '09:00' || hora.value > '18:00')  {
-            hora.style.backgroundColor = '#F88';
+// Função para carregar os serviços
+async function carregarServicos() {
+    try {
+        const response = await fetch(`http://localhost:3000/servicos/servicos`);
+        if (response.status === 200) {
+            const data = await response.json();
+            preencherDropdownServicos(data);
         } else {
-            hora.style.backgroundColor = '#FFF';
+            throw new Error('Erro de busca');
         }
-    };  
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+// Função para preencher o dropdown de serviços
+function preencherDropdownServicos(data) {
+    const list_serv = [...new Set(data.map(serv => serv.Servicos))];
+    const select = document.getElementById("serv");
+    select.innerHTML = '';
+
+    list_serv.forEach(servicos => {
+        const option = document.createElement('option');
+        option.text = servicos;
+        select.appendChild(option);
+    });
+}
+
+// Função para carregar os esteticistas
+async function carregarEsteticistas(servicoSelecionado) {
+    try {
+        const response = await fetch(`http://localhost:3000/servicos/servico/${servicoSelecionado}`);
+        if (response.status === 200) {
+            const data = await response.json();
+            return [...new Set(data.map(prof => prof.Esteticista))];
+        } else {
+            throw new Error('Erro de busca');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+}
+
+// Função para preencher o dropdown de esteticistas
+function preencherDropdownEsteticistas(esteticistas) {
+    const select = document.getElementById("prof");
+    select.innerHTML = '';
+    esteticistas.forEach(esteticista => {
+        const option = document.createElement('option');
+        option.text = esteticista;
+        select.appendChild(option);
+    });
+}
+
+// Event listener para carregar os esteticistas quando o serviço é selecionado
+document.getElementById('serv').addEventListener('change', async () => {
+    const servicoSelecionado = document.getElementById('serv').value;
+    const esteticistas = await carregarEsteticistas(servicoSelecionado);
+    if (esteticistas) {
+        preencherDropdownEsteticistas(esteticistas);
+    }
+});
+
+// Função para configurar os event listeners
+function configurarEventListeners() {
+    document.getElementById('tel').addEventListener('blur', validarCampo);
+    document.getElementById('date').addEventListener('blur', validarCampo);
+    document.getElementById('dateNas').addEventListener('blur', validarCampo);
+    document.getElementById('hora').addEventListener('blur', validarCampo);
+    document.getElementById('prof').addEventListener('blur', validarCampo);
+}
+
+// Função para validar campos
+function validarCampo(event) {
+    const campo = event.target;
+    if (campo.value === '') {
+        campo.style.backgroundColor = '#F88';
+    } else {
+        campo.style.backgroundColor = '#FFF';
+    }
+}
 
 
     const handleSubmit = async (event) => {
@@ -175,5 +143,3 @@ onload = () => {
    
     };
 document.getElementById('agendamento').addEventListener('submit', handleSubmit);    
-    
-}
