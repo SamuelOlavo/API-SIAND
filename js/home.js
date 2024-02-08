@@ -18,9 +18,8 @@ window.onload = function() {
     
 }
 
-    let user = JSON.parse(localStorage.getItem("data"));
+    let user = JSON.parse(localStorage.getItem("user_nome"));
     let Esteticista = user;
-    console.log(user.nome);
    
     var now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString().split('T')[0];
