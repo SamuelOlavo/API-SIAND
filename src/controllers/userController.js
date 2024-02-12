@@ -58,11 +58,10 @@ exports.update = async (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-    const userId = req.params.id;
-
+    const id = req.params.id;
     try {
-        const deletedUser = await User.findByIdAndDelete(userId);
-        res.json(deletedUser);
+        const deleteResponse = await User.deleteOne({_id: id});
+        res.json(deleteResponse);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

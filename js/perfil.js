@@ -53,7 +53,7 @@ fetch('http://localhost:3000/users/')
 .catch(error => console.log(error));
 
 const buscar = document.getElementById("buscar");
-
+let originalData = null;
 
 buscar.onclick = async () => {    
     const email = document.getElementById('list_user').value;
@@ -68,24 +68,30 @@ buscar.onclick = async () => {
     .then(data => {
         ID = data._id; // Armazena o ID do usuário na variável global
         console.log(ID);
+
+        originalData = { // Armazena os dados originais do usuário na variável global
+            nome: data.nome,
+            email: data.email,
+            senha: data.senha,
+            Telefone: data.Telefone,
+            Endereco: data.Endereco,
+            Administrador: data.Administrador
+        };
+
         document.getElementById('input_nome').value = data.nome || ''; 
         document.getElementById('input_email').value = data.email || '';
         document.getElementById('input_senha').value = data.senha || '';
         document.getElementById('input_tel').value = data.Telefone || '';
         document.getElementById('input_ender').value = data.Endereco || ''; 
-        document.getElementById('chec_adm').checked = data.Administrador || false;  
-
+        document.getElementById('chec_adm').checked = data.Administrador || false;   
        
-       
-    })
-    
+    })    
     .catch(error => console.log(error));
 };
 
 
 
 const bt_salvar = document.getElementById("bt_salvar");
-
 
 bt_salvar.onclick = async () => {
     let data = {
@@ -97,23 +103,49 @@ bt_salvar.onclick = async () => {
         Administrador: document.getElementById('chec_adm').checked
     };
 
-    const response = await fetch(`http://localhost:3000/users/${ID}`, {
-        method: 'put',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-    console.log(response);
-    console.log(data);
-    if (response.status === 200) {
-        exibirToast('Cadastro atualizados com sucesso.', '#269934');
-                       
-    }  if (response.status === 500) {
-        exibirToast('Erro servidor ', '#ff0000');   
+    // Verifique se os dados são diferentes dos originais
+    if (JSON.stringify(data) !== JSON.stringify(originalData)) {
+        const response = await fetch(`http://localhost:3000/users/${ID}`, {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        if (response.status === 200) {
+            exibirToast("Dados atualizados com sucesso!", "#269934");
+            buscar.click();
+        } else {
+            exibirToast('Erro ao atualizar os dados.', '#ff0000');               
+        }
+    } else {
+        console.log('Nenhum dado foi alterado.');
     }
 }
+
+
+const bt_excluir = document.getElementById("bt_excluir");
+bt_excluir.onclick = async () => {
+    try {
+        const response = await fetch(`http://localhost:3000/users/${ID}`, {
+            method: "delete",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+        }); 
+        if (response.deletedCount === 1) {
+            exibirToast("usuario excluido com sucesso!", "#269934");
+            console.log( ID, "Card excluído");
+        } else {
+            console.log('Nenhum usuário foi excluído.');
+        }
+    } catch (error) {
+        console.log('Erro ao excluir o usuário:', error);
+    }
+}
+
 
 
 }
