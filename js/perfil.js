@@ -10,13 +10,13 @@ onload = () => {
       }).showToast();
     }
     //Pegando os dados de login do Usuario
-    let user = JSON.parse(localStorage.getItem("user_nome"));
-    let user_email = JSON.parse(localStorage.getItem("user_email")); 
+    // let user = JSON.parse(localStorage.getItem("user_nome"));
+    // let user_email = JSON.parse(localStorage.getItem("user_email")); 
   
     
-    //
-    document.getElementById("input_nome").value = user;
-    document.getElementById("input_email").value = user_email;
+    // //
+    // document.getElementById("input_nome").value = user;
+    // document.getElementById("input_email").value = user_email;
   
   
     //Setando a data de hoje no campo de busca
@@ -26,33 +26,94 @@ onload = () => {
     let hoje = partes[2] + "/" + partes[1] + "/" + partes[0];    
     console.log(hoje);
 
+    const selectElement = document.getElementById("list_user");
 
-    bt_add.onclick = async () => {
-        const nome = document.getElementById('input_nome').value; 
-        const email = document.getElementById('input_email').value;
-        const senha = document.getElementById('input_senha').value;
-        const Telefone = document.getElementById('input_tel').value;
-        const Endereco = document.getElementById('input_ender').value; 
-        const Administrador = document.getElementById('chec_adm').value;
 
-        const response = await fetch('http://localhost:3000/servicos/', {
-            method: 'post',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ Esteticista , Servicos }),
-            
-        });
-        if (response.status === 201) {
-            exibirToast('Cadastro realizado com sucesso.', '#269934');
-            document.getElementById("serv").value ='';  
-            preencherTabela(Esteticista);      
-                           
-        }  if (response.status === 500) {
-            exibirToast('Favor preecher o campo de Serviço', '#ff0000');      
-        } if (response.status === 400) {
-            exibirToast('Serviço ja cadastrado para essa Esteticista', '#ff0000');      
-        }        
+
+fetch('http://localhost:3000/users/')
+.then(response => {
+    if(response.status === 200){            
+        return response.json();                        
+    } else {
+        throw new Error('Erro de busca');
     }
+})
+.then(data => {    
+    const list = [...new Set(data.map(user => user.email))]; // Alterado para user.email
+        
+    // Limpa as opções existentes
+    selectElement.innerHTML = '';
+    
+    list.forEach(email => {
+        const option = document.createElement('option');
+        option.text = email; // Alterado para email
+        selectElement.appendChild(option);
+    });
+})
+.catch(error => console.log(error));
+
+const buscar = document.getElementById("buscar");
+
+
+buscar.onclick = async () => {    
+    const email = document.getElementById('list_user').value;
+    fetch(`http://localhost:3000/users/byEmail/${email}`)
+    .then(response => {
+        if(response.status === 200){            
+            return response.json();                        
+        } else {
+            throw new Error('Erro de busca');
+        }
+    })
+    .then(data => {
+        ID = data._id; // Armazena o ID do usuário na variável global
+        console.log(ID);
+        document.getElementById('input_nome').value = data.nome || ''; 
+        document.getElementById('input_email').value = data.email || '';
+        document.getElementById('input_senha').value = data.senha || '';
+        document.getElementById('input_tel').value = data.Telefone || '';
+        document.getElementById('input_ender').value = data.Endereco || ''; 
+        document.getElementById('chec_adm').checked = data.Administrador || false;  
+
+       
+       
+    })
+    
+    .catch(error => console.log(error));
+};
+
+
+
+const bt_salvar = document.getElementById("bt_salvar");
+
+
+bt_salvar.onclick = async () => {
+    let data = {
+        nome: document.getElementById('input_nome').value,
+        email: document.getElementById('input_email').value,
+        senha: document.getElementById('input_senha').value,
+        Telefone: document.getElementById('input_tel').value,
+        Endereco: document.getElementById('input_ender').value,
+        Administrador: document.getElementById('chec_adm').checked
+    };
+
+    const response = await fetch(`http://localhost:3000/users/${ID}`, {
+        method: 'put',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+    console.log(response);
+    console.log(data);
+    if (response.status === 200) {
+        exibirToast('Cadastro atualizados com sucesso.', '#269934');
+                       
+    }  if (response.status === 500) {
+        exibirToast('Erro servidor ', '#ff0000');   
+    }
+}
+
+
 }
