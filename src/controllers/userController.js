@@ -3,7 +3,7 @@ const User = require('../models/users');
 
 exports.getAll = async (req, res) => {
     try {
-        const users =  await User.find({}, 'email' );
+        const users =  await User.find({}, 'email senha' );
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -30,7 +30,7 @@ exports.add = async (req, res) => {
         }
 
         // Se o email não está em uso, cria um novo usuário
-        const hashedPassword = await bcrypt.hash(req.body.senha, 10);
+        const hashedPassword = await bcrypt.hash(req.body.senha, 6);
         const newUser = new User({
             nome: req.body.nome,
             email: req.body.email,

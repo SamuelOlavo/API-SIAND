@@ -46,7 +46,7 @@ exports.login = async (req, res) => {
         const token = generateToken(user._id);
 
         // Enviar token como resposta
-        res.json({token, user: {_id: user._id, nome: user.nome, email: user.email}});
+        res.json({token, user: {_id: user._id, nome: user.nome, email: user.email, Administrador: user.Administrador}});
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

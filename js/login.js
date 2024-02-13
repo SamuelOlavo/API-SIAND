@@ -51,11 +51,18 @@ async function handleSubmit(event) {
 
     if (response.status === 200) {
         const data = await response.json();  
-        console.log(data);
+        console.log(data); // Verifique o que está dentro de 'data'
+        console.log(data.user); // Verifique o que está dentro de 'data.user'
+        console.log(data.user.Administrador); // Verifique o valor de 'data.user.Administrador'
+
+        let userAdm = Boolean(data?.user?.Administrador) ? 1 : 0;
+        localStorage.setItem('user_adm', JSON.stringify(userAdm));
+        
+
         localStorage.setItem('user_email', JSON.stringify(data.user.email));    
-        localStorage.setItem('user_nome', JSON.stringify(data.user.nome));
+        localStorage.setItem('user_nome', JSON.stringify(data.user.nome));    
         localStorage.setItem('user_token', JSON.stringify(data.token));
-        window.location = "../html/home.html";
+        // window.location = "../html/home.html";
     } else {
         exibirToast('Usuário não cadastrado', '#ff0000');
         document.querySelector("form").reset();

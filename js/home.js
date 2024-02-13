@@ -15,11 +15,19 @@ window.onload = function() {
     exibirToast('Bem vindo','#269934');
     preenchergrid(Esteticista);
     console.log(user);
+    console.log(adm);
     
 }
 
     let user = JSON.parse(localStorage.getItem("user_nome"));
     let Esteticista = user;
+
+    var userAdm = JSON.parse(localStorage.getItem('user_adm'));
+    if (userAdm) {
+    document.getElementById('userAdmStatus').textContent = 'O usuário é um administrador.';
+    } else {
+    document.getElementById('userAdmStatus').textContent = 'O usuário não é um administrador.';
+    }
    
     var now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString().split('T')[0];
