@@ -10,7 +10,7 @@ onload = () => {
     }).showToast();
   }
   //Pegando os dados de login do Usuario
-  let user = JSON.parse(localStorage.getItem("user_nome"));
+  let user = JSON.parse(sessionStorage.getItem("user_nome"));
   let Esteticista = user;
 
   

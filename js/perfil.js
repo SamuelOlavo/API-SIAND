@@ -9,17 +9,26 @@ onload = () => {
         },
       }).showToast();
     }
-    function dadosStorage() {
 
-    let user = JSON.parse(localStorage.getItem("user_nome"));
-    let user_email = JSON.parse(localStorage.getItem("user_email")); 
-    let adm = JSON.parse(localStorage.getItem("user_adm"));
+    let adm = JSON.parse(sessionStorage.getItem("user_adm"));
     console.log(adm);
 
-    document.getElementById("input_nome").value = user;
-    document.getElementById("input_email").value = user_email;
+    function dadosStorage() {
+        if (user_adm === 1 ) { 
+            var listar = document.getElementById('listar');
+            listar.style.display = 'block';
+        } else {
+            var listar = document.getElementById('listar');
+            listar.style.display = 'none';
+            let user = JSON.parse(sessionStorage.getItem("user_nome"));
+            let user_email = JSON.parse(sessionStorage.getItem("user_email")); 
+            document.getElementById("input_nome").value = user;
+            document.getElementById("input_email").value = user_email;
+        }
     }
-  
+
+    dadosStorage ();
+
   
     //Setando a data de hoje no campo de busca
     var now = new Date();

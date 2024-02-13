@@ -19,10 +19,10 @@ window.onload = function() {
     
 }
 
-    let user = JSON.parse(localStorage.getItem("user_nome"));
+    let user = JSON.parse(sessionStorage.getItem("user_nome"));
     let Esteticista = user;
 
-    var userAdm = JSON.parse(localStorage.getItem('user_adm'));
+    var userAdm = JSON.parse(sessionStorage.getItem('user_adm'));
     if (userAdm) {
     document.getElementById('userAdmStatus').textContent = 'O usuário é um administrador.';
     } else {
