@@ -11,19 +11,47 @@ onload = () => {
         }).showToast();
     }
    
-
-
-
-
-
     document.getElementById('bt_add').disabled = true;
-    let user = JSON.parse(sessionStorage.getItem('user_nome'));
-    let Esteticista = user;   
-    document.getElementById('nome').textContent = Esteticista;
+   
+    trataAdm = async () => {        
+        let adm = JSON.parse(sessionStorage.getItem("user_adm"));
+        console.log(adm);
+    
+        if (adm == 1) { 
+            document.getElementById('list_user').disabled = false;
+            const select = document.getElementById("list_user");            
+            fetch('http://localhost:3000/servicos/')
+            .then(response => response.json())
+            .then(data => {
+              let uniqueNames = [...new Set(data.map(item => item.Esteticista))];
+                // Use os nomes únicos para preencher o elemento select
+              uniqueNames.forEach(name => {
+                let option = document.createElement('option');
+                option.value = name;
+                option.text = name;
+                select.appendChild(option);
+              });
+            })
+            .catch(error => console.error('Erro:', error));    
+        } else {        
+            let user_nome = JSON.parse(sessionStorage.getItem("user_nome")); 
+            var option = document.createElement("option");
+            option.text = user_nome;
+            option.value = user_nome;     
+            var select = document.getElementById("list_user");      
+            select.add(option);            
+            select.value = user_nome;
+            // let Esteticista = user_nome;
+        }
+    }
+    trataAdm ();
+    
+    
 
 
     bt_add.onclick = async () => {
-        const Servicos = document.getElementById('serv').value;  
+        const Servicos = document.getElementById('serv').value; 
+        const Esteticista = document.getElementById('list_user').value; 
         const response = await fetch('http://localhost:3000/servicos/', {
             method: 'post',
             headers: {
@@ -46,13 +74,14 @@ onload = () => {
     }
 
     bt_atl.onclick = () => {
-        preencherTabela(Esteticista);
+        preencherTabela();
         servicosSelecionados = [];
     }
 
 
 
-    async function preencherTabela(Esteticista) {
+     preencherTabela = async () => {
+        let Esteticista = document.getElementById('list_user').value;
         const response = await fetch(`http://localhost:3000/servicos/esteticista/${Esteticista}`);    
         if (response.status === 200) {
             const data = await response.json();                
@@ -75,6 +104,7 @@ onload = () => {
                         <td><input id="${checkboxId}" type="checkbox"></td>
                     </tr>
                 `;
+              
             });
                 // Adicione um ouvinte de eventos para o checkbox
                 data.forEach((item, index) => {
@@ -107,9 +137,8 @@ onload = () => {
                         exibirToast('Serviço excluido com sucesso.', '#269934');                         
                         preencherTabela(Esteticista);      
                                        
-                    } }  
-                
-            exibirToast('Atualizado planilha.', '#269934');
+                    } }                
+           
         } else if (response.status === 500) {
             exibirToast('Favor preecher o campo de Serviço', '#ff0000');
         } else if (response.status === 400) {

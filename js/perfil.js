@@ -10,11 +10,11 @@ onload = () => {
       }).showToast();
     }
 
-    let adm = JSON.parse(sessionStorage.getItem("user_adm"));
-    console.log(adm);
+
     // let user = JSON.parse(sessionStorage.getItem("user_nome"));
     // var listar = document.getElementById('listar');
-
+    let adm = JSON.parse(sessionStorage.getItem("user_adm"));
+    console.log(adm);
      trataAdm = async () => {        
         if (adm == 1) { 
             document.getElementById('list_user').disabled = false;        
