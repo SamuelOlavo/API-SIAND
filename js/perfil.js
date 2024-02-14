@@ -12,23 +12,26 @@ onload = () => {
 
     let adm = JSON.parse(sessionStorage.getItem("user_adm"));
     console.log(adm);
+    // let user = JSON.parse(sessionStorage.getItem("user_nome"));
+    // var listar = document.getElementById('listar');
 
-    function dadosStorage() {
-        if (user_adm === 1 ) { 
-            var listar = document.getElementById('listar');
-            listar.style.display = 'block';
-        } else {
-            var listar = document.getElementById('listar');
-            listar.style.display = 'none';
-            let user = JSON.parse(sessionStorage.getItem("user_nome"));
+     trataAdm = async () => {        
+        if (adm == 1) { 
+            document.getElementById('list_user').disabled = false;        
+            atualizarUsuarios ();            
+        } else {            
             let user_email = JSON.parse(sessionStorage.getItem("user_email")); 
-            document.getElementById("input_nome").value = user;
-            document.getElementById("input_email").value = user_email;
+            var option = document.createElement("option");
+            option.text = user_email;
+            option.value = user_email;     
+            var select = document.getElementById("list_user");      
+            select.add(option);            
+            select.value = user_email;
         }
     }
 
-    dadosStorage ();
-
+    trataAdm ();
+    // listar.style.display = 'none';
   
     //Setando a data de hoje no campo de busca
     var now = new Date();
@@ -37,9 +40,8 @@ onload = () => {
     let hoje = partes[2] + "/" + partes[1] + "/" + partes[0];    
     console.log(hoje);
 
-    const selectElement = document.getElementById("list_user");
+    const selectElement = document.getElementById("list_user");    
     
-    atualizarUsuarios ();
 
 // Função para buscar usuários e atualizar o select
 function atualizarUsuarios() {
@@ -102,12 +104,9 @@ buscar.onclick = async () => {
         document.getElementById('input_ender').value = data.Endereco || ''; 
         document.getElementById('chec_adm').checked = data.Administrador || false;
         
-        
+
         document.getElementById('bt_salvar').disabled = false;
         document.getElementById('bt_excluir').disabled = false;
-        
-        
-        
        
     })    
     .catch(error => console.log(error));
