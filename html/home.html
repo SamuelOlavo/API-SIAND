@@ -18,36 +18,42 @@
     <div id="wrapper">
 
       <div id="info">
-        <ul class="topo nav">
-          <a class="icone navbar-brand ms-2"> <img src="../Img/chec.png" width="40"></a>
-          <li class="nav-item">
-            <a class="nav-link active ms-5" id="nome_user" aria-current="page" href="#">Home</a> <p class="fw mb-0 fs-6 mt-2" id="userAdmStatus"></p>
-          </li>
-        </ul>
-        <div id="info-content" class="">
+
+        <div class="topo nav">
+          <div class="user">
+            <p><img class="ms-1 " src="../Img/chec.png" width="35"><strong class="nome mt-5 ms-1">Home</strong>
+              <i class="nome" id="userStatus"></i> <i id="dia"></i>
+            </p></i>
+          </div>
+          <div id="marcador"><a class="sair" href="login.html">sair</a></div>
+        </div>
+
+        <div id="info-content" class="grid">
           <h1 class="fw-bold mb-0 fs-0 mb-3">API-Agenda <strong> SIAND</strong></h1>
           <p class="fw mb-0 fs-4">Seja bem vindo a Api para gestão da sua agenda</p>
           <p class="fw mb-0 fs-4">Site integrado com formulario de agendamento da siandbelezaestetica.com.br</p>
-          <p class="fw mb-0 fs-6 mt-2">Com a Agenda-API o controle dos atendimentos fica muito mais organizado e consistente para o seu dia dia. </p>
-            <div class="card">
-              <!-- <img src="../Img/chec.png" width="50" class="img-top" alt="..."> -->
-              <div class="card-body">
-                <h5 class="card-title">Cadastro de serviços</h5>
-                <p class="card-text fs-6">É novo por aqui? Iniciei cadastrando os serviços que voce faz atendimento para
-                  ser ofertado no formulario de agendamento!</p>
-                <a href="./servicos.html" class="btn btn-info">servicos</a>
-              </div>
+          <p class="fw mb-0 fs-6 mt-2">Com a Agenda-API o controle dos atendimentos fica muito mais organizado e
+            consistente para o seu dia dia. </p>
+          <div class="card">
+            <!-- <img src="../Img/chec.png" width="50" class="img-top" alt="..."> -->
+            <div class="card-body">
+              <h5 class="card-title">Cadastro de serviços</h5>
+              <p class="card-text fs-6">É novo por aqui? Iniciei cadastrando os serviços que voce faz atendimento para
+                ser ofertado no formulario de agendamento!</p>
+              <a href="./servicos.html" class="btn btn-info">servicos</a>
             </div>
-            <div class="card mt-2">
-              <div class="card-body">
-                <h5 class="card-title">Agendamentos de hoje</h5>
-                
-                <p class="card-text fs-6" >Acompanhe a lista de clientes agendados com voce </p>
-                <a href="./agenda.html"> 
-                <button type="button" class="btn btn-primary"> agenda <span class="badge text-bg-danger" id="numer"></span>
-                </button></a> <samp class="card-text-end fs-6" id="msg_agenda"> </samp>              
-              </div>
+          </div>
+          <div class="card mt-2">
+            <div class="card-body">
+              <h5 class="card-title">Agendamentos de hoje</h5>
+
+              <p class="card-text fs-6">Acompanhe a lista de clientes agendados com voce </p>
+              <a href="./agenda.html">
+                <button type="button" class="btn btn-primary"> agenda <span class="badge text-bg-danger"
+                    id="numer"></span>
+                </button></a> <samp class="card-text-end fs-6" id="msg_agenda"> </samp>
             </div>
+          </div>
         </div>
       </div>
       <div class="menu">
@@ -57,10 +63,10 @@
           </div>
         </a>
         <a href="agenda.html">
-        <div class="aba_agenda">
-          <p class="textovertical">agenda</p>
-        </div>
-      </a>
+          <div class="aba_agenda">
+            <p class="textovertical">agenda</p>
+          </div>
+        </a>
         <a href="servicos.html">
           <div class="aba_serv">
             <p class="textovertical">serviços</p>
@@ -68,9 +74,9 @@
         </a>
         <a href="perfil.html">
           <div class="aba_perfil">
-              <p class="textovertical">perfil</p>
+            <p class="textovertical">perfil</p>
           </div>
-          </a>
+        </a>
       </div>
     </div>
   </nav>

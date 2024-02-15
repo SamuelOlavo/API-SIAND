@@ -12,7 +12,21 @@ onload = () => {
     }
    
     document.getElementById('bt_add').disabled = true;
-     
+         //Setando a data de hoje no campo de busca
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString().split('T')[0];
+    let partes = today.split("-");
+    let hoje = partes[2] + "/" + partes[1] + "/" + partes[0];    
+    console.log(hoje);
+    let user = JSON.parse(sessionStorage.getItem("user_nome"));
+    document.getElementById('userStatus').textContent = 'USER: ' + user ; 
+    document.getElementById('dia').textContent = '' + hoje ; 
+
+    document.getElementById('sair').addEventListener('click', function() {
+        sessionStorage.clear();
+        window.location = "../html/login.html";
+    });
+        
    
     trataAdm = async () => {        
         let adm = JSON.parse(sessionStorage.getItem("user_adm"));

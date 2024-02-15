@@ -22,18 +22,21 @@ window.onload = function() {
     let user = JSON.parse(sessionStorage.getItem("user_nome"));
     let Esteticista = user;
 
-    var userAdm = JSON.parse(sessionStorage.getItem('user_adm'));
-    if (userAdm) {
-    document.getElementById('userAdmStatus').textContent = 'O usuário é um administrador.';
-    } else {
-    document.getElementById('userAdmStatus').textContent = 'O usuário não é um administrador.';
-    }
+   
    
     var now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString().split('T')[0];
     let partes = today.split("-");
     let hoje = partes[2] + "/" + partes[1] + "/" + partes[0];    
     console.log(hoje);
+    document.getElementById('userStatus').textContent = 'USER: ' + user ; 
+    document.getElementById('dia').textContent = '' + hoje ; 
+
+    document.getElementById('sair').addEventListener('click', function() {
+        sessionStorage.clear();
+        window.location = "../html/login.html";
+    });
+        
 
     const msg_agenda = document.getElementById("msg_agenda");
     const numer = document.getElementById("numer");

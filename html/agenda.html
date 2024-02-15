@@ -51,25 +51,27 @@
     <nav class="sidebar-navigation">
         <div id="wrapper">
             <div id="info">
-                <ul class="topo nav">
-                    <a class="icone navbar-brand mb-5"> <img src="../Img/chec.png" width="40"></a>
-                    <li class="nav-item">
-                      <a class="nav-link active ms-5" id="nome_user" aria-current="page" href="#">Agenda</a> <p class="fw mb-0 fs-6 mt-2" id="userAdmStatus"></p>
-                    </li>
-                  </ul>
+                <div class="topo nav">
+                    <div class="user">
+                        <p><img class="ms-1 " src="../Img/chec.png" width="35"><strong class="nome mt-5 ms-1">Agenda</strong>
+                            <i class="nome" id="userStatus"></i> <i id="dia"></i>
+                        </p></i>
+                    </div>
+                    <div id="marcador"><a class="sair" id="sair" href="login.html">sair</a></div>
+                </div>
                 <div id="info-content" class="">
                     <h1 class="fw-bold mb-0 fs-0 mb-3">Gestão da Agenda<strong></strong></h1>
                     <p class="fw mb-0 fs-4">Busque os agendamentos pelos filtros
-                        disponiveis. <br>Para editar um agendamento basta clicar sobre ele</p>
+                        disponiveis. <br>Para editar um agendamento basta clicar sobre ele.</p>
                     <div class="grid card mt-2">
                         <div class="card-body">
                             <div class="input-group mb-1">
                                 <input type="date" class="form-control" placeholder="Data" id="data"
                                     aria-label="Recipient's username" aria-describedby="button-addon2"
                                     pattern="\d{1,2}/\d{1,2}/\d{4}">
-
-                                <input type="text" class="form-control" placeholder="Nome" id="nome"
-                                    aria-describedby="button-addon2" disabled>                                
+                                    <select id="nome" class="form-control"   aria-describedby="button-addon2" disabled>
+                                        <!-- <option id="listar" value=""></option> -->
+                                     </select>                          
                             </div>
                             <div class="mb-2 ms-2 form-check">
                                 <input type="checkbox" class="lead form-check-input" id="todos">

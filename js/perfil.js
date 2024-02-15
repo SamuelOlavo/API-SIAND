@@ -11,9 +11,8 @@ onload = () => {
     }
 
 
-    let user = JSON.parse(sessionStorage.getItem("user_nome"));
-    document.getElementById('userAdmStatus').value = user;
-    // var listar = document.getElementById('listar');
+ 
+
     let adm = JSON.parse(sessionStorage.getItem("user_adm"));
     console.log(adm);
      trataAdm = async () => {        
@@ -31,9 +30,8 @@ onload = () => {
             document.getElementById('chec_adm').disabled = true;
         }
     }
-
     trataAdm ();
-    // listar.style.display = 'none';
+
   
     //Setando a data de hoje no campo de busca
     var now = new Date();
@@ -41,8 +39,18 @@ onload = () => {
     let partes = today.split("-");
     let hoje = partes[2] + "/" + partes[1] + "/" + partes[0];    
     console.log(hoje);
+    let user = JSON.parse(sessionStorage.getItem("user_nome"));
+    document.getElementById('userStatus').textContent = 'USER: ' + user ; 
+    document.getElementById('dia').textContent = '' + hoje ; 
 
     const selectElement = document.getElementById("list_user");    
+
+
+
+document.getElementById('sair').addEventListener('click', function() {
+    sessionStorage.clear();
+    window.location = "../html/login.html";
+});
     
 
 // Função para buscar usuários e atualizar o select
