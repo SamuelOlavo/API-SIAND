@@ -11,7 +11,8 @@ onload = () => {
     }
 
 
-    // let user = JSON.parse(sessionStorage.getItem("user_nome"));
+    let user = JSON.parse(sessionStorage.getItem("user_nome"));
+    document.getElementById('userAdmStatus').value = user;
     // var listar = document.getElementById('listar');
     let adm = JSON.parse(sessionStorage.getItem("user_adm"));
     console.log(adm);
@@ -27,6 +28,7 @@ onload = () => {
             var select = document.getElementById("list_user");      
             select.add(option);            
             select.value = user_email;
+            document.getElementById('chec_adm').disabled = true;
         }
     }
 

@@ -47,15 +47,21 @@ exports.add = async (req, res) => {
 
 exports.update = async (req, res) => {
     const userId = req.params.id;
-    const updatedUser = req.body;
-
+    let updatedUser = req.body;
     try {
+        // Se a senha foi fornecida, criptografe-a antes de atualizar o usuário
+        if (updatedUser.senha) {
+            const hashedPassword = await bcrypt.hash(updatedUser.senha, 6);
+            updatedUser.senha = hashedPassword;
+        }
+
         const result = await User.findByIdAndUpdate(userId, updatedUser, { new: true });
         res.json(result);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 exports.delete = async (req, res) => {
     const id = req.params.id;

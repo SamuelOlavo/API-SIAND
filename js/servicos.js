@@ -12,6 +12,7 @@ onload = () => {
     }
    
     document.getElementById('bt_add').disabled = true;
+     
    
     trataAdm = async () => {        
         let adm = JSON.parse(sessionStorage.getItem("user_adm"));
@@ -20,19 +21,31 @@ onload = () => {
         if (adm == 1) { 
             document.getElementById('list_user').disabled = false;
             const select = document.getElementById("list_user");            
+            // Adicione o nome do usuário da sessão como uma opção, se existir
+            let user = JSON.parse(sessionStorage.getItem("user_nome"));
+            if (user) {
+                let option = document.createElement('option');
+                option.value = user;
+                option.text = user;
+                select.appendChild(option);
+            }            
             fetch('http://localhost:3000/servicos/')
             .then(response => response.json())
             .then(data => {
               let uniqueNames = [...new Set(data.map(item => item.Esteticista))];
                 // Use os nomes únicos para preencher o elemento select
               uniqueNames.forEach(name => {
-                let option = document.createElement('option');
-                option.value = name;
-                option.text = name;
-                select.appendChild(option);
+                // Se o nome já não foi adicionado (como o nome do usuário da sessão), adicione-o
+                if (name !== user) {
+                    let option = document.createElement('option');
+                    option.value = name;
+                    option.text = name;
+                    select.appendChild(option);
+                }
               });
             })
-            .catch(error => console.error('Erro:', error));    
+            .catch(error => console.error('Erro:', error));
+            
         } else {        
             let user_nome = JSON.parse(sessionStorage.getItem("user_nome")); 
             var option = document.createElement("option");
