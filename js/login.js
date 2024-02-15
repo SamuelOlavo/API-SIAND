@@ -1,3 +1,15 @@
+window.onload = () => {
+    desabilitarBotaoEntrar();
+
+    // Eventos de blur para os campos de email e senha
+    email.onblur = verificarFormulario;
+    senha.onblur = verificarFormulario;
+
+    // Adiciona o manipulador de envio do formulário
+    document.getElementById('login').addEventListener('submit', handleSubmit);
+
+}
+
 // Função para exibir um toast usando Toastify
 function exibirToast(mensagem, cor) {
     Toastify({
@@ -69,40 +81,48 @@ async function handleSubmit(event) {
     }
 
     desabilitarBotaoEntrar();
-}
+}   
 
-// Função para inicializar a autenticação do Google
-function inicializarAutenticacaoGoogle() {
-    google.accounts.id.initialize({
-        client_id: "281080595680-440v113hj75a2so3viqltfd4kjcbia5s.apps.googleusercontent.com",
-        callback: handleCredentialResponse,
+//Login com facebook
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '361760433353788',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v13.0'
     });
+      
+    FB.AppEvents.logPageView();   
+  };
 
-    google.accounts.id.renderButton(
-        document.getElementById("buttonDiv"),
-        { theme: "outline", size: "large" }
-    );
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 
-    google.accounts.id.prompt();
-}
 
-// Manipulador de resposta de credenciais do Google
-function handleCredentialResponse(response) {
-    
-}
-    
+  function loginWithFacebook() {
+    FB.login(function(response) {
+      if (response.authResponse) {
+        console.log('Usuário autorizado com sucesso!');
+        getUserInfo();
+      } else {
+        console.log('Usuário cancelou o login ou não autorizou a aplicação.');
+      }
+    }, {scope: 'email'}); // Solicita permissão de acesso ao email
+  }
 
-// Evento desbilita botao Entrar
-window.onload = () => {
-    desabilitarBotaoEntrar();
+  function getUserInfo() {
+    FB.api('/me', {fields: 'id,name,email'}, function(response) {
+      console.log('Informações do usuário:', response);
+      // Aqui você pode enviar os dados do usuário para o seu servidor e criar uma sessão de login.
+    });
+  }
 
-    // Eventos de blur para os campos de email e senha
-    email.onblur = verificarFormulario;
-    senha.onblur = verificarFormulario;
 
-    // Adiciona o manipulador de envio do formulário
-    document.getElementById('login').addEventListener('submit', handleSubmit);
 
-    // Inicializa a autenticação do Google
-    inicializarAutenticacaoGoogle();
-}
+
+
