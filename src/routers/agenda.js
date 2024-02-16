@@ -2,19 +2,25 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/agendaControl");
 
-//get
+//get traz todas informações do banco 
 router.get("/", controller.getAll);
 
-router.get('/prof', controller.Prof);
+//get para buscar lista de todos esteticistas
+router.get('/prof', controller.AllProf);
 
-router.get("/:Esteticista", controller.ByProf);
+//get para buscar lista de todos esteticistas
+router.get('/servicos', controller.AllServ);
 
-// router.get("/nome/:nome", controller.ByNome);
+//get busca lista de servicos dessa esteticista
+router.post("/servicos/:Esteticista", controller.ByServ);
 
+//post para adicionar dados na tabela Agenda
 router.post("/", controller.add);
 
-// router.put("/:id", controller.update);
+//update atualiza os campos da Agenda
+router.put("/:id", controller.update);
 
-// router.delete("/:id", controller.delete);
+//deleta o agendamento escolhido 
+router.delete("/:id", controller.delete);
 
 module.exports = router;

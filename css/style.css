@@ -194,3 +194,18 @@ body {
     left: 80%;
     top: 5px;
 }
+
+.btn-Redirecionamento {
+    background-color: #3498db; /* Cor de fundo do botão */
+    color: #ffffff; /* Cor do texto do botão */
+    border: 2px solid #3498db; /* Cor da borda do botão */
+    border-radius: 20px; /* Raio da borda do botão para criar bordas arredondadas */
+    padding: 10px 20px; /* Espaçamento interno do botão */
+    transition: background-color 0.3s, color 0.3s; /* Transição suave de cores */
+  }
+  
+  .btn-Redirecionamento:hover {
+    background-color: #2980b9; /* Cor de fundo do botão ao passar o mouse */
+    color: #ffffff; /* Cor do texto do botão ao passar o mouse */
+  }
+  

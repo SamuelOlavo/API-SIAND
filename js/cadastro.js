@@ -1,86 +1,107 @@
-onload = () => {   
+// Função para exibir um toast usando Toastify
+function exibirToast(mensagem, cor) {
+    Toastify({
+        text: mensagem,
+        duration: 3000, // Tempo de exibição do toast em milissegundos (opcional)
+        close: true,
+        style: {
+            background: cor,
+        }
+    }).showToast();
+}
 
-
-    
+// Função para tratamento do formulário
+const tratarFormulario = () => {
     document.getElementById('enviar').disabled = true;
 
-    // Funcoes de tratamento do formulario
-    nome.onblur = () => {
-        if(nome.value == '') {
-            nome.style.backgroundColor = '#F88';   
-        }
-        else {
-            nome.style.backgroundColor = '#FFF';  
-                                
-        } if (nome.value != '' && senha.value != '' && email.value != '' && rep_senha.value != '') enviar.disabled = false;
-        else enviar.disabled = true;
-    };  
-    email.onblur = () => {
-        if(email.value == '') {
-            email.style.backgroundColor = '#F88';   
-        }
-        else {
-            email.style.backgroundColor = '#FFF';  
-                                
-        } if (nome.value != '' && senha.value != '' && email.value != '' && rep_senha.value != '') enviar.disabled = false;
-        else enviar.disabled = true;
-    };  
-    senha.onblur = () => {
-        if(senha.value == '') {
-            senha.style.backgroundColor = '#F88';                   
-        }
-        else {
-            senha.style.backgroundColor = '#FFF';
-        } if (nome.value != '' && senha.value != '' && email.value != '' && rep_senha.value != '') enviar.disabled = false;
-        else enviar.disabled = true;
+    const nome = document.getElementById('nome');
+    const email = document.getElementById('email');
+    const senha = document.getElementById('senha');
+    const rep_senha = document.getElementById('rep_senha');
+
+    // Função para validar se os campos estão preenchidos
+    const validarCampos = () => {
+        return nome.value !== '' && email.value !== '' && senha.value !== '' && rep_senha.value !== '';
     };
-    rep_senha.onblur = () => {        
-        if(rep_senha.value != senha.value) {
-            rep_senha.style.backgroundColor = '#F88'; 
-            document.getElementById("rep").innerHTML = "<b>As senhas não conferem</b>";        
-            rep_senha.value = "";  
-        }
-        else {
+
+    // Função para validar o campo de repetição de senha
+    const validarRepeticaoSenha = () => {
+        if (rep_senha.value !== senha.value) {
+            rep_senha.style.backgroundColor = '#F88';
+            document.getElementById("rep").innerHTML = "<b>As senhas não conferem</b>";
+            rep_senha.value = "";
+            return false;
+        } else {
             rep_senha.style.backgroundColor = '#FFF';
-            document.getElementById("rep").innerHTML = "Repita a Senha";                                  
+            document.getElementById("rep").innerHTML = "Repita a Senha";
+            return true;
         }
-       if (nome.value != '' && senha.value != '' && email.value != '' && rep_senha.value != '') enviar.disabled = false;
-        else enviar.disabled = true;
-    };  
+    };
 
+    // Função para habilitar/desabilitar botão de envio
+    const atualizarBotaoEnvio = () => {
+        document.getElementById('enviar').disabled = !validarCampos() || !validarRepeticaoSenha();
+    };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    // Adicionar eventos de blur para os campos do formulário
+    nome.onblur = email.onblur = senha.onblur = () => {
+        if (nome.value === '' || email.value === '' || senha.value === '') {
+            nome.style.backgroundColor = email.style.backgroundColor = senha.style.backgroundColor = '#F88';
+        } else {
+            nome.style.backgroundColor = email.style.backgroundColor = senha.style.backgroundColor = '#FFF';
+        }
+        atualizarBotaoEnvio();
+    };
 
-        const nome = document.getElementById('nome').value;
-        const email = document.getElementById('email').value;  
-        const senha = document.getElementById('senha').value;  
-
-        const response = await fetch(`http://localhost:3000/users/email/${email}`);
-
-        if(response.status === 200){
-            alert('O email já existe. Por favor, escolha outro.');
-        }else{
-        fetch('http://localhost:3000/users/', {
-            method: 'post',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ nome , email, senha }),
-        })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch((error) => {
-    console.error('Error:', error);
-    })}
-    
-    if(response.status != 200){              
-        document.querySelector("form").style.display = 'none';
-        document.querySelector("form").reset();
-        document.getElementById("sucesso").innerHTML = "Obrigado por se Inscrever";       
-    }
-      document.getElementById('enviar').disabled = true;    
-   }
-    document.getElementById('cadastro').addEventListener('submit', handleSubmit);
+    rep_senha.onblur = () => {
+        validarRepeticaoSenha();
+        atualizarBotaoEnvio();
+    };
 };
+
+// Função para lidar com o envio do formulário
+const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
+
+    try {
+        const response = await fetch(`http://localhost:3000/users/byEmail/${email}`);
+        const responseData = await response.json();
+        
+        console.log('dados formulario', nome, email, senha);
+        console.log('responseData:', responseData);
+        
+        if (response.status === 200 && responseData) {
+            exibirToast('O e-mail já existe. Por favor, escolha outro.', '#ff0000');
+        } else {
+            const registerResponse = await fetch('http://localhost:3000/users/', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nome, email, senha }),
+            });
+
+            if (registerResponse.status === 201) {
+                exibirToast('Cadastro realizado com sucesso.', '#269934');
+                document.getElementById("sucesso").innerHTML = "Obrigado por se Inscrever";
+            }
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        exibirToast('Erro no cadastro. Por favor, tente novamente.', '#ff0000');
+    }
+};
+
+
+
+
+// Adicionar evento de submit ao formulário
+document.getElementById('cadastro').addEventListener('submit', handleSubmit);
+
+// Chamar a função de tratamento do formulário
+tratarFormulario();

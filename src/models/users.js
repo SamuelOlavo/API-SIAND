@@ -15,6 +15,18 @@ const Schema = mongoose.Schema;
         type: String,
         required: true,
       },
+      Telefone: {
+        type: String,
+        required: false,
+      },
+      Endereco: {
+        type: String,
+        required: false,
+      },
+      Administrador: {
+        type: Boolean,
+        required: false,
+      }
     });
 
 module.exports = Users = mongoose.model("user", UserSchema);

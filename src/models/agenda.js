@@ -12,7 +12,7 @@ const Schema = mongoose.Schema;
         required: true,
       },
       Telefone: {
-        type: Number,
+        type: String,
         required: true,
       },
       Esteticista: {
@@ -31,6 +31,14 @@ const Schema = mongoose.Schema;
         type: String,
         required: true,
       },
+      Remarcar: {
+        type: String,
+        required: false,
+      },
+      Anotacoes: {
+        type: String,
+        required: false,
+      }
     });
 
 module.exports = Agendas = mongoose.model("agenda", agendaSchema);

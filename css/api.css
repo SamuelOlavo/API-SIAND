@@ -1,0 +1,260 @@
+/* reset */
+*{
+  margin: 0 ;
+  padding: 0
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&family=Major+Mono+Display&family=Roboto:wght@300&family=Schoolbell&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&family=Major+Mono+Display&family=Moo+Lah+Lah&family=Roboto:wght@300&family=Schoolbell&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Noto+Sans+Display&family=Roboto:wght@100&display=swap');
+/* 
+font-family: 'Major Mono Display', monospace;
+font-family: 'Noto Sans Display', sans-serif;
+font-family: 'Roboto', sans-serif; */
+
+
+:root{ 
+  --verd:  #81A68A;
+  --amar:  #F2E96B;
+  --marr:  #A67458; 
+  --rosa:  #F2D1B3; 
+  --verl:  #D96055; 
+  --azul:  #1F0DDE;
+  --cler:  #BFA380;
+  --cler1:  #F2C063;
+  --cler2:  #f3eedd;
+}
+/* Color Theme Swatches in Hex */
+.English-subject-by-Triolet-1-hex { color: #81A68A; }
+.English-subject-by-Triolet-2-hex { color: #F2E96B; }
+.English-subject-by-Triolet-3-hex { color: #F2D1B3; }
+.English-subject-by-Triolet-4-hex { color: #A67458; }
+.English-subject-by-Triolet-5-hex { color: #D96055; }
+
+
+/* Estilo para celular */
+@media screen and (max-width: 600px) {
+  #info-content  {
+    left: 40px;
+    position: relative;
+  }
+  .conteudo {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  #info-content {
+    transform: scale(1.2);
+    transform-origin: 0 0;
+  }
+  .grid {
+    width: 990px;
+    overflow-x: hidden;
+  }
+}
+
+
+
+ body{
+  background-image: url('../Img/bg1.png');   
+ }
+
+#wrapper {
+  position: absolute ;
+  width: 100% ;
+  height: 100% ;
+
+}
+#info {
+  /* background: var(--cler2); */
+  background-image: url('../Img/bg1.png'); 
+  height: 100%;
+  width: 100% 
+} 
+
+#info-content {
+    padding: 1%;
+    left: 50px;
+    color: #0f0570;
+    font-size: 12px ;
+    position: absolute;
+} 
+
+.textovertical{
+  width: 1px;
+  word-wrap: break-word;    
+}
+.topo {
+ background-color: var(--verd);
+ border-bottom: 10px dotted white;
+ height: 40px;
+ overflow: hidden ;
+ 
+}
+
+.aba_home {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  height: 100px;
+  padding-left: 15px;
+  background: var(--verl);
+  width: 40px;
+  border-radius: 0px 18px 17px 0px;
+  -webkit-border-radius: 0px 18px 17px 0px;
+  -moz-border-radius: 0px 18px 17px 0px;	
+  transition: all 0.5s ease;		
+}
+.aba_home:hover {
+  background: #e8f1b3;
+  width: 5%; /* Muda a cor de fundo ao passar o mouse */
+}
+
+.aba_agenda {
+  position: absolute;
+  top: 140px;
+  left: 0;
+  height: 145px;
+  padding-left: 15px;
+  background: #4495ff;
+  width: 40px;
+  border-radius: 0px 18px 17px 0px;
+  -webkit-border-radius: 0px 18px 17px 0px;
+  -moz-border-radius: 0px 18px 17px 0px;
+  transition: all 0.5s ease;		
+}
+.aba_agenda:hover {
+  background: #e8f1b3;
+  width: 5%; /* Muda a cor de fundo ao passar o mouse */
+}
+.aba_serv {
+  position: absolute;
+  top: 285px;
+  left: 0;
+  height: 195px;
+  padding-left: 15px;
+  background: var(--marr);
+  width: 40px;
+  border-radius: 0px 18px 17px 0px;
+  -webkit-border-radius: 0px 18px 17px 0px;
+  -moz-border-radius: 0px 18px 17px 0px;
+  transition: all 0.5s ease;			
+}
+.aba_serv:hover {
+  background: #e8f1b3;
+  width: 5%; /* Muda a cor de fundo ao passar o mouse */
+}
+.aba_perfil {
+  position: absolute;
+  top: 480px;
+  left: 0;
+  height: 145px;
+  padding-left: 15px;
+  background: var(--cler1);
+  width: 40px;
+  border-radius: 0px 18px 17px 0px;
+  -webkit-border-radius: 0px 18px 17px 0px;
+  -moz-border-radius: 0px 18px 17px 0px;
+  transition: all 0.5s ease;			
+}
+.aba_perfil:hover {
+  background: #e8f1b3;
+  width: 5%; /* Muda a cor de fundo ao passar o mouse */
+}
+
+.tabela {
+  font-size:100%;
+  background-color: #e8f1b3;
+}
+
+.conteudo {
+  width: 1000px;
+  max-width: 100%;
+  display: flex;
+  background-color: #4495ff;  
+}
+
+.grid {
+  max-width: 1250px;
+  overflow-x: hidden;
+}
+
+
+
+.list:hover  {
+  background-color: white;
+  box-shadow: -2px 2px 60px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: -2px 2px 60px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: -2px 2px 60px 0px rgba(0,0,0,0.75);
+
+  
+  /* display: none; */
+}
+
+
+.card {
+  position: relative;
+}
+
+.btn-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1%;
+}
+
+
+#marcador {
+    width: 50px;
+    margin-right: 2%; 
+    height: 100px;
+    right: 0;      
+    background-color: var(--amar);
+    position: absolute;
+    transition: all 0.5s ease;
+    text-align: center;
+    font-size: 20px;	    
+  }  
+#marcador:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 25px solid white;    
+  }
+#marcador:hover {
+    background: var(--cler1);
+    height: 80%; /* Muda a cor de fundo ao passar o mouse */
+  }
+
+.sair {
+    text-decoration: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#dia {  
+  position: relative;
+  top: 8px;
+  font-size: smaller;
+}
+.nome {
+  position: relative;
+  top: 8px;
+  
+}
+
+.user {  
+  position: absolute;
+  background-color: var(--cler2);
+  width: 100%;
+  height: 40px;
+  border-bottom: 2px dashed #000000;
+  border-left: 2px dashed #000000;
+  border-right: 2px dashed #000000;
+  border-radius: 0px 0px 10px 10px;
+  -webkit-border-radius: 0px 0px 10px 10px;
+  -moz-border-radius: 0px 0px 10px 10px;      
+}
