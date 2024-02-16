@@ -1,5 +1,4 @@
-require('dotenv').config();
-const URL_PRODUCAO = process.env.URL_PRODUCAO;
+import { URL_PRODUCAO } from './app.js';
 
 // Função para executar as ações ao carregar a página
 window.onload = () => {
