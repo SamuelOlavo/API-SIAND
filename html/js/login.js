@@ -74,7 +74,7 @@ async function handleSubmit(event) {
         sessionStorage.setItem('user_email', JSON.stringify(data.user.email));    
         sessionStorage.setItem('user_nome', JSON.stringify(data.user.nome));    
         sessionStorage.setItem('user_token', JSON.stringify(data.token));
-        window.location = "../html/home.html";
+        window.location = "./home.html";
     } else {
         exibirToast('Usuário não cadastrado', '#ff0000');
         document.querySelector("form").reset();

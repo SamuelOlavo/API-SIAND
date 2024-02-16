@@ -225,31 +225,26 @@ onload = () => {
       let adm = JSON.parse(sessionStorage.getItem("user_adm"));
       if (key === "Esteticista" && adm == 1) {
         input = document.createElement("select");
+        user = item[key];
         input.id = key;
         input.className = "form-control";
         fetch("http://localhost:3000/agenda/")
-          .then((response) => response.json())
-          .then((data) => {
+        .then((response) => response.json())
+        .then((data) => {
             let uniqueNames = [
-              ...new Set(data.map((item) => item.Esteticista)),
+                ...new Set(data.map((item) => item.Esteticista)),
             ];
-            let userOption = document.createElement("option");
-            userOption.value = item[key];
-            userOption.text = item[key];
-            input.appendChild(userOption);
             uniqueNames.forEach((name) => {
-              let option = document.createElement("option");
-              option.value = name;
-              option.text = name;
-              input.appendChild(option);
-              // let user = JSON.parse(sessionStorage.getItem("user_nome"));
-              // option.value = user;
-              // option.text = user;
-              // select.appendChild(option);
+                let option = document.createElement("option");
+                option.value = name;
+                option.text = name;
+                option.selected = name === user;
+                input.appendChild(option);
             });
-          })
-          .catch((error) => console.error("Erro:", error));
-      } else {
+        })
+        .catch((error) => console.error("Erro:", error));
+    }
+     else {
         input = document.createElement("input");
         input.id = key;
         input.value = item[key];
