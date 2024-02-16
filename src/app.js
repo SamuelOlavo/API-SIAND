@@ -22,7 +22,7 @@ const agendaRoute = require("./routers/agenda");    // Rotas relacionadas a agen
 const servicosRoute = require("./routers/servicos"); // Rotas relacionadas a serviços
 
 // Associa as rotas aos caminhos correspondentes
-app.use("/", indexRoute);
+// app.use("/", indexRoute);
 app.use("/users", cadasRoute);
 app.use("/login", loginRoute);
 app.use("/agenda", agendaRoute);
