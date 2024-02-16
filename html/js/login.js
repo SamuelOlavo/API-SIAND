@@ -1,4 +1,4 @@
-
+import { URL_PRODUCAO } from './app.js';
 
 window.onload = () => {
     // desabilitarBotaoEntrar();
@@ -12,10 +12,6 @@ window.onload = () => {
     document.getElementById('login').addEventListener('submit', handleSubmit);
 
 }
-require('dotenv').config();
-const URL_PRODUCAO = process.env.URL_PRODUCAO;
-
-
 
 // Função para exibir um toast usando Toastify
 function exibirToast(mensagem, cor) {
