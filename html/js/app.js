@@ -1,1 +1,1 @@
-export const URL_PRODUCAO = "http://localhost:3000";
+export const URL_PRODUCAO = "https://api-siand.vercel.app/";
