@@ -53,8 +53,19 @@ document.getElementById('sair').addEventListener('click', function() {
 });
     
 
-// Função para buscar usuários e atualizar o select
 function atualizarUsuarios() {
+    let emailLogado = JSON.parse(sessionStorage.getItem("user_email"));
+    const selectElement = document.getElementById('list_user');
+
+    selectElement.onchange = async () => {
+        document.getElementById('input_nome').value = ''; 
+        document.getElementById('input_email').value =  '';
+        document.getElementById('input_senha').value =  '';
+        document.getElementById('input_tel').value =  '';
+        document.getElementById('input_ender').value =  ''; 
+        document.getElementById('chec_adm').checked =  false;    
+    }
+
     fetch('http://localhost:3000/users/')
     .then(response => {
         if(response.status === 200){            
@@ -68,17 +79,20 @@ function atualizarUsuarios() {
             
         // Limpa as opções existentes
         selectElement.innerHTML = '';
-        
+    
         list.forEach(email => {
             const option = document.createElement('option');
             option.text = email; // Alterado para email
+            option.selected = email === emailLogado; // Selecione a opção se o email for o mesmo do usuário logado
             selectElement.appendChild(option);
         });
     })
     .catch(error => console.log(error));
 }
 
+
 // Chamar a função no onload da página
+
 
 
 
@@ -125,7 +139,6 @@ buscar.onclick = async () => {
 
 
 const bt_salvar = document.getElementById("bt_salvar");
-
 bt_salvar.onclick = async () => {
     let data = {
         nome: document.getElementById('input_nome').value,

@@ -68,6 +68,7 @@ onload = () => {
             var select = document.getElementById("list_user");      
             select.add(option);            
             select.value = user_nome;
+            select.text = user_nome;
             // let Esteticista = user_nome;
         }
     }
