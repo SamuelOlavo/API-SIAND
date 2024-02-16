@@ -1,4 +1,4 @@
-import { URL_PRODUCAO } from './app.js';
+import { URL_TESTE } from './app.js';
 // Função para exibir um toast usando Toastify
 function exibirToast(mensagem, cor) {
     Toastify({
@@ -43,7 +43,7 @@ window.onload = function() {
     const numer = document.getElementById("numer");
 
     async function preenchergrid(Esteticista) {
-        const response = await fetch(`${URL_PRODUCAO}/agenda/servicos/${Esteticista}`
+        const response = await fetch(`${URL_TESTE}/agenda/servicos/${Esteticista}`
         , {
             method: 'post',
             headers: {

@@ -1,4 +1,4 @@
-import { URL_PRODUCAO } from './app.js';
+import { URL_TESTE } from './app.js';
 
 // Função para exibir um toast usando Toastify
 function exibirToast(mensagem, cor) {
@@ -70,7 +70,7 @@ const handleSubmit = async (event) => {
     const senha = document.getElementById('senha').value;
 
     try {
-        const response = await fetch(`${URL_PRODUCAO}/users/byEmail/${email}`);
+        const response = await fetch(`${URL_TESTE}/users/byEmail/${email}`);
         const responseData = await response.json();
         
         console.log('dados formulario', nome, email, senha);
@@ -79,7 +79,7 @@ const handleSubmit = async (event) => {
         if (response.status === 200 && responseData) {
             exibirToast('O e-mail já existe. Por favor, escolha outro.', '#ff0000');
         } else {
-            const registerResponse = await fetch(`${URL_PRODUCAO}/users/`, {
+            const registerResponse = await fetch(`${URL_TESTE}/users/`, {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',

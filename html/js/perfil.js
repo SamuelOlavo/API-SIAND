@@ -1,4 +1,4 @@
-import { URL_PRODUCAO } from './app.js';
+import { URL_TESTE } from './app.js';
 
 onload = () => {
     function exibirToast(mensagem, cor) {
@@ -68,7 +68,7 @@ function atualizarUsuarios() {
         document.getElementById('chec_adm').checked =  false;    
     }
 
-    fetch(`${URL_PRODUCAO}/users/`)
+    fetch(`${URL_TESTE}/users/`)
     .then(response => {
         if(response.status === 200){            
             return response.json();                        
@@ -103,7 +103,7 @@ let originalData = null;
 
 buscar.onclick = async () => {    
     const email = document.getElementById('list_user').value;
-    fetch(`${URL_PRODUCAO}/users/byEmail/${email}`)
+    fetch(`${URL_TESTE}/users/byEmail/${email}`)
     .then(response => {
         if(response.status === 200){            
             return response.json();                        
@@ -152,7 +152,7 @@ bt_salvar.onclick = async () => {
     };
     // Verifique se os dados são diferentes dos originais
     if (JSON.stringify(data) !== JSON.stringify(originalData)) {
-        const response = await fetch(`${URL_PRODUCAO}/users/${ID}`, {
+        const response = await fetch(`${URL_TESTE}/users/${ID}`, {
             method: 'put',
             headers: {
                 'Accept': 'application/json',
@@ -175,7 +175,7 @@ bt_salvar.onclick = async () => {
 const bt_excluir = document.getElementById("bt_excluir");
 bt_excluir.onclick = async () => {
     try {
-        const response = await fetch(`${URL_PRODUCAO}/users/${ID}`, {
+        const response = await fetch(`${URL_TESTE}/users/${ID}`, {
             method: "delete",
             headers: {
               Accept: "application/json",

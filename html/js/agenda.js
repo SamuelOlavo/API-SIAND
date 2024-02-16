@@ -1,4 +1,4 @@
-import { URL_PRODUCAO } from './app.js';
+import { URL_TESTE } from './app.js';
 
 
 onload = () => {
@@ -45,7 +45,7 @@ onload = () => {
         option.text = user;
         select.appendChild(option);
       }
-      fetch(`${URL_PRODUCAO}/agenda/`)
+      fetch(`${URL_TESTE}/agenda/`)
         .then((response) => response.json())
         .then((data) => {
           let uniqueNames = [...new Set(data.map((item) => item.Esteticista))];
@@ -106,7 +106,7 @@ onload = () => {
     const checkbox = document.getElementById("todos");
     if (checkbox.checked) {
       var response = await fetch(
-        `${URL_PRODUCAO}/agenda?Esteticista=${Esteticista}`,
+        `${URL_TESTE}/agenda?Esteticista=${Esteticista}`,
         {
           method: "get",
           headers: {
@@ -117,7 +117,7 @@ onload = () => {
       );
     } else {
       var response = await fetch(
-        `${URL_PRODUCAO}/agenda/servicos/${Esteticista}`,
+        `${URL_TESTE}/agenda/servicos/${Esteticista}`,
         {
           method: "post",
           headers: {
@@ -173,7 +173,7 @@ onload = () => {
             .getElementById("confirmDelete")
             .addEventListener("click", async () => {
               const response = await fetch(
-                `${URL_PRODUCAO}/agenda/${_id}`,
+                `${URL_TESTE}/agenda/${_id}`,
                 {
                   method: "delete",
                   headers: {
@@ -231,7 +231,7 @@ onload = () => {
         user = item[key];
         input.id = key;
         input.className = "form-control";
-        fetch(`${URL_PRODUCAO}/agenda/`)
+        fetch(`${URL_TESTE}/agenda/`)
         .then((response) => response.json())
         .then((data) => {
             let uniqueNames = [
@@ -305,7 +305,7 @@ onload = () => {
     //Função para salvar os dados editados pelo usuario
     bt_save.onclick = async () => {
       console.log(ID, camposEditadosJson);
-      const response = await fetch(`${URL_PRODUCAO}/agenda/${ID}`, {
+      const response = await fetch(`${URL_TESTE}/agenda/${ID}`, {
         method: "put",
         headers: {
           Accept: "application/json",

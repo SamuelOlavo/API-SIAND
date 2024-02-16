@@ -1,4 +1,4 @@
-import { URL_PRODUCAO } from './app.js';
+import { URL_TESTE } from './app.js';
 
 window.onload = () => {
     // desabilitarBotaoEntrar();
@@ -55,7 +55,7 @@ async function handleSubmit(event) {
     const emailValue = document.getElementById('email').value;
     const senhaValue = document.getElementById('senha').value;
 
-    const response = await fetch(`${URL_PRODUCAO}/login/`, {
+    const response = await fetch(`${URL_TESTE}/login/`, {
         method: 'post',
         headers: {
             'Accept': 'application/json',
