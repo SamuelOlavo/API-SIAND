@@ -1,3 +1,6 @@
+require('dotenv').config();
+const URL_PRODUCAO = process.env.URL_PRODUCAO;
+
 onload = () => {
     function exibirToast(mensagem, cor) {
       Toastify({
@@ -66,7 +69,7 @@ function atualizarUsuarios() {
         document.getElementById('chec_adm').checked =  false;    
     }
 
-    fetch('http://localhost:3000/users/')
+    fetch(`${URL_PRODUCAO}/users/`)
     .then(response => {
         if(response.status === 200){            
             return response.json();                        
@@ -101,7 +104,7 @@ let originalData = null;
 
 buscar.onclick = async () => {    
     const email = document.getElementById('list_user').value;
-    fetch(`http://localhost:3000/users/byEmail/${email}`)
+    fetch(`${URL_PRODUCAO}/users/byEmail/${email}`)
     .then(response => {
         if(response.status === 200){            
             return response.json();                        
@@ -150,7 +153,7 @@ bt_salvar.onclick = async () => {
     };
     // Verifique se os dados são diferentes dos originais
     if (JSON.stringify(data) !== JSON.stringify(originalData)) {
-        const response = await fetch(`http://localhost:3000/users/${ID}`, {
+        const response = await fetch(`${URL_PRODUCAO}/users/${ID}`, {
             method: 'put',
             headers: {
                 'Accept': 'application/json',
@@ -173,7 +176,7 @@ bt_salvar.onclick = async () => {
 const bt_excluir = document.getElementById("bt_excluir");
 bt_excluir.onclick = async () => {
     try {
-        const response = await fetch(`http://localhost:3000/users/${ID}`, {
+        const response = await fetch(`${URL_PRODUCAO}/users/${ID}`, {
             method: "delete",
             headers: {
               Accept: "application/json",
