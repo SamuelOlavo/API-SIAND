@@ -1,3 +1,5 @@
+require('dotenv').config();
+const URL_PRODUCAO = process.env.URL_PRODUCAO;
 // Função para exibir um toast usando Toastify
 function exibirToast(mensagem, cor) {
     Toastify({
@@ -42,7 +44,7 @@ window.onload = function() {
     const numer = document.getElementById("numer");
 
     async function preenchergrid(Esteticista) {
-        const response = await fetch(`http://localhost:3000/agenda/servicos/${Esteticista}`
+        const response = await fetch(`${URL_PRODUCAO}/agenda/servicos/${Esteticista}`
         , {
             method: 'post',
             headers: {

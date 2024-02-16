@@ -1,3 +1,6 @@
+require('dotenv').config();
+const URL_PRODUCAO = process.env.URL_PRODUCAO;
+
 // Função para executar as ações ao carregar a página
 window.onload = () => {
     exibirToast("Bem vindo! Faça seu agendamento", "green");
@@ -18,7 +21,7 @@ function exibirToast(mensagem, cor) {
 // Função para carregar os serviços
 async function carregarServicos() {
     try {
-        const response = await fetch(`http://localhost:3000/servicos/servicos`);
+        const response = await fetch(`${URL_PRODUCAO}/servicos/servicos`);
         if (response.status === 200) {
             const data = await response.json();
             preencherDropdownServicos(data);
@@ -48,7 +51,7 @@ function preencherDropdownServicos(data) {
 // Função para carregar os esteticistas
 async function carregarEsteticistas(servicoSelecionado) {
     try {
-        const response = await fetch(`http://localhost:3000/servicos/servico/${servicoSelecionado}`);
+        const response = await fetch(`${URL_PRODUCAO}/servicos/servico/${servicoSelecionado}`);
         if (response.status === 200) {
             const data = await response.json();
             return [...new Set(data.map(prof => prof.Esteticista))];
@@ -120,7 +123,7 @@ function validarCampo(event) {
         const Horario = document.getElementById('hora').value;
 
         try {
-            const response = await fetch('http://localhost:3000/agenda/', {
+            const response = await fetch(`${URL_PRODUCAO}/agenda/`, {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',

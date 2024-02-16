@@ -1,3 +1,6 @@
+require('dotenv').config();
+const URL_PRODUCAO = process.env.URL_PRODUCAO;
+
 onload = () => {  
 
     function exibirToast(mensagem, cor) {
@@ -43,7 +46,7 @@ onload = () => {
                 option.text = user;
                 select.appendChild(option);
             }            
-            fetch('http://localhost:3000/servicos/')
+            fetch(`${URL_PRODUCAO}/servicos/`)
             .then(response => response.json())
             .then(data => {
               let uniqueNames = [...new Set(data.map(item => item.Esteticista))];
@@ -80,7 +83,7 @@ onload = () => {
     bt_add.onclick = async () => {
         const Servicos = document.getElementById('serv').value; 
         const Esteticista = document.getElementById('list_user').value; 
-        const response = await fetch('http://localhost:3000/servicos/', {
+        const response = await fetch(`${URL_PRODUCAO}/servicos/`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
@@ -110,7 +113,7 @@ onload = () => {
 
      preencherTabela = async () => {
         let Esteticista = document.getElementById('list_user').value;
-        const response = await fetch(`http://localhost:3000/servicos/esteticista/${Esteticista}`);    
+        const response = await fetch(`${URL_PRODUCAO}/servicos/esteticista/${Esteticista}`);    
         if (response.status === 200) {
             const data = await response.json();                
             // Acessar o tbody pelo id
@@ -151,7 +154,7 @@ onload = () => {
                 });   
 
                 bt_excl.onclick = async () => {        
-                    const response = await fetch('http://localhost:3000/servicos/excluir', {
+                    const response = await fetch(`${URL_PRODUCAO}/servicos/excluir`, {
                         method: 'delete',
                         headers: {
                             'Accept': 'application/json',

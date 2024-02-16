@@ -1,5 +1,11 @@
+require('dotenv').config();
+
+
+const URL_PRODUCAO = process.env.URL_PRODUCAO;
+
+
 window.onload = () => {
-    desabilitarBotaoEntrar();
+    // desabilitarBotaoEntrar();
 
     // Eventos de blur para os campos de email e senha
     email.onblur = verificarFormulario;
@@ -9,6 +15,7 @@ window.onload = () => {
     document.getElementById('login').addEventListener('submit', handleSubmit);
 
 }
+
 
 // Função para exibir um toast usando Toastify
 function exibirToast(mensagem, cor) {
@@ -23,9 +30,9 @@ function exibirToast(mensagem, cor) {
 }
 
 // Função para desabilitar o botão de entrar
-function desabilitarBotaoEntrar() {
-    document.getElementById('entrar').disabled = true;
-}
+// function desabilitarBotaoEntrar() {
+//     document.getElementById('entrar').disabled = true;
+// }
 
 // Função para verificar se o formulário está válido
 function verificarFormulario() {
@@ -52,7 +59,7 @@ async function handleSubmit(event) {
     const emailValue = document.getElementById('email').value;
     const senhaValue = document.getElementById('senha').value;
 
-    const response = await fetch('http://localhost:3000/login/', {
+    const response = await fetch(`${URL_PRODUCAO}/login/`, {
         method: 'post',
         headers: {
             'Accept': 'application/json',
@@ -80,7 +87,7 @@ async function handleSubmit(event) {
         document.querySelector("form").reset();
     }
 
-    desabilitarBotaoEntrar();
+    // desabilitarBotaoEntrar();
 }   
 
 //Login com facebook
@@ -120,6 +127,9 @@ async function handleSubmit(event) {
       console.log('Informações do usuário:', response);
       // Aqui você pode enviar os dados do usuário para o seu servidor e criar uma sessão de login.
     });
+
+  
+
   }
 
 
