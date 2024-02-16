@@ -1,11 +1,8 @@
-require('dotenv').config();
-
-
-const URL_PRODUCAO = process.env.URL_PRODUCAO;
 
 
 window.onload = () => {
     // desabilitarBotaoEntrar();
+    
 
     // Eventos de blur para os campos de email e senha
     email.onblur = verificarFormulario;
@@ -15,6 +12,9 @@ window.onload = () => {
     document.getElementById('login').addEventListener('submit', handleSubmit);
 
 }
+require('dotenv').config();
+const URL_PRODUCAO = process.env.URL_PRODUCAO;
+
 
 
 // Função para exibir um toast usando Toastify
