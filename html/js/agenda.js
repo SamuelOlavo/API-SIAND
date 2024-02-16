@@ -1,3 +1,7 @@
+require('dotenv').config();
+const URL_PRODUCAO = process.env.URL_PRODUCAO;
+
+
 onload = () => {
   function exibirToast(mensagem, cor) {
     Toastify({
@@ -42,7 +46,7 @@ onload = () => {
         option.text = user;
         select.appendChild(option);
       }
-      fetch("http://192.168.100.102:3000/agenda/")
+      fetch(`${URL_PRODUCAO}/agenda/`)
         .then((response) => response.json())
         .then((data) => {
           let uniqueNames = [...new Set(data.map((item) => item.Esteticista))];
@@ -103,7 +107,7 @@ onload = () => {
     const checkbox = document.getElementById("todos");
     if (checkbox.checked) {
       var response = await fetch(
-        `http://192.168.100.102:3000/agenda?Esteticista=${Esteticista}`,
+        `${URL_PRODUCAO}/agenda?Esteticista=${Esteticista}`,
         {
           method: "get",
           headers: {
@@ -114,7 +118,7 @@ onload = () => {
       );
     } else {
       var response = await fetch(
-        `http://192.168.100.102:3000/agenda/servicos/${Esteticista}`,
+        `${URL_PRODUCAO}/agenda/servicos/${Esteticista}`,
         {
           method: "post",
           headers: {
@@ -170,7 +174,7 @@ onload = () => {
             .getElementById("confirmDelete")
             .addEventListener("click", async () => {
               const response = await fetch(
-                `http://192.168.100.102:3000/agenda/${_id}`,
+                `${URL_PRODUCAO}/agenda/${_id}`,
                 {
                   method: "delete",
                   headers: {
@@ -228,7 +232,7 @@ onload = () => {
         user = item[key];
         input.id = key;
         input.className = "form-control";
-        fetch("http://192.168.100.102:3000/agenda/")
+        fetch(`${URL_PRODUCAO}/agenda/`)
         .then((response) => response.json())
         .then((data) => {
             let uniqueNames = [
@@ -302,7 +306,7 @@ onload = () => {
     //Função para salvar os dados editados pelo usuario
     bt_save.onclick = async () => {
       console.log(ID, camposEditadosJson);
-      const response = await fetch(`http://192.168.100.102:3000/agenda/${ID}`, {
+      const response = await fetch(`${URL_PRODUCAO}/agenda/${ID}`, {
         method: "put",
         headers: {
           Accept: "application/json",
