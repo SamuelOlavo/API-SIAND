@@ -1,6 +1,5 @@
 import { URL_TESTE } from './app.js';
 
-
 onload = () => {
   function exibirToast(mensagem, cor) {
     Toastify({
