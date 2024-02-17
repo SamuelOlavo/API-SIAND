@@ -33,7 +33,7 @@ onload = () => {
     window.location = "./html/login.html";
   });
 
-  trataAdm = async () => {
+  let trataAdm = async () => {
     let adm = JSON.parse(sessionStorage.getItem("user_adm"));
     if (adm == 1) {
       document.getElementById("nome").disabled = false;
@@ -73,7 +73,9 @@ onload = () => {
       Esteticista = user_nome;
     }
   };
+  
   trataAdm();
+
 
   //Função para tratar a função de buscar todos agendamentos;
   const checkbox = document.getElementById("todos");

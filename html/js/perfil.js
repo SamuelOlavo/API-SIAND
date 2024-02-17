@@ -12,12 +12,8 @@ onload = () => {
       }).showToast();
     }
 
-
- 
-
-    let adm = JSON.parse(sessionStorage.getItem("user_adm"));
-    console.log(adm);
-     trataAdm = async () => {        
+    trataAdm = async () => { 
+        let adm = JSON.parse(sessionStorage.getItem("user_adm"));    
         if (adm == 1) { 
             document.getElementById('list_user').disabled = false;        
             atualizarUsuarios ();            
@@ -33,7 +29,6 @@ onload = () => {
         }
     }
     trataAdm ();
-
   
     //Setando a data de hoje no campo de busca
     var now = new Date();

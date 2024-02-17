@@ -15,8 +15,7 @@ function exibirToast(mensagem, cor) {
 window.onload = function() {
     exibirToast('Bem vindo','#269934');
     preenchergrid(Esteticista);
-    console.log(user);
-    console.log(adm);
+    console.log(user);   
 }
 
     let user = JSON.parse(sessionStorage.getItem("user_nome"));
