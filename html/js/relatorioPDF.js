@@ -1,3 +1,15 @@
+// Função para exibir um toast usando Toastify
+function exibirToast(mensagem, cor) {
+  Toastify({
+      text: mensagem,
+      duration: 3000, // Tempo de exibição do toast em milissegundos (opcional)
+      close: true,
+      style: {
+          background: cor,
+      }
+  }).showToast();
+}
+
 window.jsPDF = window.jspdf.jsPDF;
 
 // Função para exportar os agendamentos para PDF
@@ -34,6 +46,8 @@ function exportarAgendamentosParaPDF() {
 
   // Salvar o documento PDF
   doc.save('agendamentos.pdf');
+  exibirToast("Download realizado com", "#4CAF50");
+
 }
 
 // Adicionar um ouvinte de evento ao botão de exportar
