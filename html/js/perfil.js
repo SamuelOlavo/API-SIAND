@@ -12,7 +12,7 @@ onload = () => {
       }).showToast();
     }
 
-    trataAdm = async () => { 
+    let trataAdm = async () => { 
         let adm = JSON.parse(sessionStorage.getItem("user_adm"));    
         if (adm == 1) { 
             document.getElementById('list_user').disabled = false;        
@@ -95,6 +95,8 @@ function atualizarUsuarios() {
 
 const buscar = document.getElementById("buscar");
 let originalData = null;
+
+var ID;
 
 buscar.onclick = async () => {    
     const email = document.getElementById('list_user').value;
