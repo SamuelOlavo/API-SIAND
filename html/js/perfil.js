@@ -142,11 +142,16 @@ bt_salvar.onclick = async () => {
     let data = {
         nome: document.getElementById('input_nome').value,
         email: document.getElementById('input_email').value,
-        senha: document.getElementById('input_senha').value,
         Telefone: document.getElementById('input_tel').value,
         Endereco: document.getElementById('input_ender').value,
         Administrador: document.getElementById('chec_adm').checked
     };
+
+    // Se a senha foi modificada, inclua-a nos dados a serem enviados
+    if (document.getElementById('input_senha').value !== originalData.senha) {
+        data.senha = document.getElementById('input_senha').value;
+    }
+
     // Verifique se os dados são diferentes dos originais
     if (JSON.stringify(data) !== JSON.stringify(originalData)) {
         const response = await fetch(`${URL_TESTE}/users/${ID}`, {
@@ -167,6 +172,7 @@ bt_salvar.onclick = async () => {
         console.log('Nenhum dado foi alterado.');
     }
 }
+
 
 
 const bt_excluir = document.getElementById("bt_excluir");
