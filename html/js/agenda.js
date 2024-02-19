@@ -288,21 +288,22 @@ onload = () => {
         let label = document.createElement("label");
         label.for = campo;
         label.innerText = campo;
-        input = document.createElement("input");
-        input.type = "text";
-        input.id = campo;
-        input.className = "form-control";
-
+        let inputt = document.createElement("input");
+        inputt.type = "text";
+        inputt.id = campo;
+        inputt.className = "form-control";
+    
         // Adicione um evento de escuta ao campo de entrada
-        input.addEventListener("change", function () {
+        inputt.addEventListener("change", function () {
           camposEditados[this.id] = this.value;
           camposEditadosJson = JSON.stringify(camposEditados); // Atualize camposEditadosJson aqui
         });
         div.appendChild(label);
-        div.appendChild(input);
+        div.appendChild(inputt); // Corrigido aqui
         modalBody.appendChild(div);
       }
     }
+    
     //Função para salvar os dados editados pelo usuario
     bt_save.onclick = async () => {
       console.log(ID, camposEditadosJson);

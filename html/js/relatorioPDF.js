@@ -18,8 +18,9 @@ function exportarAgendamentosParaPDF() {
   const doc = new jsPDF();
 
   // Título do documento
+  const Esteticista = document.getElementById("nome").value;
   doc.setFontSize(20);
-  doc.text('Agendamentos', 10, 20);
+  doc.text('Agendamentos - ' + Esteticista, 10, 20);
 
   // Posição inicial para desenhar os agendamentos
   let y = 30;
@@ -34,7 +35,7 @@ function exportarAgendamentosParaPDF() {
       doc.setFontSize(12);
       doc.text(titulo, 10, y);
       doc.setFontSize(10);
-      doc.text(descricao, 10, y + 10);
+      doc.text(descricao, 10, y + 5);
 
       // Adicionar uma linha para separar os agendamentos
       doc.setLineWidth(0.5);
