@@ -1,6 +1,7 @@
 const Users = require("../models/users");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { redirect } = require("express/lib/response");
 
 exports.getAll = (req, res) => {
     console.log("Get All");
@@ -19,12 +20,26 @@ exports.Auth = async (req, res) => {
     res.send(user);
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Função para autenticação do Google
 exports.authGoogle = async (req, res) => {
-    const { idToken } = req.body;
-  
+    const { tokenGoogle } = req.body;
+
     // Decodificando o token JWT recebido do frontend
-    const tokenDecodificado = jwt.decode(idToken);
+    const tokenDecodificado = jwt.decode(tokenGoogle);
     console.log('tokenDecodificado:', tokenDecodificado);
 
     const { sub, email, name, email_verified } = tokenDecodificado;
@@ -33,63 +48,53 @@ exports.authGoogle = async (req, res) => {
     console.log('email:', email);
     console.log('name:', name);
     console.log('email_verified:', email_verified);
-    
+
+    console.log('inicializando a verificacao do email');
+
     // Verificando se o email foi verificado
     if (!email_verified) {
         console.log('Email não verificado');
         res.status(400).send({ error: 'Email não verificado' });
-        return;
     }
-// Verifica se já existe um usuário com o mesmo sub ou email no banco de dados
-const usuarioExistente = await Users.findOne({ $or: [{ sub: sub }, { email: email }] });
-if (usuarioExistente) {
-    // Se já existir um usuário com o mesmo sub ou email, envie uma resposta de erro para o cliente
-    console.log('Usuário já cadastrado');
-    res.status(400).send({ error: 'Usuário já cadastrado' });
-    return; // Encerra a execução da função
-}
-
-// Se o sub e o email não existirem no banco de dados, proceda com a lógica abaixo
-if (!sub || !email) {
-    // Se o ID do Google ou o email não foram encontrados, envie uma resposta de erro para o cliente
-    console.log('Sub ou email não encontrado');
-    res.status(400).send({ error: 'sub ou email não encontrado' });
-    return; // Encerra a execução da função
-}
-
+    
     // Verifica se já existe um usuário com o mesmo sub ou email no banco de dados
-    const UsuárioExistente = await Users.findOne({ $or: [{ sub: sub }, { email: email }] });
-    console.log('UsuárioExistente:', UsuárioExistente);
-
-    if (UsuárioExistente) {
+    const usuarioExistente = await Users.findOne({ $or: [{ sub: sub }, { email: email }] });
+    if (usuarioExistente) {
         // Se já existir um usuário com o mesmo sub ou email, envie uma resposta de erro para o cliente
         console.log('Usuário já cadastrado');
-        res.status(400).send({ error: 'Usuário já cadastrado' });
-        return;
+        const users = await Users.findOne(
+            { email: email },
+        );
+        res.status(200).send(users); // Envia os usuários como resposta
+        console.log(users);
     }
+    // Se o sub e o email não existirem no banco de dados.
+    if (!sub || !email) {
+        // Se o ID do Google ou o email não foram encontrados, envie uma resposta de erro para o cliente
+        console.log('Sub ou email não encontrado');
+        res.status(400).send({ error: 'sub ou email não encontrado' });
 
-    // Se o sub e o email não existirem no banco de dados, proceda com o cadastro do novo usuário
-    const newUser = new Users({
-        email: email,
-        nome: name,
-        sub: sub,
-        senha: sub
-    });
+        // Gerar hash seguro da senha
+        const senhaHash = await bcrypt.hash(sub, 10);
 
-    try {
-        // Salva o novo usuário no banco de dados
-        const savedUser = await newUser.save();
-        console.log('Usuário salvo:', savedUser);
+        const newUser = new Users({
+            email: email,
+            nome: name,
+            sub: sub,
+            senha: senhaHash,
 
-        // Gera um token de autenticação
-        const token = generateToken(savedUser._id);
-        console.log('Token gerado:', token);
+            // Se o sub e o email não existirem no banco de dados, proceda com o cadastro do novo usuário
+        });
 
+        try {
+            // Salva o novo usuário no banco de dados
+            const savedUser = await newUser.save();
+            console.log('Usuário cadastrado:', savedUser);
+        
         // Retorna o token e os dados do usuário para o cliente
         res.status(200).send({ token, user: savedUser });
-    } catch (error) {
-        // Se ocorrer um erro durante o cadastro do usuário, envie uma resposta de erro para o cliente
-        console.error('Erro ao cadastrar o usuário:', error);
-        res.status(500).send({ error: 'Erro ao cadastrar o usuário' });
-    }
-};
+        }
+        catch (error) {
+            console.log('Erro ao cadastrar usuário:', error);
+            res.status(400).send({ error: 'Erro ao cadastrar usuário' });
+        }}};

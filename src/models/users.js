@@ -17,7 +17,7 @@ const Schema = mongoose.Schema;
       },
       sub: {
         type: String,
-        required: true,
+        required: false,
       },
       Telefone: {
         type: String,
