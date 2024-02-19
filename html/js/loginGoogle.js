@@ -1,33 +1,44 @@
 function handleCredentialResponse(response) {
-    const data = jwt_decode(response.credential)
-  
-    fullName.textContent = data.name
-    sub.textContent = data.sub
-    given_name.textContent = data.given_name
-    family_name.textContent = data.family_name
-    email.textContent = data.email
-    verifiedEmail.textContent = data.email_verified
-    picture.setAttribute("src", data.picture)
-  }
-  
-  window.onload = function () {
-    const clientID = "771987966504-vri95o8gkbvprv8rc3l4d1c30jfjhc0i.apps.googleusercontent.com"
-  
-    google.accounts.id.initialize({
-      client_id: clientID,
-      callback: handleCredentialResponse
-    });
-  
-    google.accounts.id.renderButton(
-      document.getElementById("buttonDiv"), {
-      theme: "filled_black",
-      size: "large",
-      type: "standard",
-      shape: "pill",
-      locale: "pt-BR",
-      logo_alignment: "left",
-    } // customization attributes
-    );
-  
-    google.accounts.id.prompt(); // also display the One Tap dialog
-  }
+  const idToken = response.credential;
+
+  fetch(`http://localhost:3000/login/authGoogle`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ idToken }), // Enviar apenas o token
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Erro ao enviar os dados para o backend');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Resposta do backend:', data);
+  })
+  .catch(error => {
+    console.error('Erro:', error);
+  });
+}
+
+window.onload = function () {
+  const clientID = "771987966504-vri95o8gkbvprv8rc3l4d1c30jfjhc0i.apps.googleusercontent.com";
+
+  google.accounts.id.initialize({
+    client_id: clientID,
+    callback: handleCredentialResponse
+  });
+
+  google.accounts.id.renderButton(
+    document.getElementById("LoginGoogle"), {
+    theme: "filled_black",
+    size: "large",
+    type: "standard",
+    shape: "pill",
+    locale: "pt-BR",
+    logo_alignment: "left",
+  });
+
+  google.accounts.id.prompt(); // also display the One Tap dialog
+}
