@@ -105,59 +105,39 @@ async function handleSubmit(event) {
 }
 
 function handleCredentialResponse(response) {
-    const TokenGoogle = response.credential;
+    const idToken = response.credential;
   
     fetch(`http://localhost:3000/login/authGoogle`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ TokenGoogle }), // Enviar apenas o token
+      body: JSON.stringify({ idToken }), // Enviar apenas o token
     })
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // .then(response => {
-    //   if (!response.ok) {
-    //     throw new Error('Erro ao enviar os dados para o backend');
-    //   }
-    //   return response.json();
-    // })
-    // .then((data) => {
-    //     // Se o email não estiver verificado, exibir uma mensagem de erro
-    //     if (data.error === 'Email não verificado') {
-    //         exibirToast('Seu email não foi verificado. Verifique seu email antes de continuar.', '#ff0000');
-    //         return;
-    //     }
-    //     // Verifica se há uma URL de redirecionamento na resposta
-    //     if (data.status ='') {
-    //         window.location = "./login.html";
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao enviar os dados para o backend');
+      }
+      return response.json();
+    })
+    .then((data) => {
+        // Se o email não estiver verificado, exibir uma mensagem de erro
+        if (data.error === 'Email não verificado') {
+            exibirToast('Seu email não foi verificado. Verifique seu email antes de continuar.', '#ff0000');
+            return;
+        }
+        // Verifica se há uma URL de redirecionamento na resposta
+        if (data.error === 'Usuário já cadastrado') {
+            window.location = "./login.html";
             
-    //     }
-    //     if (data.error === 'sub ou email não encontrado') {
-    //         exibirToast('Erro ao cadastrar o usuário', '#ff0000');
-    //         return;
-    //     }
-    // })
-    // .catch((error) => {
-    //     console.error('Erro:', error.message);
-    // });
+        }
+        if (data.error === 'sub ou email não encontrado') {
+            exibirToast('Erro ao cadastrar o usuário', '#ff0000');
+            return;
+        }
+    })
+    .catch((error) => {
+        console.error('Erro:', error.message);
+    });
   }
 

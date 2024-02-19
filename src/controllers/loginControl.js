@@ -36,10 +36,10 @@ exports.Auth = async (req, res) => {
 
 // Função para autenticação do Google
 exports.authGoogle = async (req, res) => {
-    const { tokenGoogle } = req.body;
+    const { idToken } = req.body;
 
     // Decodificando o token JWT recebido do frontend
-    const tokenDecodificado = jwt.decode(tokenGoogle);
+    const tokenDecodificado = jwt.decode(idToken);
     console.log('tokenDecodificado:', tokenDecodificado);
 
     const { sub, email, name, email_verified } = tokenDecodificado;
