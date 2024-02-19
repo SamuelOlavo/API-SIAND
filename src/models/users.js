@@ -15,6 +15,10 @@ const Schema = mongoose.Schema;
         type: String,
         required: true,
       },
+      sub: {
+        type: String,
+        required: true,
+      },
       Telefone: {
         type: String,
         required: false,

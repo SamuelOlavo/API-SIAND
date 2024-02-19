@@ -10,6 +10,25 @@ window.onload = () => {
     // Adiciona o manipulador de envio do formulário
     document.getElementById('login').addEventListener('submit', handleSubmit);
 
+    const clientID = "771987966504-vri95o8gkbvprv8rc3l4d1c30jfjhc0i.apps.googleusercontent.com";
+
+    google.accounts.id.initialize({
+      client_id: clientID,
+      callback: handleCredentialResponse
+    });
+  
+    google.accounts.id.renderButton(
+      document.getElementById("LoginGoogle"), {
+      theme: "filled_black",
+      size: "large",
+      type: "standard",
+      shape: "pill",
+      locale: "pt-BR",
+      logo_alignment: "left",
+    });
+  
+    google.accounts.id.prompt(); // also display the One Tap dialog
+
 }
 
 
@@ -84,4 +103,38 @@ async function handleSubmit(event) {
     }
     // desabilitarBotaoEntrar();
 }
+
+function handleCredentialResponse(response) {
+    const idToken = response.credential;
+  
+    fetch(`http://localhost:3000/login/authGoogle`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ idToken }), // Enviar apenas o token
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao enviar os dados para o backend');
+      }
+      return response.json();
+    })
+    .then((data) => {
+        // Se o email não estiver verificado, exibir uma mensagem de erro
+        if (data.error === 'Email não verificado') {
+            exibirToast('Seu email não foi verificado. Verifique seu email antes de continuar.', '#ff0000');
+            return;
+        }
+        // Verifica se há uma URL de redirecionamento na resposta
+        if (data.error === 'Usuário já cadastrado') {
+            exibirToast('Usuário já cadastrado, realize seu login.', 'green');
+            window.location = "./login.html";
+            return;
+        }
+    })
+    .catch((error) => {
+        console.error('Erro:', error);
+    });
+  }
 
