@@ -1,1 +1,1 @@
-export const URL_PRODUCAO = "https://api-siand.vercel.app/";
+export const URL_PRODUCAO = "https://api-siand.vercel.app";
