@@ -62,11 +62,9 @@ exports.authGoogle = async (req, res) => {
     if (usuarioExistente) {
         // Se já existir um usuário com o mesmo sub ou email, envie uma resposta de erro para o cliente
         console.log('Usuário já cadastrado');
-        const users = await Users.findOne(
-            { email: email },
-        );
+        const users = await Users.findOne({ email: email });
         res.status(200).send(users); // Envia os usuários como resposta
-        console.log(users);
+        // console.log(users);
     }
     // Se o sub e o email não existirem no banco de dados.
     if (!sub || !email) {
