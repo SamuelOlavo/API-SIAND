@@ -127,33 +127,19 @@ async function handleCredentialResponse(response) {
         sessionStorage.setItem('user_nome', JSON.stringify(data.nome));    
         // sessionStorage.setItem('user_token', JSON.stringify(data.token));
         window.location = "./home.html";
-    } else {
-
-    }
-    // .then(response => {
-    //   if (!response.ok) {
-    //     throw new Error('Erro ao enviar os dados para o backend');
-    //   }
-    //   return response.json();
-    // })
-    // .then((data) => {
-    //     // Se o email não estiver verificado, exibir uma mensagem de erro
-    //     if (data.error === 'Email não verificado') {
-    //         exibirToast('Seu email não foi verificado. Verifique seu email antes de continuar.', '#ff0000');
-    //         return;
-    //     }
-    //     // Verifica se há uma URL de redirecionamento na resposta
-    //     if (data.error === 'Usuário já cadastrado') {
-    //         window.location = "./login.html";
-            
-    //     }
-    //     if (data.error === 'sub ou email não encontrado') {
-    //         exibirToast('Erro ao cadastrar o usuário', '#ff0000');
-    //         return;
-    //     }
-    // })
-    // .catch((error) => {
-    //     console.error('Erro:', error.message);
-    // });
+    } if (res.status === 201) {
+        const data = await res.json();  
+        console.log(data); // Verifique o que está dentro de 'data'
+        console.log(data.nome + ' Deu certo'); // Verifique o que está dentro de 'data.nome'
+        console.log(data.Administrador); // Verifique o valor de 'data.Administrador'
+    
+        let userAdm = Boolean(data?.Administrador) ? 1 : 0;
+        sessionStorage.setItem('user_adm', JSON.stringify(userAdm));      
+    
+        sessionStorage.setItem('user_email', JSON.stringify(data.email));    
+        sessionStorage.setItem('user_nome', JSON.stringify(data.nome)); 
+        window.location = "./home.html";   
+        exibirToast('Bem Vindo', '#ff0000');       
+    };    
   }
 
