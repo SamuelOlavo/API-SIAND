@@ -71,6 +71,7 @@ exports.authGoogle = async (req, res) => {
         // Se o ID do Google ou o email não foram encontrados, envie uma resposta de erro para o cliente
         console.log('Sub ou email não encontrado');
         res.status(400).send({ error: 'sub ou email não encontrado' });
+        console.log('Sub ou email não encontrado');
 
         // Gerar hash seguro da senha
         const senhaHash = await bcrypt.hash(sub, 10);
@@ -80,6 +81,7 @@ exports.authGoogle = async (req, res) => {
             nome: name,
             sub: sub,
             senha: senhaHash,
+            Administrador: 0,
 
             // Se o sub e o email não existirem no banco de dados, proceda com o cadastro do novo usuário
         });
