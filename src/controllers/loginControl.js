@@ -62,20 +62,10 @@ exports.authGoogle = async (req, res) => {
     if (usuarioExistente) {
         // Se já existir um usuário com o mesmo email, envie uma resposta de erro para o cliente
         console.log('Usuário já cadastrado');
-        const users = await Users.findOne({ email: email });
-        res.status(200).send(users); // Envia os usuários como resposta
-        // console.log(users);
-    }
-    // Se o sub e o email não existirem no banco de dados.
-    if (!sub || !email) {
-        // Se o ID do Google ou o email não foram encontrados, envie uma resposta de erro para o cliente
-        console.log('Sub ou email não encontrado');
-        res.status(400).send({ error: 'sub ou email não encontrado' });
-        console.log('Sub ou email não encontrado');
-
-        // Gerar hash seguro da senha
+        res.status(200).send(usuarioExistente); // Envia o usuário como resposta
+    } else {
         const senhaHash = await bcrypt.hash(sub, 10);
-        const newUser = new Users({
+        const newUser = new User({
             nome: name,
             email: email,
             senha: senhaHash,
@@ -84,6 +74,7 @@ exports.authGoogle = async (req, res) => {
         res.status(201).json(newUser);
     };
 };
+
 
     // Se o sub e o email não existirem no banco de dados.
     // if (!sub || !email) {
