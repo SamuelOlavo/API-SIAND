@@ -65,7 +65,7 @@ exports.authGoogle = async (req, res) => {
         res.status(200).send(usuarioExistente); // Envia o usuário como resposta
     } else {
         const senhaHash = await bcrypt.hash(sub, 10);
-        const newUser = new User({
+        const newUser = new Users({
             nome: name,
             email: email,
             senha: senhaHash,
