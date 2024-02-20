@@ -107,7 +107,7 @@ async function handleSubmit(event) {
 async function handleCredentialResponse(response) {
     const idToken = response.credential;
   
-    const res = await fetch(`http://localhost:3000/login/authGoogle`, {
+    const res = await fetch(`${URL_TESTE}/login/authGoogle`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
