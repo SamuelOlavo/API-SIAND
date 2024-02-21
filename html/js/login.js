@@ -11,6 +11,7 @@ window.onload = () => {
     // Adiciona o manipulador de envio do formulário
     document.getElementById('login').addEventListener('submit', handleSubmit);
 
+
     const client = clientID;
 
     google.accounts.id.initialize({
