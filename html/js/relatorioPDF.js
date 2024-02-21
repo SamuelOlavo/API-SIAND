@@ -25,8 +25,12 @@ function exportarAgendamentosParaPDF() {
   // Posição inicial para desenhar os agendamentos
   let y = 30;
 
-  // Iterar sobre os agendamentos exibidos na tela
-  document.querySelectorAll('.card').forEach(card => {
+  // Selecionar todos os cards de agendamento
+  const cards = document.querySelectorAll('.card');
+
+  // Iterar sobre os agendamentos exibidos na tela, pulando o primeiro registro
+  for (let i = 1; i < cards.length; i++) {
+      const card = cards[i];
       // Extrair informações do card
       const titulo = card.querySelector('.card-title').innerText;
       const descricao = card.querySelector('.card-text').innerText;
@@ -43,9 +47,11 @@ function exportarAgendamentosParaPDF() {
 
       // Atualizar a posição Y para o próximo agendamento
       y += 20;
-  });
+  }
 
   // Salvar o documento PDF
+  doc.save('agendamentos.pdf');
+  exibirToast("Download realizado com sucesso", "#4CAF50");
   doc.save('Agendamentos_' + Esteticista);
   exibirToast("Download realizado", "#4CAF50");
 
@@ -53,14 +59,3 @@ function exportarAgendamentosParaPDF() {
 
 // Adicionar um ouvinte de evento ao botão de exportar
 document.getElementById('btnExportarPDF').addEventListener('click', exportarAgendamentosParaPDF);
-
-
-// Obrigado pela imagem, ela esclarece o problema. Parece que o primeiro agendamento está sendo duplicado no PDF gerado. Isso pode estar acontecendo devido a várias razões. Aqui estão algumas possíveis causas:
-
-// Dados duplicados: Verifique se os dados que estão sendo usados para gerar o PDF não têm o primeiro agendamento duplicado. Você pode fazer isso imprimindo os dados antes de gerar o PDF.
-// Chamadas de função duplicadas: Certifique-se de que a função que gera o PDF não está sendo chamada duas vezes inadvertidamente.
-// Problemas de sincronização: Se você estiver gerando o PDF em resposta a algum evento assíncrono (como uma chamada de API), pode haver condições de corrida que resultam na duplicação do primeiro agendamento.
-// Problemas com a biblioteca PDF: Pode haver um bug na biblioteca que você está usando para gerar o PDF que está causando a duplicação.
-// Para ajudar a solucionar o problema, você pode tentar adicionar algumas declarações de log em seu código para ver onde exatamente a duplicação está ocorrendo. Por exemplo, você pode registrar os dados antes de gerar o PDF, e também registrar cada agendamento à medida que é adicionado ao PDF.
-
-// Espero que isso ajude a solucionar o problema! Se você tiver mais perguntas ou precisar de mais ajuda, fique à vontade para perguntar.
