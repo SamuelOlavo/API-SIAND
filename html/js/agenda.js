@@ -98,6 +98,14 @@ onload = () => {
 
   //Função que passa o nome da esteticista e a data escolhida no input
   async function preenchergrid() {
+
+
+    const selectElement = document.getElementById('nome');
+    selectElement.onchange = async () => {
+      let grid = document.getElementById("grid_list");
+      grid.innerHTML = "";
+    }
+
     const Esteticista = document.getElementById("nome").value;
     //Paramentro para formatar a data antes da consulta
     const data = document.getElementById("data").value;
