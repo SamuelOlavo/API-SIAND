@@ -110,6 +110,13 @@ onload = () => {
 
 
    let preencherTabela = async () => {
+
+    const selectElement = document.getElementById('list_user');
+
+    selectElement.onchange = async () => {
+        tbody.innerHTML = '';
+    }
+
         let Esteticista = document.getElementById('list_user').value;
         const response = await fetch(`${URL_TESTE}/servicos/esteticista/${Esteticista}`);    
         if (response.status === 200) {
