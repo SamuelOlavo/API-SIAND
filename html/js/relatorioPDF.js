@@ -49,9 +49,7 @@ function exportarAgendamentosParaPDF() {
       y += 20;
   }
 
-  // Salvar o documento PDF
-  doc.save('agendamentos.pdf');
-  exibirToast("Download realizado com sucesso", "#4CAF50");
+  // Salvar o documento PDF  
   doc.save('Agendamentos_' + Esteticista);
   exibirToast("Download realizado", "#4CAF50");
 
