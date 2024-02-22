@@ -1,4 +1,8 @@
+
 import { URL_TESTE } from './app.js';
+
+import { URL_PRODUCAO } from './app.js';
+
 
 onload = () => {  
 

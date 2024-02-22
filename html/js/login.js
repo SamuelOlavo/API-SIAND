@@ -1,7 +1,13 @@
+
 import { URL_TESTE } from './app.js';
+import { clientID } from './app.js';
+
+import { URL_PRODUCAO } from './app.js';
+
 
 window.onload = () => {
     // desabilitarBotaoEntrar();
+    
 
     // Eventos de blur para os campos de email e senha
     email.onblur = verificarFormulario;
@@ -10,12 +16,11 @@ window.onload = () => {
     // Adiciona o manipulador de envio do formulário
     document.getElementById('login').addEventListener('submit', handleSubmit);
 
-    const clientID = "771987966504-vri95o8gkbvprv8rc3l4d1c30jfjhc0i.apps.googleusercontent.com";
-    //const clientID = "284670659527-lsq5agc4ap3pmapurrjenjmqo9k6b5gd.apps.googleusercontent.com";
 
+    const client = clientID;
 
     google.accounts.id.initialize({
-      client_id: clientID,
+      client_id: client,
       callback: handleCredentialResponse
     });
   
@@ -32,7 +37,6 @@ window.onload = () => {
     google.accounts.id.prompt(); // also display the One Tap dialog
 
 }
-
 
 // Função para exibir um toast usando Toastify
 function exibirToast(mensagem, cor) {
