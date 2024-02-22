@@ -1,8 +1,13 @@
+
 import { URL_TESTE } from './app.js';
 import { clientID } from './app.js';
 
+import { URL_PRODUCAO } from './app.js';
+
+
 window.onload = () => {
     // desabilitarBotaoEntrar();
+    
 
     // Eventos de blur para os campos de email e senha
     email.onblur = verificarFormulario;
@@ -32,7 +37,6 @@ window.onload = () => {
     google.accounts.id.prompt(); // also display the One Tap dialog
 
 }
-
 
 // Função para exibir um toast usando Toastify
 function exibirToast(mensagem, cor) {
