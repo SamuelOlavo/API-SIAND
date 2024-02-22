@@ -18,7 +18,7 @@ window.onload = () => {
     document.getElementById('login').addEventListener('submit', handleSubmit);
 
 
-    const client = clientID;
+    const client = "771987966504-vri95o8gkbvprv8rc3l4d1c30jfjhc0i.apps.googleusercontent.com";
 
     google.accounts.id.initialize({
       client_id: client,
