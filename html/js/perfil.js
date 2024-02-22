@@ -1,4 +1,8 @@
+
+import { URL_TESTE } from './app.js';
+
 import { URL_PRODUCAO } from './app.js';
+
 
 onload = () => {
     function exibirToast(mensagem, cor) {
@@ -12,12 +16,8 @@ onload = () => {
       }).showToast();
     }
 
-
- 
-
-    let adm = JSON.parse(sessionStorage.getItem("user_adm"));
-    console.log(adm);
-     trataAdm = async () => {        
+    let trataAdm = async () => { 
+        let adm = JSON.parse(sessionStorage.getItem("user_adm"));    
         if (adm == 1) { 
             document.getElementById('list_user').disabled = false;        
             atualizarUsuarios ();            
@@ -33,7 +33,6 @@ onload = () => {
         }
     }
     trataAdm ();
-
   
     //Setando a data de hoje no campo de busca
     var now = new Date();
@@ -68,7 +67,7 @@ function atualizarUsuarios() {
         document.getElementById('chec_adm').checked =  false;    
     }
 
-    fetch(`${URL_PRODUCAO}/users/`)
+    fetch(`${URL_TESTE}/users/`)
     .then(response => {
         if(response.status === 200){            
             return response.json();                        
@@ -101,9 +100,11 @@ function atualizarUsuarios() {
 const buscar = document.getElementById("buscar");
 let originalData = null;
 
+var ID;
+
 buscar.onclick = async () => {    
     const email = document.getElementById('list_user').value;
-    fetch(`${URL_PRODUCAO}/users/byEmail/${email}`)
+    fetch(`${URL_TESTE}/users/byEmail/${email}`)
     .then(response => {
         if(response.status === 200){            
             return response.json();                        
@@ -145,14 +146,19 @@ bt_salvar.onclick = async () => {
     let data = {
         nome: document.getElementById('input_nome').value,
         email: document.getElementById('input_email').value,
-        senha: document.getElementById('input_senha').value,
         Telefone: document.getElementById('input_tel').value,
         Endereco: document.getElementById('input_ender').value,
         Administrador: document.getElementById('chec_adm').checked
     };
+
+    // Se a senha foi modificada, inclua-a nos dados a serem enviados
+    if (document.getElementById('input_senha').value !== originalData.senha) {
+        data.senha = document.getElementById('input_senha').value;
+    }
+
     // Verifique se os dados são diferentes dos originais
     if (JSON.stringify(data) !== JSON.stringify(originalData)) {
-        const response = await fetch(`${URL_PRODUCAO}/users/${ID}`, {
+        const response = await fetch(`${URL_TESTE}/users/${ID}`, {
             method: 'put',
             headers: {
                 'Accept': 'application/json',
@@ -172,10 +178,11 @@ bt_salvar.onclick = async () => {
 }
 
 
+
 const bt_excluir = document.getElementById("bt_excluir");
 bt_excluir.onclick = async () => {
     try {
-        const response = await fetch(`${URL_PRODUCAO}/users/${ID}`, {
+        const response = await fetch(`${URL_TESTE}/users/${ID}`, {
             method: "delete",
             headers: {
               Accept: "application/json",

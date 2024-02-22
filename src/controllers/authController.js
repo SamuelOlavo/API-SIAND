@@ -1,8 +1,7 @@
-// SEU_NOME_DE_ARQUIVO.js
-
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/users');
+
 require('dotenv').config();
 
 const secretKey = process.env.SECRETKEY;
@@ -51,3 +50,7 @@ exports.login = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+
+
+

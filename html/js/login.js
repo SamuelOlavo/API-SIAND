@@ -1,4 +1,9 @@
+
+import { URL_TESTE } from './app.js';
+import { clientID } from './app.js';
+
 import { URL_PRODUCAO } from './app.js';
+
 
 window.onload = () => {
     // desabilitarBotaoEntrar();
@@ -10,6 +15,26 @@ window.onload = () => {
 
     // Adiciona o manipulador de envio do formulário
     document.getElementById('login').addEventListener('submit', handleSubmit);
+
+
+    const client = clientID;
+
+    google.accounts.id.initialize({
+      client_id: client,
+      callback: handleCredentialResponse
+    });
+  
+    google.accounts.id.renderButton(
+      document.getElementById("loginGoogle"), {
+      theme: "filled_black",
+      size: "large",
+      type: "standard",
+      shape: "pill",
+      locale: "pt-BR",
+      logo_alignment: "left",
+    });
+  
+    google.accounts.id.prompt(); // also display the One Tap dialog
 
 }
 
@@ -55,7 +80,7 @@ async function handleSubmit(event) {
     const emailValue = document.getElementById('email').value;
     const senhaValue = document.getElementById('senha').value;
 
-    const response = await fetch(`${URL_PRODUCAO}/login/`, {
+    const response = await fetch(`${URL_TESTE}/login/`, {
         method: 'post',
         headers: {
             'Accept': 'application/json',
@@ -82,53 +107,45 @@ async function handleSubmit(event) {
         exibirToast('Usuário não cadastrado', '#ff0000');
         document.querySelector("form").reset();
     }
-
     // desabilitarBotaoEntrar();
-}   
+}
 
-//Login com facebook
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '361760433353788',
-      cookie     : true,
-      xfbml      : true,
-      version    : 'v13.0'
-    });
-      
-    FB.AppEvents.logPageView();   
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-
-
-  function loginWithFacebook() {
-    FB.login(function(response) {
-      if (response.authResponse) {
-        console.log('Usuário autorizado com sucesso!');
-        getUserInfo();
-      } else {
-        console.log('Usuário cancelou o login ou não autorizou a aplicação.');
-      }
-    }, {scope: 'email'}); // Solicita permissão de acesso ao email
-  }
-
-  function getUserInfo() {
-    FB.api('/me', {fields: 'id,name,email'}, function(response) {
-      console.log('Informações do usuário:', response);
-      // Aqui você pode enviar os dados do usuário para o seu servidor e criar uma sessão de login.
-    });
-
+async function handleCredentialResponse(response) {
+    const idToken = response.credential;
   
+    const res = await fetch(`${URL_TESTE}/login/authGoogle`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ idToken }), // Enviar apenas o token
+    })
+    if (res.status === 200) {        
+        const data = await res.json();  
+        console.log(data ); // Verifique o que está dentro de 'data'
+        console.log(data.nome + 'Deu certo'); // Verifique o que está dentro de 'data.user'
+        console.log(data.Administrador); // Verifique o valor de 'data.user.Administrador'
 
+        let userAdm = Boolean(data?.Administrador) ? 1 : 0;
+        sessionStorage.setItem('user_adm', JSON.stringify(userAdm));      
+
+        sessionStorage.setItem('user_email', JSON.stringify(data.email));    
+        sessionStorage.setItem('user_nome', JSON.stringify(data.nome));    
+        // sessionStorage.setItem('user_token', JSON.stringify(data.token));
+        window.location = "./home.html";
+    } if (res.status === 201) {
+        const data = await res.json();  
+        console.log(data); // Verifique o que está dentro de 'data'
+        console.log(data.nome + ' Deu certo'); // Verifique o que está dentro de 'data.nome'
+        console.log(data.Administrador); // Verifique o valor de 'data.Administrador'
+    
+        let userAdm = Boolean(data?.Administrador) ? 1 : 0;
+        sessionStorage.setItem('user_adm', JSON.stringify(userAdm));      
+    
+        sessionStorage.setItem('user_email', JSON.stringify(data.email));    
+        sessionStorage.setItem('user_nome', JSON.stringify(data.nome)); 
+        window.location = "./home.html";   
+        exibirToast('Bem Vindo', '#ff0000');       
+    };    
   }
-
-
-
-
 

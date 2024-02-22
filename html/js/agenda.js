@@ -1,4 +1,8 @@
+
+import { URL_TESTE } from './app.js';
+
 import { URL_PRODUCAO } from './app.js';
+
 
 onload = () => {
   function exibirToast(mensagem, cor) {
@@ -32,7 +36,7 @@ onload = () => {
     window.location = "./html/login.html";
   });
 
-  trataAdm = async () => {
+  let trataAdm = async () => {
     let adm = JSON.parse(sessionStorage.getItem("user_adm"));
     if (adm == 1) {
       document.getElementById("nome").disabled = false;
@@ -44,7 +48,11 @@ onload = () => {
         option.text = user;
         select.appendChild(option);
       }
+
+      fetch(`${URL_TESTE}/agenda/`)
+
       fetch("http://192.168.100.102:3000/agenda/")
+
         .then((response) => response.json())
         .then((data) => {
           let uniqueNames = [...new Set(data.map((item) => item.Esteticista))];
@@ -72,7 +80,9 @@ onload = () => {
       Esteticista = user_nome;
     }
   };
+  
   trataAdm();
+
 
   //Função para tratar a função de buscar todos agendamentos;
   const checkbox = document.getElementById("todos");
@@ -96,6 +106,14 @@ onload = () => {
 
   //Função que passa o nome da esteticista e a data escolhida no input
   async function preenchergrid() {
+
+
+    const selectElement = document.getElementById('nome');
+    selectElement.onchange = async () => {
+      let grid = document.getElementById("grid_list");
+      grid.innerHTML = "";
+    }
+
     const Esteticista = document.getElementById("nome").value;
     //Paramentro para formatar a data antes da consulta
     const data = document.getElementById("data").value;
@@ -105,7 +123,11 @@ onload = () => {
     const checkbox = document.getElementById("todos");
     if (checkbox.checked) {
       var response = await fetch(
+
+        `${URL_TESTE}/agenda?Esteticista=${Esteticista}`,
+
         `http://192.168.100.102:3000/agenda?Esteticista=${Esteticista}`,
+
         {
           method: "get",
           headers: {
@@ -116,7 +138,11 @@ onload = () => {
       );
     } else {
       var response = await fetch(
+
+        `${URL_TESTE}/agenda/servicos/${Esteticista}`,
+
         `http://192.168.100.102:3000/agenda/servicos/${Esteticista}`,
+
         {
           method: "post",
           headers: {
@@ -172,7 +198,10 @@ onload = () => {
             .getElementById("confirmDelete")
             .addEventListener("click", async () => {
               const response = await fetch(
+                `${URL_TESTE}/agenda/${_id}`,
+
                 `http://192.168.100.102:3000/agenda/${_id}`,
+
                 {
                   method: "delete",
                   headers: {
@@ -230,7 +259,11 @@ onload = () => {
         user = item[key];
         input.id = key;
         input.className = "form-control";
+
+        fetch(`${URL_TESTE}/agenda/`)
+
         fetch("http://192.168.100.102:3000/agenda/")
+
         .then((response) => response.json())
         .then((data) => {
             let uniqueNames = [
@@ -286,25 +319,30 @@ onload = () => {
         let label = document.createElement("label");
         label.for = campo;
         label.innerText = campo;
-        input = document.createElement("input");
-        input.type = "text";
-        input.id = campo;
-        input.className = "form-control";
-
+        let inputt = document.createElement("input");
+        inputt.type = "text";
+        inputt.id = campo;
+        inputt.className = "form-control";
+    
         // Adicione um evento de escuta ao campo de entrada
-        input.addEventListener("change", function () {
+        inputt.addEventListener("change", function () {
           camposEditados[this.id] = this.value;
           camposEditadosJson = JSON.stringify(camposEditados); // Atualize camposEditadosJson aqui
         });
         div.appendChild(label);
-        div.appendChild(input);
+        div.appendChild(inputt); // Corrigido aqui
         modalBody.appendChild(div);
       }
     }
+    
     //Função para salvar os dados editados pelo usuario
     bt_save.onclick = async () => {
       console.log(ID, camposEditadosJson);
+
+      const response = await fetch(`${URL_TESTE}/agenda/${ID}`, {
+
       const response = await fetch(`http://192.168.100.102:3000/agenda/${ID}`, {
+
         method: "put",
         headers: {
           Accept: "application/json",

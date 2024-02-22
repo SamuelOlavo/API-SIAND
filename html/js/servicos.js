@@ -1,4 +1,8 @@
+
+import { URL_TESTE } from './app.js';
+
 import { URL_PRODUCAO } from './app.js';
+
 
 onload = () => {  
 
@@ -18,8 +22,7 @@ onload = () => {
     var now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString().split('T')[0];
     let partes = today.split("-");
-    let hoje = partes[2] + "/" + partes[1] + "/" + partes[0];    
-    console.log(hoje);
+    let hoje = partes[2] + "/" + partes[1] + "/" + partes[0];        
     let user = JSON.parse(sessionStorage.getItem("user_nome"));
     document.getElementById('userStatus').textContent = 'USER: ' + user ; 
     document.getElementById('dia').textContent = '' + hoje ; 
@@ -30,9 +33,9 @@ onload = () => {
     });
         
    
-    trataAdm = async () => {        
+    let trataAdm = async () => {        
         let adm = JSON.parse(sessionStorage.getItem("user_adm"));
-        console.log(adm);
+        
     
         if (adm == 1) { 
             document.getElementById('list_user').disabled = false;
@@ -45,7 +48,7 @@ onload = () => {
                 option.text = user;
                 select.appendChild(option);
             }            
-            fetch(`${URL_PRODUCAO}/servicos/`)
+            fetch(`${URL_TESTE}/servicos/`)
             .then(response => response.json())
             .then(data => {
               let uniqueNames = [...new Set(data.map(item => item.Esteticista))];
@@ -82,7 +85,7 @@ onload = () => {
     bt_add.onclick = async () => {
         const Servicos = document.getElementById('serv').value; 
         const Esteticista = document.getElementById('list_user').value; 
-        const response = await fetch(`${URL_PRODUCAO}/servicos/`, {
+        const response = await fetch(`${URL_TESTE}/servicos/`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
@@ -94,7 +97,7 @@ onload = () => {
         if (response.status === 201) {
             exibirToast('Cadastro realizado com sucesso.', '#269934');
             document.getElementById("serv").value ='';  
-            preencherTabela(Esteticista);      
+            preencherTabela();      
                            
         }  if (response.status === 500) {
             exibirToast('Favor preecher o campo de Serviço', '#ff0000');      
@@ -102,17 +105,24 @@ onload = () => {
             exibirToast('Serviço ja cadastrado para essa Esteticista', '#ff0000');      
         }        
     }
+    let servicosSelecionados = [];
 
     bt_atl.onclick = () => {
         preencherTabela();
         servicosSelecionados = [];
+    } 
+
+
+   let preencherTabela = async () => {
+
+    const selectElement = document.getElementById('list_user');
+
+    selectElement.onchange = async () => {
+        tbody.innerHTML = '';
     }
 
-
-
-     preencherTabela = async () => {
         let Esteticista = document.getElementById('list_user').value;
-        const response = await fetch(`${URL_PRODUCAO}/servicos/esteticista/${Esteticista}`);    
+        const response = await fetch(`${URL_TESTE}/servicos/esteticista/${Esteticista}`);    
         if (response.status === 200) {
             const data = await response.json();                
             // Acessar o tbody pelo id
@@ -153,16 +163,14 @@ onload = () => {
                 });   
 
                 bt_excl.onclick = async () => {        
-                    const response = await fetch(`${URL_PRODUCAO}/servicos/excluir`, {
+                    const response = await fetch(`${URL_TESTE}/servicos/excluir`, {
                         method: 'delete',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({ Servicos: servicosSelecionados }),            
-                    });
-                    console.log(response);
-                    console.log('teste', servicosSelecionados);
+                    });                                       
                     if (response.status === 200) {
                         exibirToast('Serviço excluido com sucesso.', '#269934');                         
                         preencherTabela(Esteticista);      
@@ -175,5 +183,6 @@ onload = () => {
             exibirToast('Serviço ja cadastrado para essa Esteticista', '#ff0000');
         }
     }    
-  
+
+
 }
