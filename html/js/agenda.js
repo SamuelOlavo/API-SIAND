@@ -51,7 +51,7 @@ onload = () => {
 
       fetch(`${URL_TESTE}/agenda/`)
 
-      fetch("http://192.168.100.102:3000/agenda/")
+      
 
         .then((response) => response.json())
         .then((data) => {
@@ -125,9 +125,6 @@ onload = () => {
       var response = await fetch(
 
         `${URL_TESTE}/agenda?Esteticista=${Esteticista}`,
-
-        `http://192.168.100.102:3000/agenda?Esteticista=${Esteticista}`,
-
         {
           method: "get",
           headers: {
@@ -140,9 +137,6 @@ onload = () => {
       var response = await fetch(
 
         `${URL_TESTE}/agenda/servicos/${Esteticista}`,
-
-        `http://192.168.100.102:3000/agenda/servicos/${Esteticista}`,
-
         {
           method: "post",
           headers: {
@@ -261,9 +255,6 @@ onload = () => {
         input.className = "form-control";
 
         fetch(`${URL_TESTE}/agenda/`)
-
-        fetch("http://192.168.100.102:3000/agenda/")
-
         .then((response) => response.json())
         .then((data) => {
             let uniqueNames = [
@@ -340,9 +331,6 @@ onload = () => {
       console.log(ID, camposEditadosJson);
 
       const response = await fetch(`${URL_TESTE}/agenda/${ID}`, {
-
-      const response = await fetch(`http://192.168.100.102:3000/agenda/${ID}`, {
-
         method: "put",
         headers: {
           Accept: "application/json",
