@@ -1,4 +1,8 @@
+
 import { URL_TESTE } from './app.js';
+
+import { URL_PRODUCAO } from './app.js';
+
 
 onload = () => {
   function exibirToast(mensagem, cor) {
@@ -44,7 +48,11 @@ onload = () => {
         option.text = user;
         select.appendChild(option);
       }
+
       fetch(`${URL_TESTE}/agenda/`)
+
+      
+
         .then((response) => response.json())
         .then((data) => {
           let uniqueNames = [...new Set(data.map((item) => item.Esteticista))];
@@ -115,6 +123,7 @@ onload = () => {
     const checkbox = document.getElementById("todos");
     if (checkbox.checked) {
       var response = await fetch(
+
         `${URL_TESTE}/agenda?Esteticista=${Esteticista}`,
         {
           method: "get",
@@ -126,6 +135,7 @@ onload = () => {
       );
     } else {
       var response = await fetch(
+
         `${URL_TESTE}/agenda/servicos/${Esteticista}`,
         {
           method: "post",
@@ -183,6 +193,9 @@ onload = () => {
             .addEventListener("click", async () => {
               const response = await fetch(
                 `${URL_TESTE}/agenda/${_id}`,
+
+                `http://192.168.100.102:3000/agenda/${_id}`,
+
                 {
                   method: "delete",
                   headers: {
@@ -240,6 +253,7 @@ onload = () => {
         user = item[key];
         input.id = key;
         input.className = "form-control";
+
         fetch(`${URL_TESTE}/agenda/`)
         .then((response) => response.json())
         .then((data) => {
@@ -315,6 +329,7 @@ onload = () => {
     //Função para salvar os dados editados pelo usuario
     bt_save.onclick = async () => {
       console.log(ID, camposEditadosJson);
+
       const response = await fetch(`${URL_TESTE}/agenda/${ID}`, {
         method: "put",
         headers: {
