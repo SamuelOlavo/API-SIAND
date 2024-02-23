@@ -55,10 +55,10 @@ font-family: 'Roboto', sans-serif; */
 }
 
 
-
+/* 
  body{
   background-image: url('../Img/bg1.png');   
- }
+ } */
 
 #wrapper {
   position: absolute ;
@@ -68,7 +68,7 @@ font-family: 'Roboto', sans-serif; */
 }
 #info {
   /* background: var(--cler2); */
-  background-image: url('../Img/bg1.png'); 
+  /* background-image: url('../Img/bg1.png');  */
   height: 100%;
   width: 100% 
 } 

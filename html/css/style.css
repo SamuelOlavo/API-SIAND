@@ -60,12 +60,13 @@ body {
 .menu {       
     font-family: 'Major Mono Display', monospace;     
     width: 100%;
-    background-color: var(--rose);
+    background-color: var(--cinza);
     border-radius: 0px 0px 0px 0px;
     -moz-border-radius: 0px 0px 0px 0px;
     -webkit-border-radius: 0px 0px 0px 0px;
     border-bottom: 2px solid #43412e;
     font-size: 18px;
+    color: var(--branco);
 }
 .men:hover{ 
     text-decoration: underline;   
@@ -87,125 +88,10 @@ body {
     background-position: top;
 }
 
-
-.rodape {
-    background-color: var(--rose);
-    bottom: 0;
-}
-.rodape a {
-    text-decoration: none;  
-    font-family: 'Major Mono Display', monospace;
-    font-size: 90%; 
-    color: #000000e1;
-}
-.redes a:hover {
-    color: rgb(0, 0, 0); 
-    font-size: 16px;
-    transition: all;   
-}
-.redes a {
-    color:#292928f1; 
-}
-.but {  
-    font-family: 'Major Mono Display', monospace;
-    transition-timing-function: ease;
-    background-color: #43412e;
-    border-radius: 200px 200px 200px 200px;    
-    border: 4px solid #000000; 
-    color: #ffb29d;
-    margin-top: 1%;
-}
-.but:hover{
-    font-size: 99%;
-    transition-timing-function: ease;
-    background-color: #ffb29d;
-    color: #43412e;
-    border: 4px solid #000000; 
-    font-weight: bold;
-}
-
-.botao {
-    background-color: #ff4e4efb;
-}
-.botao:hover {
-    background-color: #b62424;    
-}
-.msg {          
-    font-size: 110%; 
-    margin-left: auto;
-    margin-right: auto;  
-    text-align: center;    
-    border-style: none;    
-    max-width: 50rem;   
-    background-color: rgb(252, 157, 157);  
-}
-
-.loader {
-    border: 16px solid #ece6e6;
-    border-radius: 50%;
-    border-top: 16px solid var(--verde);
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;    
-  }
-  
-  @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-.titulo {
-    background-color: #43412e;
-    border-radius: 200px 200px 200px 200px;    
-    border: 4px solid #000000;
-    width: 100%;
-    vertical-align: center;
-    color: #ffb29d;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    font-weight: bold;
-    font-family: 'Noto Sans Display', sans-serif;
-}
-.img {
-    box-shadow: 0px 0px 28px 5px rgba(0,0,0,0.75);
-}
-.img-circle {
-    border-radius: 200px 200px 200px 200px;
-    -moz-border-radius: 200px 200px 200px 200px;
-    -webkit-border-radius: 200px 200px 200px 200px;
-    border: 3px solid #43412e;
-    -webkit-box-shadow: 4px 2px 48px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 4px 2px 48px 0px rgba(0,0,0,0.75);
-    box-shadow: 4px 2px 48px 0px rgba(0,0,0,0.75);
-}
-
-.active {
-    font-size: 115%;
-}
-
 .icone {
     position: absolute;
     left: 80%;
     top: 5px;
 }
 
-.btn-Redirecionamento {
-    background-color: #3498db; /* Cor de fundo do botão */
-    color: #ffffff; /* Cor do texto do botão */
-    border: 2px solid #3498db; /* Cor da borda do botão */
-    border-radius: 20px; /* Raio da borda do botão para criar bordas arredondadas */
-    padding: 10px 20px; /* Espaçamento interno do botão */
-    transition: background-color 0.3s, color 0.3s; /* Transição suave de cores */
-  }
-  
-  .btn-Redirecionamento:hover {
-    background-color: #2980b9; /* Cor de fundo do botão ao passar o mouse */
-    color: #ffffff; /* Cor do texto do botão ao passar o mouse */
-  }
   

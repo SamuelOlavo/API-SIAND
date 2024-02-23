@@ -193,9 +193,6 @@ onload = () => {
             .addEventListener("click", async () => {
               const response = await fetch(
                 `${URL_TESTE}/agenda/${_id}`,
-
-                `http://192.168.100.102:3000/agenda/${_id}`,
-
                 {
                   method: "delete",
                   headers: {
@@ -325,6 +322,8 @@ onload = () => {
         modalBody.appendChild(div);
       }
     }
+
+
     
     //Função para salvar os dados editados pelo usuario
     bt_save.onclick = async () => {
@@ -350,4 +349,44 @@ onload = () => {
     // Mostre o modal
     $("#editModal").modal("show");
   }
+  
+  bt_incluir.onclick = async () => {
+    // Obtenha o corpo do modal
+    let modalBody = document.querySelector("#editModal .modal-body");
+    // Limpe o corpo do modal
+    modalBody.innerHTML = "";
+
+    // Adicione os campos ao corpo do modal
+    modalBody.innerHTML = `
+        <label for="nome" class="col-sm-2 col-form-label-lg"> Nome: </label>
+        <input type="text" id="nome" class="form-control" name="nome" />
+
+        <label for="dateNas" class="col-sm-2 col-form-label-lg"> Data Nascimento: </label>
+        <input type="date" id="dateNas" class="form-control" name="Data Nascimento" />
+
+        <label for="tel" class="col-sm-2 col-form-label-lg"> Telefone: </label>
+        <input type="tel" id="tel"  class="form-control" name="tel" />
+
+        <label for="servicos" class="form-label pt-2"> Escolha um de nossos Serviços: </label>
+        <select id="serv" class="form-select" name="servicos">
+            <option value="">⇕</option>
+        </select>
+
+        <label for="prof" class="form-label pt-2"> Esteticista: </label>
+        <select id="prof" class="form-select" name="Esteticista">
+            <option value="">⇕</option>
+        </select>
+
+        <label for="data" class="col-sm-2 col-form-label"> Data: </label>
+        <input type="date" id="date" class="form-control" name="Data" min="${today}"/>
+
+        <label  class="form-label mt-3 " for="Horario"> Escolha o horário de atendimento (aberto das 09:00 às 18:00)</label>        
+        <input id="hora" type="time"  class="form-control" name="hora" min="09:00" max="18:00" >
+    `;
+
+    // Mostre o modal
+    $("#editModal").modal("show");
+}
+
+
 };
