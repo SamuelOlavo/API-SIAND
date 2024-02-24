@@ -2,10 +2,6 @@
 import { URL_TESTE } from './app.js';
 import { clientID } from './app.js';
 
-import { URL_PRODUCAO } from './app.js';
-
-
-
 window.onload = () => {
     // desabilitarBotaoEntrar();
     

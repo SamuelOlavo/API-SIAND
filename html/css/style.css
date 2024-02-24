@@ -44,6 +44,7 @@ font-family: 'Roboto', sans-serif; */
 
 body {
     background-color: var(--branco);
+    /* background-image: url('../Img/bg1\ \(cópia\).png'); */
     
 }
 
@@ -51,11 +52,19 @@ body {
     font-family: 'Noto Sans Display', sans-serif; 
     padding: 0;
     margin: 0;     
-    background-image: url('Img/Símbolo/Marca\ D_água.png');
-    background-repeat:no-repeat;
-    background-size: 50%;
-    background-position: center; 
+    /* background-color: #a5a6a4; */
+     /* background-position: center top;
+    background-repeat: no-repeat;
+    */
+
     
+}
+.sobre {
+    background-image: url(../Img/agenda4.png);
+    background-size: 260px;
+    background-position: center ;   
+    height:     250px;
+    width: 100%;
 }
 .menu {       
     font-family: 'Major Mono Display', monospace;     
@@ -66,7 +75,6 @@ body {
     -webkit-border-radius: 0px 0px 0px 0px;
     border-bottom: 2px solid #43412e;
     font-size: 18px;
-    color: var(--branco);
 }
 .men:hover{ 
     text-decoration: underline;   
