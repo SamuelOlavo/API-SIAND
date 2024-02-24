@@ -315,7 +315,12 @@ font-family: 'Roboto', sans-serif; */
 }
 .nome {
   position: relative;
-  top: 8px;
-  
+  top: 8px;  
 }
+
+/* .pdf {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+} */
 

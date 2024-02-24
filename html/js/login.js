@@ -13,7 +13,7 @@ window.onload = () => {
     // Adiciona o manipulador de envio do formulário
     document.getElementById('login').addEventListener('submit', handleSubmit);
 
-
+    //Samuel cliente
     const client = "284670659527-lsq5agc4ap3pmapurrjenjmqo9k6b5gd.apps.googleusercontent.com";
 
     google.accounts.id.initialize({

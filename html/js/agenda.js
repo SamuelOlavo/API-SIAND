@@ -71,8 +71,7 @@ onload = () => {
       option.value = user_nome;
       var select = document.getElementById("nome");
       select.add(option);
-      select.value = user_nome;
-      Esteticista = user_nome;
+      select.value = user_nome;      
     }
   };
 
@@ -410,7 +409,10 @@ onload = () => {
          })
          .catch((error) => console.error("Erro:", error));
      
-
+         let adm = JSON.parse(sessionStorage.getItem("user_adm"));       
+         if (adm == 0) {
+           document.getElementById("prof").disabled = true; }
+          
 
 
     bt_save.onclick = async () => {
