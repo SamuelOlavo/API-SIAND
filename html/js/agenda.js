@@ -1,8 +1,6 @@
+import { URL_TESTE } from "./app.js";
 
-import { URL_TESTE } from './app.js';
-
-import { URL_PRODUCAO } from './app.js';
-
+import { URL_PRODUCAO } from "./app.js";
 
 onload = () => {
   function exibirToast(mensagem, cor) {
@@ -50,9 +48,6 @@ onload = () => {
       }
 
       fetch(`${URL_TESTE}/agenda/`)
-
-      
-
         .then((response) => response.json())
         .then((data) => {
           let uniqueNames = [...new Set(data.map((item) => item.Esteticista))];
@@ -80,9 +75,8 @@ onload = () => {
       Esteticista = user_nome;
     }
   };
-  
-  trataAdm();
 
+  trataAdm();
 
   //Função para tratar a função de buscar todos agendamentos;
   const checkbox = document.getElementById("todos");
@@ -106,13 +100,11 @@ onload = () => {
 
   //Função que passa o nome da esteticista e a data escolhida no input
   async function preenchergrid() {
-
-
-    const selectElement = document.getElementById('nome');
+    const selectElement = document.getElementById("nome");
     selectElement.onchange = async () => {
       let grid = document.getElementById("grid_list");
       grid.innerHTML = "";
-    }
+    };
 
     const Esteticista = document.getElementById("nome").value;
     //Paramentro para formatar a data antes da consulta
@@ -123,7 +115,6 @@ onload = () => {
     const checkbox = document.getElementById("todos");
     if (checkbox.checked) {
       var response = await fetch(
-
         `${URL_TESTE}/agenda?Esteticista=${Esteticista}`,
         {
           method: "get",
@@ -135,7 +126,6 @@ onload = () => {
       );
     } else {
       var response = await fetch(
-
         `${URL_TESTE}/agenda/servicos/${Esteticista}`,
         {
           method: "post",
@@ -191,16 +181,13 @@ onload = () => {
           document
             .getElementById("confirmDelete")
             .addEventListener("click", async () => {
-              const response = await fetch(
-                `${URL_TESTE}/agenda/${_id}`,
-                {
-                  method: "delete",
-                  headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                  },
-                }
-              );
+              const response = await fetch(`${URL_TESTE}/agenda/${_id}`, {
+                method: "delete",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+              });
               if ((await response.json()).deletedCount === 1) {
                 let grid = document.getElementById("grid_list");
                 grid.innerHTML = "";
@@ -252,22 +239,21 @@ onload = () => {
         input.className = "form-control";
 
         fetch(`${URL_TESTE}/agenda/`)
-        .then((response) => response.json())
-        .then((data) => {
+          .then((response) => response.json())
+          .then((data) => {
             let uniqueNames = [
-                ...new Set(data.map((item) => item.Esteticista)),
+              ...new Set(data.map((item) => item.Esteticista)),
             ];
             uniqueNames.forEach((name) => {
-                let option = document.createElement("option");
-                option.value = name;
-                option.text = name;
-                option.selected = name === user;
-                input.appendChild(option);
+              let option = document.createElement("option");
+              option.value = name;
+              option.text = name;
+              option.selected = name === user;
+              input.appendChild(option);
             });
-        })
-        .catch((error) => console.error("Erro:", error));
-    }
-     else {
+          })
+          .catch((error) => console.error("Erro:", error));
+      } else {
         input = document.createElement("input");
         input.id = key;
         input.value = item[key];
@@ -311,7 +297,7 @@ onload = () => {
         inputt.type = "text";
         inputt.id = campo;
         inputt.className = "form-control";
-    
+
         // Adicione um evento de escuta ao campo de entrada
         inputt.addEventListener("change", function () {
           camposEditados[this.id] = this.value;
@@ -323,8 +309,6 @@ onload = () => {
       }
     }
 
-
-    
     //Função para salvar os dados editados pelo usuario
     bt_save.onclick = async () => {
       console.log(ID, camposEditadosJson);
@@ -349,7 +333,7 @@ onload = () => {
     // Mostre o modal
     $("#editModal").modal("show");
   }
-  
+
   bt_incluir.onclick = async () => {
     // Obtenha o corpo do modal
     let modalBody = document.querySelector("#editModal .modal-body");
@@ -357,36 +341,119 @@ onload = () => {
     modalBody.innerHTML = "";
 
     // Adicione os campos ao corpo do modal
-    modalBody.innerHTML = `
-        <label for="nome" class="col-sm-2 col-form-label-lg"> Nome: </label>
-        <input type="text" id="nome" class="form-control" name="nome" />
-
-        <label for="dateNas" class="col-sm-2 col-form-label-lg"> Data Nascimento: </label>
-        <input type="date" id="dateNas" class="form-control" name="Data Nascimento" />
-
-        <label for="tel" class="col-sm-2 col-form-label-lg"> Telefone: </label>
-        <input type="tel" id="tel"  class="form-control" name="tel" />
-
-        <label for="servicos" class="form-label pt-2"> Escolha um de nossos Serviços: </label>
-        <select id="serv" class="form-select" name="servicos">
-            <option value="">⇕</option>
+    modalBody.innerHTML = `    
+    <form>
+        <div class="form-group">
+            <label for="nome">NomeCliente</label>
+            <input type="text" class="form-control" id="nome" required>
+        </div>
+        <div class="form-group">
+            <label for="dateNas">DataNascimento</label>
+            <input type="date" class="form-control" id="dateNas" required>
+        </div>
+        <div class="form-group">
+            <label for="tel">Telefone</label>
+            <input type="tel" class="form-control" id="tel">
+        </div>
+        <div class="form-group">
+        <label for="prof">Esteticista</label>
+        <select class="form-control" id="prof"> 
         </select>
-
-        <label for="prof" class="form-label pt-2"> Esteticista: </label>
-        <select id="prof" class="form-select" name="Esteticista">
-            <option value="">⇕</option>
-        </select>
-
-        <label for="data" class="col-sm-2 col-form-label"> Data: </label>
-        <input type="date" id="date" class="form-control" name="Data" min="${today}"/>
-
-        <label  class="form-label mt-3 " for="Horario"> Escolha o horário de atendimento (aberto das 09:00 às 18:00)</label>        
-        <input id="hora" type="time"  class="form-control" name="hora" min="09:00" max="18:00" >
+        </div>
+        <div class="form-group">
+            <label for="servicos">Serviços</label>
+            <select class="form-control" id="servicos">
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="data">Data</label>
+            <input type="date" class="form-control" id="data" >
+        </div>
+        <div class="form-group">
+            <label for="hora">Horário</label>
+            <input type="time" class="form-control" id="hora" min="09:00" max="18:00">
+        </div>
+        <div class="form-group">
+        <label for="anotacoes">Anotacoes</label>
+        <input type="text" class="form-control" id="anotacoes" required>
+         </div>
+         <div class="form-group">
+        <label for="remarcar">Remarcar</label>
+         <input type="text" class="form-control" id="remarcar" required>
+        </div>       
+    </form>
     `;
+     // Busca as Esteticistas do banco de dados
+     let user_nome = JSON.parse(sessionStorage.getItem("user_nome"));
+     fetch(`${URL_TESTE}/servicos`)
+         .then((response) => response.json())
+         .then((data) => {
+             let esteticistas = [...new Set(data.map((item) => item.Esteticista))];
+             let servicos = [...new Set(data.map((item) => item.Servicos))];
+     
+             let selectEsteticista = document.getElementById('prof');
+             esteticistas.forEach((name) => {
+                 let option = document.createElement("option");
+                 option.value = name;
+                 option.text = name;
+                 option.selected = name === user_nome;
+                 selectEsteticista.appendChild(option);
+             });
+     
+             let selectServicos = document.getElementById('servicos');
+             servicos.forEach((name) => {
+                 let option = document.createElement("option");
+                 option.value = name;
+                 option.text = name;
+                 selectServicos.appendChild(option);
+             });
+         })
+         .catch((error) => console.error("Erro:", error));
+     
 
+
+
+    bt_save.onclick = async () => {
+    const data = document.getElementById('data').value;
+    let partes = data.split('-');
+    let dataFormatada = partes[2] + '/' + partes[1] + '/' + partes[0];
+
+    const dataNas = document.getElementById('dateNas').value;
+    let traco = dataNas.split('-');
+    let dataNasFormatada = traco[2] + '/' + traco[1] + '/' + traco[0];                  
+
+    const NomeCliente = document.getElementById('nome').value;
+    const DataNascimento = dataNasFormatada;
+    const Telefone = document.getElementById('tel').value;        
+    const Esteticista = document.getElementById('prof').value;  
+    const Servicos = document.getElementById('servicos').value;
+    const Data = dataFormatada;
+    const Horario = document.getElementById('hora').value;
+    const Anotacoes = document.getElementById('anotacoes').value;
+    const Remarcar = document.getElementById('remarcar').value; 
+    try {
+        const response = await fetch(`${URL_TESTE}/agenda/`, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ NomeCliente , DataNascimento, Telefone , Esteticista , Servicos , Data ,  Horario , Anotacoes , Remarcar }),
+        }); 
+        if (response.status === 201) {
+            exibirToast('Agendamento cadastrado com sucesso.', '#269934');
+            console.log(response);
+            document.querySelector("form").reset();  
+        } else {
+            exibirToast('Favor preencher todos os campos.', '#ff0000');
+            console.log(response);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        exibirToast('Erro no cadastro. Por favor, tente novamente.', '#ff0000');
+    }        
+  }
     // Mostre o modal
     $("#editModal").modal("show");
-}
-
-
+  };
 };
