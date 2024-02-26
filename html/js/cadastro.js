@@ -95,6 +95,7 @@ const handleSubmit = async (event) => {
             if (registerResponse.status === 201) {
                 exibirToast('Cadastro realizado com sucesso.', '#269934');
                 document.getElementById("sucesso").innerHTML = "Obrigado por se Inscrever";
+                document.getElementById('cadastro').reset();
             }
         }
     } catch (error) {
