@@ -1,8 +1,6 @@
 
 import { URL_TESTE } from './app.js';
 
-import { URL_PRODUCAO } from './app.js';
-
 // Função para exibir um toast usando Toastify
 function exibirToast(mensagem, cor) {
     Toastify({

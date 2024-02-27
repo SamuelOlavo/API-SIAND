@@ -119,28 +119,27 @@ async function handleCredentialResponse(response) {
     })
     if (res.status === 200) {        
         const data = await res.json();  
-        console.log(data ); // Verifique o que está dentro de 'data'
-        console.log(data.nome + 'Deu certo'); // Verifique o que está dentro de 'data.user'
-        console.log(data.Administrador); // Verifique o valor de 'data.user.Administrador'
+        console.log(data ); // Verifique o que está dentro de 'data'        
+                 // Verifique o valor de 'data.user.Administrador'
 
-        let userAdm = Boolean(data?.Administrador) ? 1 : 0;
+        let userAdm = Boolean(data?.user.Administrador) ? 1 : 0;
         sessionStorage.setItem('user_adm', JSON.stringify(userAdm));      
 
-        sessionStorage.setItem('user_email', JSON.stringify(data.email));    
-        sessionStorage.setItem('user_nome', JSON.stringify(data.nome));    
-        // sessionStorage.setItem('user_token', JSON.stringify(data.token));
+        sessionStorage.setItem('user_email', JSON.stringify(data.user.email));    
+        sessionStorage.setItem('user_nome', JSON.stringify(data.user.nome));    
+        sessionStorage.setItem('user_token', JSON.stringify(data.token));
         window.location = "./home.html";
     } if (res.status === 201) {
         const data = await res.json();  
         console.log(data); // Verifique o que está dentro de 'data'
-        console.log(data.nome + ' Deu certo'); // Verifique o que está dentro de 'data.nome'
-        console.log(data.Administrador); // Verifique o valor de 'data.Administrador'
+   // Verifique o valor de 'data.Administrador'
     
-        let userAdm = Boolean(data?.Administrador) ? 1 : 0;
-        sessionStorage.setItem('user_adm', JSON.stringify(userAdm));      
+        let userAdm = Boolean(data?.user.Administrador) ? 1 : 0;
+        sessionStorage.setItem('user_adm', JSON.stringify(userAdm));   
     
-        sessionStorage.setItem('user_email', JSON.stringify(data.email));    
-        sessionStorage.setItem('user_nome', JSON.stringify(data.nome)); 
+        sessionStorage.setItem('user_email', JSON.stringify(data.user.email));    
+        sessionStorage.setItem('user_nome', JSON.stringify(data.user.nome)); 
+        sessionStorage.setItem('user_token', JSON.stringify(data.token));
         window.location = "./home.html";   
         exibirToast('Bem Vindo', '#ff0000');       
     };    

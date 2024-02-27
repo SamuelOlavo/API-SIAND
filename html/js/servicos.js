@@ -80,9 +80,9 @@ onload = () => {
     trataAdm ();
     
     
+    let token = JSON.parse(sessionStorage.getItem("user_token"));
 
-
-    bt_add.onclick = async () => {
+    bt_add.onclick = async () => {        
         const Servicos = document.getElementById('serv').value; 
         const Esteticista = document.getElementById('list_user').value; 
         const response = await fetch(`${URL_TESTE}/servicos/`, {
@@ -90,6 +90,7 @@ onload = () => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': token 
             },
             body: JSON.stringify({ Esteticista , Servicos }),
             
@@ -168,6 +169,7 @@ onload = () => {
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',
+                            'Authorization': token 
                         },
                         body: JSON.stringify({ Servicos: servicosSelecionados }),            
                     });                                       

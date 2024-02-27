@@ -1,5 +1,9 @@
 // const userService = require("../service/usersService");
 const Servicos = require("../models/servicos");
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+const secretKey = process.env.SECRETKEY;
 
 
 exports.getAll = async (req, res) => {
@@ -73,21 +77,33 @@ exports.ByProf = async (req, res) => {
 
 
 exports.add = async (req, res) => {
-  try {
-    const servico =  {};
-    servico.Esteticista = req.body.Esteticista;
-    servico.Servicos = req.body.Servicos;
-    
-    // Verifique se o serviço já existe para a esteticista
-    const existingService = await Servicos.findOne({ 'Esteticista': servico.Esteticista, 'Servicos': servico.Servicos });
-    if (existingService) {
-      return res.status(400).json({ error: 'Serviço já existe para esta esteticista' });
-    }
-    
-    const creatservicos = new Servicos(servico);
-    await creatservicos.save();
+  // Obtenha o token do cabeçalho de autorização
+  const token = req.headers.authorization;
 
-    res.status(201).json(creatservicos);
+  try {
+    // Verifique o token
+    jwt.verify(token, secretKey, async (err, decoded) => {
+      if (err) {
+        // O token é inválido
+        res.status(401).json({ error: 'Token inválido' });
+      } else {
+        // O token é válido, prossiga com a adição
+        const servico =  {};
+        servico.Esteticista = req.body.Esteticista;
+        servico.Servicos = req.body.Servicos;
+        
+        // Verifique se o serviço já existe para a esteticista
+        const existingService = await Servicos.findOne({ 'Esteticista': servico.Esteticista, 'Servicos': servico.Servicos });
+        if (existingService) {
+          return res.status(400).json({ error: 'Serviço já existe para esta esteticista' });
+        }
+        
+        const creatservicos = new Servicos(servico);
+        await creatservicos.save();
+
+        res.status(201).json(creatservicos);
+      }
+    });
   } catch (error) {
     res.status(500).json({ error: error });
   }
@@ -116,31 +132,45 @@ exports.add = async (req, res) => {
 // };
 
 exports.delete = async (req, res) => {
-  let id = req.params.id;  
+  let id = req.params.id;
+  
+  // Obtenha o token do cabeçalho de autorização
+  const token = req.headers.authorization;
   try {
-    const deleteResponse = await Servicos.deleteOne({ _id: id });
-    res.json(deleteResponse);
+    // Verifique o token
+    jwt.verify(token, secretKey, async (err, decoded) => {
+      if (err) {
+        // O token é inválido
+        res.status(401).json({ error: 'Token inválido' });
+      } else {
+        // O token é válido, prossiga com a exclusão
+        const deleteResponse = await Servicos.deleteOne({ _id: id });
+        res.json(deleteResponse);
+      }
+    });
   } catch (error) {
     res.status(500).json({ error: error });
   }
 };
 
 exports.deleteMany = async (req, res) => {
-  let serv = req.body.Servicos; // assumindo que 'servicos' é um array de IDs
+  // Obtenha o token do cabeçalho de autorização
+  const token = req.headers.authorization;
+
   try {
-    const deleteResponse = await Servicos.deleteMany({ Servicos: { $in: serv } });
-    res.json(deleteResponse);
+    // Verifique o token
+    jwt.verify(token, secretKey, async (err, decoded) => {
+      if (err) {
+        // O token é inválido
+        res.status(401).json({ error: 'Token inválido' });
+      } else {
+        // O token é válido, prossiga com a exclusão
+        let serv = req.body.Servicos; // assumindo que 'servicos' é um array de IDs
+        const deleteResponse = await Servicos.deleteMany({ Servicos: { $in: serv } });
+        res.json(deleteResponse);
+      }
+    });
   } catch (error) {
     res.status(500).json({ error: error.toString() });
   }
 };
-
-// exports.ByEmail = async (req, res) => {
-//     const email = req.params.email;
-//     const user = await userService.emailUsers(email);
-//     if (user) {
-//         res.json(user);        
-//     } else {
-//         res.status(404).send('Usuário não encontrado');
-//     }
-//   };

@@ -205,7 +205,10 @@ bt_excluir.onclick = async () => {
                     inputs[i].value = ''; // Limpe o campo de entrada
                 }
             }
+            let adm = JSON.parse(sessionStorage.getItem("user_adm"));    
+            if (adm == 1) { 
             atualizarUsuarios();
+        }
         } else {
             console.log('Nenhum usuário foi excluído.');
         }
