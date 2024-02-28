@@ -1,5 +1,9 @@
 const bcrypt = require('bcrypt');
-const User = require('../models/users');
+const User = require('../models/users'); //banco
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+const secretKey = process.env.SECRETKEY;
 
 exports.getAll = async (req, res) => {
     try {
@@ -28,7 +32,6 @@ exports.add = async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ error: 'Email já está em uso.' });
         }
-
         // Se o email não está em uso, cria um novo usuário
         const hashedPassword = await bcrypt.hash(req.body.senha, 6);
         const newUser = new User({
@@ -46,28 +49,44 @@ exports.add = async (req, res) => {
 
 
 exports.update = async (req, res) => {
+    const token = req.headers.authorization;
     const userId = req.params.id;
     let updatedUser = req.body;
-    try {
-        // Se a senha foi fornecida, criptografe-a antes de atualizar o usuário
-        if (updatedUser.senha) {
-            const hashedPassword = await bcrypt.hash(updatedUser.senha, 6);
-            updatedUser.senha = hashedPassword;
+
+    jwt.verify(token, secretKey, async (err, decoded) => {
+        if (err) {
+            // Se houver um erro na verificação do token, retorne um erro
+            res.status(401).json({ error: "Token inválido" });
+        } else {
+            // Se a senha foi fornecida, criptografe-a antes de atualizar o usuário
+            if (updatedUser.senha) {
+                const hashedPassword = await bcrypt.hash(updatedUser.senha, 6);
+                updatedUser.senha = hashedPassword;
+            }
+
+            try {
+                const result = await User.findByIdAndUpdate(userId, updatedUser, { new: true });
+                res.json(result);
+            } catch (error) {
+                res.status(500).json({ error: error.message });
+            }
         }
-
-        const result = await User.findByIdAndUpdate(userId, updatedUser, { new: true });
-        res.json(result);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+    });
 };
-
 
 exports.delete = async (req, res) => {
     const id = req.params.id;
+    const token = req.headers.authorization;
     try {
+
+        jwt.verify(token, secretKey, async (err, decoded) => {
+            if (err) {
+                res.status(401).json({ error: 'Token inválido' });
+            } else {
         const deleteResponse = await User.deleteOne({_id: id});
         res.json(deleteResponse);
+         } 
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

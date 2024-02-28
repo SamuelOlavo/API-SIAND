@@ -15,6 +15,7 @@ onload = () => {
   }
   //Pegando os dados de login do Usuario
   let user = JSON.parse(sessionStorage.getItem("user_nome"));
+  let token = JSON.parse(sessionStorage.getItem("user_token"));
 
   //Setando a data de hoje no campo de busca
   var now = new Date();
@@ -27,6 +28,7 @@ onload = () => {
 
   document.getElementById("userStatus").textContent = "USER: " + user;
   document.getElementById("dia").textContent = "" + hoje;
+
 
   //botao de SAIR
   document.getElementById("sair").addEventListener("click", function () {
@@ -47,7 +49,14 @@ onload = () => {
         select.appendChild(option);
       }
 
-      fetch(`${URL}/agenda/`)
+      fetch(`${URL}/agenda/`, {
+        method: "get",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'Authorization': token 
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           let uniqueNames = [...new Set(data.map((item) => item.Esteticista))];
@@ -120,6 +129,7 @@ onload = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            'Authorization': token 
           },
         }
       );
@@ -131,6 +141,7 @@ onload = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            'Authorization': token 
           },
           body: JSON.stringify({ Data: dataFormatada }),
         }
@@ -173,18 +184,19 @@ onload = () => {
         // Crio o botao de delete para excluir individualmente um agendamento.
         let _id = item._id;
         let deleteButton = document.createElement("button");
-        deleteButton.className = "btn-close";
+        deleteButton.className = "btn-close";       
         deleteButton.addEventListener("click", async (event) => {
           event.stopPropagation(); // Para evitar a abertura do formulário de edição no click do usuario
           $("#deleteModal").modal("show");
           document
-            .getElementById("confirmDelete")
-            .addEventListener("click", async () => {
+            .getElementById("confirmDelete")            
+            .addEventListener("click", async () => {              
               const response = await fetch(`${URL}/agenda/${_id}`, {
                 method: "delete",
                 headers: {
                   Accept: "application/json",
                   "Content-Type": "application/json",
+                  'Authorization': token 
                 },
               });
               if ((await response.json()).deletedCount === 1) {
@@ -237,7 +249,14 @@ onload = () => {
         input.id = key;
         input.className = "form-control";
 
-        fetch(`${URL}/agenda/`)
+        fetch(`${URL}/agenda/`, {
+          method: "get",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            'Authorization': token 
+          },
+        })
           .then((response) => response.json())
           .then((data) => {
             let uniqueNames = [
@@ -310,13 +329,14 @@ onload = () => {
 
     //Função para salvar os dados editados pelo usuario
     bt_save.onclick = async () => {
-      console.log(ID, camposEditadosJson);
-
+      console.log(ID, camposEditadosJson);  
+    
       const response = await fetch(`${URL}/agenda/${ID}`, {
         method: "put",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          'Authorization': token 
         },
         body: camposEditadosJson,
       });

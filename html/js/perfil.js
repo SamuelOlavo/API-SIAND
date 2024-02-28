@@ -1,9 +1,6 @@
 
 import { URL } from './app.js';
 
-
-
-
 onload = () => {
     function exibirToast(mensagem, cor) {
       Toastify({
@@ -139,7 +136,8 @@ buscar.onclick = async () => {
     .catch(error => console.log(error));
 };
 
-
+let token = JSON.parse(sessionStorage.getItem("user_token"));
+console.log(token);
 
 const bt_salvar = document.getElementById("bt_salvar");
 bt_salvar.onclick = async () => {
@@ -155,7 +153,7 @@ bt_salvar.onclick = async () => {
     if (document.getElementById('input_senha').value !== originalData.senha) {
         data.senha = document.getElementById('input_senha').value;
     }
-
+  
     // Verifique se os dados são diferentes dos originais
     if (JSON.stringify(data) !== JSON.stringify(originalData)) {
         const response = await fetch(`${URL}/users/${ID}`, {
@@ -163,6 +161,7 @@ bt_salvar.onclick = async () => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': token 
             },
             body: JSON.stringify(data),
         });
@@ -187,6 +186,7 @@ bt_excluir.onclick = async () => {
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
+              'Authorization': token 
             },
         }); 
         if (!response.ok) {
