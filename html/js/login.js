@@ -1,6 +1,6 @@
 
-import { URL_TESTE } from './app.js';
-import { clientID } from './app.js';
+import { URL } from './app.js';
+
 
 window.onload = () => {
     // desabilitarBotaoEntrar();
@@ -77,7 +77,7 @@ async function handleSubmit(event) {
     const emailValue = document.getElementById('email').value;
     const senhaValue = document.getElementById('senha').value;
 
-    const response = await fetch(`${URL_TESTE}/login/`, {
+    const response = await fetch(`${URL}/login/`, {
         method: 'post',
         headers: {
             'Accept': 'application/json',
@@ -110,7 +110,7 @@ async function handleSubmit(event) {
 async function handleCredentialResponse(response) {
     const idToken = response.credential;
   
-    const res = await fetch(`${URL_TESTE}/login/authGoogle`, {
+    const res = await fetch(`${URL}/login/authGoogle`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 
-import { URL_TESTE } from './app.js';
+import { URL } from './app.js';
 
-import { URL_PRODUCAO } from './app.js';
+
 
 
 onload = () => {
@@ -67,7 +67,7 @@ function atualizarUsuarios() {
         document.getElementById('chec_adm').checked =  false;    
     }
 
-    fetch(`${URL_TESTE}/users/`)
+    fetch(`${URL}/users/`)
     .then(response => {
         if(response.status === 200){            
             return response.json();                        
@@ -104,7 +104,7 @@ var ID;
 
 buscar.onclick = async () => {    
     const email = document.getElementById('list_user').value;
-    fetch(`${URL_TESTE}/users/byEmail/${email}`)
+    fetch(`${URL}/users/byEmail/${email}`)
     .then(response => {
         if(response.status === 200){            
             return response.json();                        
@@ -158,7 +158,7 @@ bt_salvar.onclick = async () => {
 
     // Verifique se os dados são diferentes dos originais
     if (JSON.stringify(data) !== JSON.stringify(originalData)) {
-        const response = await fetch(`${URL_TESTE}/users/${ID}`, {
+        const response = await fetch(`${URL}/users/${ID}`, {
             method: 'put',
             headers: {
                 'Accept': 'application/json',
@@ -182,7 +182,7 @@ bt_salvar.onclick = async () => {
 const bt_excluir = document.getElementById("bt_excluir");
 bt_excluir.onclick = async () => {
     try {
-        const response = await fetch(`${URL_TESTE}/users/${ID}`, {
+        const response = await fetch(`${URL}/users/${ID}`, {
             method: "delete",
             headers: {
               Accept: "application/json",

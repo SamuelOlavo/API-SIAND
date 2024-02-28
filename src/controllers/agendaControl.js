@@ -84,19 +84,6 @@ exports.ByServ = async (req, res) => {
 
 
 
-// exports.ByProf = async (req, res) => {
-//   let nome_prof = req.params.Esteticista;
-
-//   try {
-//     const agenda = await Agendas.find({Esteticista: nome_prof}).select("-_id  Servicos");
-//     res.json(agenda);
-//   } catch (error) {
-//     res.status(500).json({ error: error });
-//   }
-// };
-
-
-
 exports.add = async (req, res) => {
   try {
     const agendamento =  {};
@@ -107,6 +94,8 @@ exports.add = async (req, res) => {
     agendamento.Servicos = req.body.Servicos;
     agendamento.Data = req.body.Data;
     agendamento.Horario = req.body.Horario;
+    if (req.body.Remarcar) agendamento.Remarcar = req.body.Remarcar;
+    if (req.body.Anotacoes) agendamento.Anotacoes = req.body.Anotacoes;
 
     const creatagenda = new Agendas(agendamento);
     await creatagenda.save();
@@ -155,13 +144,3 @@ exports.delete = async (req, res) => {
       res.status(500).json({ error: error });
     }
   };
-
-// exports.ByEmail = async (req, res) => {
-//     const email = req.params.email;
-//     const user = await userService.emailUsers(email);
-//     if (user) {
-//         res.json(user);        
-//     } else {
-//         res.status(404).send('Usuário não encontrado');
-//     }
-//   };

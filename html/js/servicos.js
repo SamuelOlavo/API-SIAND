@@ -1,7 +1,6 @@
 
-import { URL_TESTE } from './app.js';
+import { URL } from './app.js';
 
-import { URL_PRODUCAO } from './app.js';
 
 
 onload = () => {  
@@ -48,7 +47,7 @@ onload = () => {
                 option.text = user;
                 select.appendChild(option);
             }            
-            fetch(`${URL_TESTE}/servicos/`)
+            fetch(`${URL}/servicos/`)
             .then(response => response.json())
             .then(data => {
               let uniqueNames = [...new Set(data.map(item => item.Esteticista))];
@@ -85,7 +84,7 @@ onload = () => {
     bt_add.onclick = async () => {        
         const Servicos = document.getElementById('serv').value; 
         const Esteticista = document.getElementById('list_user').value; 
-        const response = await fetch(`${URL_TESTE}/servicos/`, {
+        const response = await fetch(`${URL}/servicos/`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
@@ -123,7 +122,7 @@ onload = () => {
     }
 
         let Esteticista = document.getElementById('list_user').value;
-        const response = await fetch(`${URL_TESTE}/servicos/esteticista/${Esteticista}`);    
+        const response = await fetch(`${URL}/servicos/esteticista/${Esteticista}`);    
         if (response.status === 200) {
             const data = await response.json();                
             // Acessar o tbody pelo id
@@ -164,7 +163,7 @@ onload = () => {
                 });   
 
                 bt_excl.onclick = async () => {        
-                    const response = await fetch(`${URL_TESTE}/servicos/excluir`, {
+                    const response = await fetch(`${URL}/servicos/excluir`, {
                         method: 'delete',
                         headers: {
                             'Accept': 'application/json',

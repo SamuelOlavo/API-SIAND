@@ -1,6 +1,6 @@
-import { URL_TESTE } from "./app.js";
+import { URL } from "./app.js";
 
-import { URL_PRODUCAO } from "./app.js";
+
 
 onload = () => {
   function exibirToast(mensagem, cor) {
@@ -47,7 +47,7 @@ onload = () => {
         select.appendChild(option);
       }
 
-      fetch(`${URL_TESTE}/agenda/`)
+      fetch(`${URL}/agenda/`)
         .then((response) => response.json())
         .then((data) => {
           let uniqueNames = [...new Set(data.map((item) => item.Esteticista))];
@@ -114,7 +114,7 @@ onload = () => {
     const checkbox = document.getElementById("todos");
     if (checkbox.checked) {
       var response = await fetch(
-        `${URL_TESTE}/agenda?Esteticista=${Esteticista}`,
+        `${URL}/agenda?Esteticista=${Esteticista}`,
         {
           method: "get",
           headers: {
@@ -125,7 +125,7 @@ onload = () => {
       );
     } else {
       var response = await fetch(
-        `${URL_TESTE}/agenda/servicos/${Esteticista}`,
+        `${URL}/agenda/servicos/${Esteticista}`,
         {
           method: "post",
           headers: {
@@ -180,7 +180,7 @@ onload = () => {
           document
             .getElementById("confirmDelete")
             .addEventListener("click", async () => {
-              const response = await fetch(`${URL_TESTE}/agenda/${_id}`, {
+              const response = await fetch(`${URL}/agenda/${_id}`, {
                 method: "delete",
                 headers: {
                   Accept: "application/json",
@@ -237,7 +237,7 @@ onload = () => {
         input.id = key;
         input.className = "form-control";
 
-        fetch(`${URL_TESTE}/agenda/`)
+        fetch(`${URL}/agenda/`)
           .then((response) => response.json())
           .then((data) => {
             let uniqueNames = [
@@ -312,7 +312,7 @@ onload = () => {
     bt_save.onclick = async () => {
       console.log(ID, camposEditadosJson);
 
-      const response = await fetch(`${URL_TESTE}/agenda/${ID}`, {
+      const response = await fetch(`${URL}/agenda/${ID}`, {
         method: "put",
         headers: {
           Accept: "application/json",
@@ -344,7 +344,7 @@ onload = () => {
     <form>
         <div class="form-group">
             <label for="nome">NomeCliente</label>
-            <input type="text" class="form-control" id="nome" required>
+            <input type="text" class="form-control" id="modalNome" required>
         </div>
         <div class="form-group">
             <label for="dateNas">DataNascimento</label>
@@ -366,7 +366,7 @@ onload = () => {
         </div>
         <div class="form-group">
             <label for="data">Data</label>
-            <input type="date" class="form-control" id="data" >
+            <input type="date" class="form-control" id="modalData" >
         </div>
         <div class="form-group">
             <label for="hora">Horário</label>
@@ -384,7 +384,7 @@ onload = () => {
     `;
      // Busca as Esteticistas do banco de dados
      let user_nome = JSON.parse(sessionStorage.getItem("user_nome"));
-     fetch(`${URL_TESTE}/servicos`)
+     fetch(`${URL}/servicos`)
          .then((response) => response.json())
          .then((data) => {
              let esteticistas = [...new Set(data.map((item) => item.Esteticista))];
@@ -411,20 +411,19 @@ onload = () => {
      
          let adm = JSON.parse(sessionStorage.getItem("user_adm"));       
          if (adm == 0) {
-           document.getElementById("prof").disabled = true; }
-          
+           document.getElementById("prof").disabled = true; }          
 
 
     bt_save.onclick = async () => {
-    const data = document.getElementById('data').value;
-    let partes = data.split('-');
+    const modalData = document.getElementById('modalData').value;
+    let partes = modalData.split('-');
     let dataFormatada = partes[2] + '/' + partes[1] + '/' + partes[0];
 
     const dataNas = document.getElementById('dateNas').value;
     let traco = dataNas.split('-');
     let dataNasFormatada = traco[2] + '/' + traco[1] + '/' + traco[0];                  
 
-    const NomeCliente = document.getElementById('nome').value;
+    const NomeCliente = document.getElementById('modalNome').value;
     const DataNascimento = dataNasFormatada;
     const Telefone = document.getElementById('tel').value;        
     const Esteticista = document.getElementById('prof').value;  
@@ -434,7 +433,7 @@ onload = () => {
     const Anotacoes = document.getElementById('anotacoes').value;
     const Remarcar = document.getElementById('remarcar').value; 
     try {
-        const response = await fetch(`${URL_TESTE}/agenda/`, {
+        const response = await fetch(`${URL}/agenda/`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
@@ -446,6 +445,8 @@ onload = () => {
             exibirToast('Agendamento cadastrado com sucesso.', '#269934');
             console.log(response);
             document.querySelector("form").reset();  
+            $("#editModal").modal("hide");
+            preenchergrid();
         } else {
             exibirToast('Favor preencher todos os campos.', '#ff0000');
             console.log(response);
@@ -457,5 +458,6 @@ onload = () => {
   }
     // Mostre o modal
     $("#editModal").modal("show");
+    // const data = document.getElementById("data").value;
   };
 };

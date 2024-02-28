@@ -1,7 +1,5 @@
 
-import { URL_TESTE } from './app.js';
-
-import { URL_PRODUCAO } from './app.js';
+import { URL } from './app.js';
 
 
 // Função para executar as ações ao carregar a página
@@ -24,7 +22,7 @@ function exibirToast(mensagem, cor) {
 // Função para carregar os serviços
 async function carregarServicos() {
     try {
-        const response = await fetch(`${URL_TESTE}/servicos/servicos`);
+        const response = await fetch(`${URL}/servicos/servicos`);
         if (response.status === 200) {
             const data = await response.json();
             preencherDropdownServicos(data);
@@ -54,7 +52,7 @@ function preencherDropdownServicos(data) {
 // Função para carregar os esteticistas
 async function carregarEsteticistas(servicoSelecionado) {
     try {
-        const response = await fetch(`${URL_TESTE}/servicos/servico/${servicoSelecionado}`);
+        const response = await fetch(`${URL}/servicos/servico/${servicoSelecionado}`);
         if (response.status === 200) {
             const data = await response.json();
             return [...new Set(data.map(prof => prof.Esteticista))];
@@ -126,7 +124,7 @@ function validarCampo(event) {
         const Horario = document.getElementById('hora').value;
 
         try {
-            const response = await fetch(`${URL_TESTE}/agenda/`, {
+            const response = await fetch(`${URL}/agenda/`, {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',
