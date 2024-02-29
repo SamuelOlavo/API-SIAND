@@ -32,6 +32,7 @@ window.onload = function() {
     console.log(hoje);
     document.getElementById('userStatus').textContent = 'USER: ' + user ; 
     document.getElementById('dia').textContent = '' + hoje ; 
+    let token = JSON.parse(sessionStorage.getItem("user_token"));
 
     document.getElementById('sair').addEventListener('click', function() {
         sessionStorage.clear();
@@ -49,6 +50,7 @@ window.onload = function() {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': token 
             },
             body: JSON.stringify({ Data: hoje})
         });
