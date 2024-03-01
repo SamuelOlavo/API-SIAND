@@ -71,14 +71,14 @@
                                     <select id="nome" class="form-control"   aria-describedby="button-addon2" disabled>
                                         <!-- <option id="listar" value=""></option> -->
                                      </select>                          
-                            </div>                            
-                            <div class="ms-2 form-check mt-1 mb-3  ">
-                                <input type="checkbox" class="lead form-check-input" id="todos">
-                                <label class="fs-7 form-check-label   for="exampleCheck1">Todos agendamentos</label><button class="btn btn-info float-end" type="button" id="bt_busca">Buscar</button> 
-                            </div>
-                            <hr>
-                            
-                              <button id="bt_incluir" class="btn btn-outline-primary  btn-sm mt-2">Incluir agendamento</button> <button id="btnExportarPDF" class="btn btn-outline-success float-end btn-sm mt-2">Gerar PDF</button>
+                            </div>  
+                                <div class="mb-1 ms-2 form-check">
+                                    <input type="checkbox" class=" lead form-check-input ps-1" id="todos">
+                                    <label class="form-check-label fs-6 mt-1" for="exampleCheck1"> Todos agendamentos</label>
+                                </div>                
+                                <button class="btn btn-info" type="button" id="bt_busca">Buscar</button>                               
+                            <br>
+                            <button id="btnExportarPDF" class="btn btn-outline-success float-end btn-sm mt-1 ms-2">Gerar PDF</button><button id="bt_incluir" class="btn btn-outline-primary  btn-sm mt-1  float-end">Incluir agendamento</button> 
 
                         </div>
                         <div class="grid container center" id="grid_list">

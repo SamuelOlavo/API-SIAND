@@ -30,30 +30,35 @@ function exportarAgendamentosParaPDF() {
 
   // Iterar sobre os agendamentos exibidos na tela, pulando o primeiro registro
   for (let i = 1; i < cards.length; i++) {
-      const card = cards[i];
-      // Extrair informações do card
-      const titulo = card.querySelector('.card-title').innerText;
-      const descricao = card.querySelector('.card-text').innerText;
+    const card = cards[i];
+    // Extrair informações do card
+    const titulo = card.querySelector('.card-title').innerText;
+    const descricao = card.querySelector('.card-text').innerText;
 
-      // Adicionar informações ao PDF
-      doc.setFontSize(12);
-      doc.text(titulo, 10, y);
-      doc.setFontSize(10);
-      doc.text(descricao, 10, y + 5);
+    // Verificar se a posição y excede o limite da página
+    if (y > 250) {
+      doc.addPage();
+      y = 20;  // Resetar a posição y para o topo da nova página
+    }
+    // Adicionar informações ao PDF
+    doc.setFontSize(12);
+    doc.text(titulo, 10, y);
+    doc.setFontSize(10);
+    doc.text(descricao, 10, y + 5);
 
-      // Adicionar uma linha para separar os agendamentos
-      doc.setLineWidth(0.5);
-      doc.line(10, y + 15, 200, y + 15);
+    // Adicionar uma linha para separar os agendamentos
+    doc.setLineWidth(0.5);
+    doc.line(10, y + 15, 200, y + 15);
 
-      // Atualizar a posição Y para o próximo agendamento
-      y += 20;
+    // Atualizar a posição Y para o próximo agendamento
+    y += 20;
   }
 
   // Salvar o documento PDF  
   doc.save('Agendamentos_' + Esteticista);
   exibirToast("Download realizado", "#4CAF50");
-
 }
+
 
 // Adicionar um ouvinte de evento ao botão de exportar
 document.getElementById('btnExportarPDF').addEventListener('click', exportarAgendamentosParaPDF);
