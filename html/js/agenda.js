@@ -17,6 +17,19 @@ onload = () => {
   let user = JSON.parse(sessionStorage.getItem("user_nome"));
   let token = JSON.parse(sessionStorage.getItem("user_token"));
 
+  function verificarToken() {
+    let token = JSON.parse(sessionStorage.getItem("user_token"));
+    if (!token) {
+        // Redirecionar para a página de login ou mostrar uma mensagem de erro
+        sessionStorage.clear();
+        window.location = "../login.html";
+        // ou
+        alert("Token não disponível. Por favor, faça login novamente.");
+    }
+    // Se o token existir, você pode continuar com a requisição
+}
+verificarToken();
+
   //Setando a data de hoje no campo de busca
   var now = new Date();
   var today = new Date(now.getFullYear(), now.getMonth(), now.getDate())

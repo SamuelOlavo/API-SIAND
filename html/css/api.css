@@ -111,6 +111,7 @@ font-family: 'Roboto', sans-serif; */
   word-wrap: break-word;  
   color: var(--cler2);  
   font: small-caps bold;
+  font-size: 16px;
 }
 .menu {
   position: fixed;
@@ -123,11 +124,12 @@ font-family: 'Roboto', sans-serif; */
 .aba_home {
   position: absolute;
   top: 40px;
+  padding-top: 5px;
   left: 0;
-  height: 100px;
+  height: 130px;
   padding-left: 15px;
-  background: var(--home);
-  width: 35px;
+  background: var(--agen);
+  width: 38px;
   border: 1px solid #272424;
   border-radius: 0px 18px 17px 0px;
   -webkit-border-radius: 0px 18px 17px 0px;
@@ -135,18 +137,17 @@ font-family: 'Roboto', sans-serif; */
   transition: all 0.5s ease;		
 }
 .aba_home:hover {
-
-  width: 55px; 
-  
+  width: 53px;   
 }
 
 .aba_home_active {
   position: absolute;
   top: 40px;
+  padding-top: 5px;
   left: 0;
-  height: 100px;
+  height: 130px;
   padding-left: 15px;
-  background: var(--home);
+  background: var(--agen);
   width: 53px;
   border: 1px solid #272424;
   border-radius: 0px 18px 17px 0px;
@@ -156,12 +157,12 @@ font-family: 'Roboto', sans-serif; */
 
 .aba_agenda {
   position: absolute;
-  top: 140px;
+  top: 145px;
   left: 0;
-  height: 145px;
+  height: 160px;
   padding-left: 15px;
   background: var(--agen);
-  width: 40px;
+  width: 38px;
   border: 1px solid #272424;
   border-radius: 0px 18px 17px 0px;
   -webkit-border-radius: 0px 18px 17px 0px;
@@ -169,17 +170,17 @@ font-family: 'Roboto', sans-serif; */
   transition: all 0.5s ease;		
 }
 .aba_agenda:hover {
-   width: 55px; /* Muda a cor de fundo ao passar o mouse */
+   width: 53px; /* Muda a cor de fundo ao passar o mouse */
 }
 
 .aba_agenda_active {
   position: absolute;
-  top: 140px;
+  top: 145px;
   left: 0;
-  height: 145px;
+  height: 160px;
   padding-left: 15px;
   background:  var(--agen);
-  width: 55px;
+  width: 53px;
   border: 1px solid #272424;
   border-radius: 0px 18px 17px 0px;
   -webkit-border-radius: 0px 18px 17px 0px;
@@ -187,13 +188,14 @@ font-family: 'Roboto', sans-serif; */
  	
 }
 .aba_serv {
+
   position: absolute;
-  top: 285px;
+  top: 295px;
   left: 0;
-  height: 125px;
+  height: 150px;
   padding-left: 15px;
   background: var(--serv);
-  width: 40px;
+  width: 38px;
   border: 1px solid #272424;
   border-radius: 0px 18px 17px 0px;
   -webkit-border-radius: 0px 18px 17px 0px;
@@ -202,17 +204,17 @@ font-family: 'Roboto', sans-serif; */
 }
 .aba_serv:hover {
 
-  width: 55px; /* Muda a cor de fundo ao passar o mouse */
+  width: 53px; /* Muda a cor de fundo ao passar o mouse */
 }
 
 .aba_serv_active {
   position: absolute;
-  top: 285px;
+  top: 295px;
   left: 0;
-  height: 125px;
+  height: 150px;
   padding-left: 15px;
   background: var(--serv);
-  width: 55px;
+  width: 53px;
   border: 1px solid #272424;
   border-radius: 0px 18px 17px 0px;
   -webkit-border-radius: 0px 18px 17px 0px;
@@ -220,12 +222,12 @@ font-family: 'Roboto', sans-serif; */
 }
 .aba_perfil {
   position: absolute;
-  top: 410px;
+  top: 420px;
   left: 0;
-  height: 145px;
+  height: 150px;
   padding-left: 15px;
   background: var(--perf);
-  width: 40px;
+  width: 38px;
   border: 1px solid #272424;
   border-radius: 0px 18px 17px 0px;
   -webkit-border-radius: 0px 18px 17px 0px;
@@ -233,16 +235,16 @@ font-family: 'Roboto', sans-serif; */
   transition: all 0.5s ease;			
 }
 .aba_perfil:hover {
-   width: 55px; /* Muda a cor de fundo ao passar o mouse */
+   width: 53px; /* Muda a cor de fundo ao passar o mouse */
 }
 .aba_perfil_active {
   position: absolute;
-  top: 410px;
+  top: 420px;
   left: 0;
-  height: 145px;
+  height: 150px;
   padding-left: 15px;
   background: var(--perf);
-  width: 55px;
+  width: 53px;
   border: 1px solid #272424;
   border-radius: 0px 18px 17px 0px;
   -webkit-border-radius: 0px 18px 17px 0px;

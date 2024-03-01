@@ -19,6 +19,18 @@ window.onload = function() {
     preenchergrid(Esteticista);
     console.log(user);   
 }
+function verificarToken() {
+    let token = JSON.parse(sessionStorage.getItem("user_token"));
+    if (!token) {
+        // Redirecionar para a página de login ou mostrar uma mensagem de erro
+        sessionStorage.clear();
+        window.location = "../login.html";
+        // ou
+        alert("Token não disponível. Por favor, faça login novamente.");
+    }
+    // Se o token existir, você pode continuar com a requisição
+}
+verificarToken();
 
     let user = JSON.parse(sessionStorage.getItem("user_nome"));
     let Esteticista = user;

@@ -18,15 +18,15 @@ function exibirToast(mensagem, cor) {
 const tratarFormulario = () => {
     document.getElementById('enviar').disabled = true;
 
-    const nome = document.getElementById('nome');
-    const email = document.getElementById('email');
-    const senha = document.getElementById('senha');
-    const rep_senha = document.getElementById('rep_senha');
+    // const nome = document.getElementById('nome');
+    // const email = document.getElementById('email');
+    // const senha = document.getElementById('senha');
+    // const rep_senha = document.getElementById('rep_senha');
 
-    // Função para validar se os campos estão preenchidos
-    const validarCampos = () => {
-        return nome.value !== '' && email.value !== '' && senha.value !== '' && rep_senha.value !== '';
-    };
+    // // Função para validar se os campos estão preenchidos
+    // const validarCampos = () => {
+    //     return nome.value !== '' && email.value !== '' && senha.value !== '' && rep_senha.value !== '';
+    // };
 
     // Função para validar o campo de repetição de senha
     const validarRepeticaoSenha = () => {
@@ -44,18 +44,18 @@ const tratarFormulario = () => {
 
     // Função para habilitar/desabilitar botão de envio
     const atualizarBotaoEnvio = () => {
-        document.getElementById('enviar').disabled = !validarCampos() || !validarRepeticaoSenha();
+        document.getElementById('enviar').disabled = !validarRepeticaoSenha();
     };
 
     // Adicionar eventos de blur para os campos do formulário
-    nome.onblur = email.onblur = senha.onblur = () => {
-        if (nome.value === '' || email.value === '' || senha.value === '') {
-            nome.style.backgroundColor = email.style.backgroundColor = senha.style.backgroundColor = '#F88';
-        } else {
-            nome.style.backgroundColor = email.style.backgroundColor = senha.style.backgroundColor = '#FFF';
-        }
+    // nome.onblur = email.onblur = senha.onblur = () => {
+    //     if (nome.value === '' || email.value === '' || senha.value === '') {
+    //         nome.style.backgroundColor = email.style.backgroundColor = senha.style.backgroundColor = '#F88';
+    //     } else {
+    //         nome.style.backgroundColor = email.style.backgroundColor = senha.style.backgroundColor = '#FFF';
+    //     }
         atualizarBotaoEnvio();
-    };
+ 
 
     rep_senha.onblur = () => {
         validarRepeticaoSenha();
@@ -94,6 +94,10 @@ const handleSubmit = async (event) => {
                 exibirToast('Cadastro realizado com sucesso.', '#269934');
                 document.getElementById("sucesso").innerHTML = "Obrigado por se Inscrever";
                 document.getElementById('cadastro').reset();
+            }
+            if (registerResponse.status === 500) {
+                exibirToast('Verifique os campos e tente novamente', '#ff0000');
+
             }
         }
     } catch (error) {

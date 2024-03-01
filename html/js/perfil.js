@@ -12,7 +12,18 @@ onload = () => {
         },
       }).showToast();
     }
-
+    function verificarToken() {
+        let token = JSON.parse(sessionStorage.getItem("user_token"));
+        if (!token) {
+            // Redirecionar para a página de login ou mostrar uma mensagem de erro
+            sessionStorage.clear();
+            window.location = "../login.html";
+            // ou
+            alert("Token não disponível. Por favor, faça login novamente.");
+        }
+        // Se o token existir, você pode continuar com a requisição
+    }
+    verificarToken();
     let trataAdm = async () => { 
         let adm = JSON.parse(sessionStorage.getItem("user_adm"));    
         if (adm == 1) { 
