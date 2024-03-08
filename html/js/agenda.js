@@ -24,7 +24,7 @@ onload = () => {
         sessionStorage.clear();
         window.location = "../login.html";
         // ou
-        alert("Token não disponível. Por favor, faça login novamente.");
+        alert("Token não disponível. Por favor acesse novamente.");
     }
     // Se o token existir, você pode continuar com a requisição
 }
