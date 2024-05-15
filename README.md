@@ -1,4 +1,4 @@
-# [API AGENDAMENTO](https://api-siand-esqe.onrender.com/)
+# [Agenda Api](https://api-siand-esqe.onrender.com/)
 <h3>Api para gestao de agendamento da Clinica SIAND</h3>
 
 
@@ -8,9 +8,12 @@
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/iuricode/README-template?style=for-the-badge)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/iuricode/README-template?style=for-the-badge)
 
-<img src="/imagem.png" alt="Exemplo imagem">
 
-> A Agenda Api é uma plataforma integrada com o formulario de atendimento, que permite o cadastro dos serviços que serao ofertados, o gerenciamento de forma inteligente dos agendamentos e o tratamento do perfil do usuário de maneira eficiente.
+[text](html/Img/preset.webm)
+<!-- 
+<img src="./html/Img/agenda3.jpeg.png" alt="Exemplo imagem"> -->
+
+> A Agenda Api é uma plataforma integrada com o formulario que permite o cadastro dos serviços que serao ofertados, o gerenciamento de forma inteligente dos agendamentos e o tratamento do perfil do usuário de maneira eficiente.
 
 <!-- ### Ajustes e melhorias
 
@@ -44,12 +47,13 @@ Com o repositorio baixado utilize o Visual Studio para implantar as dependencias
 ```
 
 Apos instalar as dependencias é necessario fazer o apontamento do banco de dados MongoDB criado na plataforma, lembre de compartilhar o acesso ao banco por dentro da plataforma cloud.mongodb.
+
 Utilize o arquivo mongosedb.js que se encontra na raiz do src para preencher os dados do banco criado (voce pode criar o arquivo .env para gravação de dados sensiveis).
 
-![alt =](image.png)
+![alt text](html/Img/image.png)
 
 
-O projeto pode ser iniciado pelo VS com o comando abaixo;
+O projeto pode ser iniciado pelo VS com o comando abaixo.
 
 ```
 <npm start>
