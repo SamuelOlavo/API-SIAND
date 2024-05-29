@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Users = require("../models/users");
-const { redirect } = require("express/lib/response");
+
 
 require('dotenv').config();
 

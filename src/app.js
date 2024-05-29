@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Importa os módulos contendo as rotas da aplicação
-const indexRoute = require("./routers/index");      // Rota principal
+// const indexRoute = require("./routers/index");      // Rota principal
 const cadasRoute = require("./routers/users");      // Rotas relacionadas a usuários
 const loginRoute = require("./routers/login");      // Rotas relacionadas a autenticação/login
 const agendaRoute = require("./routers/agenda");    // Rotas relacionadas a agendas

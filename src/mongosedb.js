@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { use } = require('./routers');
 
 //chamando a biblioteca dotenv para proteger os dados sensiveis
 require('dotenv').config();
