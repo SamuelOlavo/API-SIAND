@@ -78,10 +78,8 @@ Gestão de usuário: O Usuário com acesso à internet se autentica na página d
 
 Video de apresentação do projeto: https://drive.google.com/file/d/1JoKi65Hc_2d1HBoozD0E-5IPRUlSiDi0/view
 
-<video width="320" height="240" controls>
-  <source src="https://drive.google.com/file/d/1JoKi65Hc_2d1HBoozD0E-5IPRUlSiDi0/view" type="video/mp4">
-  Seu navegador não suporta a tag de vídeo.
-</video>
+[Assista ao vídeo aqui](https://www.youtube.com/watch?v=UJ6HcbUBq5Y)
+
 
 
 
