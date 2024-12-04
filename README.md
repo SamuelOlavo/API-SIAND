@@ -74,7 +74,7 @@ Controlar os agendamentos: O Usuário com acesso à internet se autentica na pá
 
 Gestão de usuário: O Usuário com acesso à internet se autentica na página de [login](http://localhost:3000/login.html) da plataforma Agenda-Api, clica na página de perfil onde lhe permite ver, editar e excluir os seus dados cadastrados no sistema.
 
-Documentação detalhada do projeto Doc.md
+[Documentação Completa](Doc.md)
 
 Video de apresentação do projeto: https://drive.google.com/file/d/1JoKi65Hc_2d1HBoozD0E-5IPRUlSiDi0/view
 
